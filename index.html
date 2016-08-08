@@ -195,7 +195,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><p>总结一下最近工作，换了新环境，感觉有好多东西要学的，在这里接触的大部分是Android的新技术。现在对Android开发使用的技术与上一家公司使用的技术进行对比。</p>
+        <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><h6 id="工作总结"><a href="#工作总结" class="headerlink" title="工作总结"></a>工作总结</h6><p>总结一下最近工作，换了新环境，感觉有好多东西要学的，在这里接触的大部分是Android的新技术。现在对Android开发使用的技术与上一家公司使用的技术进行对比。</p>
 <pre><code>         新公司                            原公司
 网络请求：Retrofit+RxJava                  Volley+OkHttp
 数据解析：Gson+Retrofit                      Gson
@@ -207,9 +207,16 @@ Log工具：orhanobut:logger                    自己封装的DebugUtil
 事件总线：eventBus，Broadcast                 Broadcast
 PullTorefresh：RecycleView                  ListView,GridView...
 其他：支持高版本沉浸式                        无
-</code></pre><p>总的来讲新公司用的东西都是比较新的东西，之前一直想要研究来着，都不知道从哪里学起，终于有机会好好学。<br>其实旧公司的框架算是很稳定的框架，开发时间较长，里面封装了好多工具类，基本上可以支持大部分开发需求，节省了好多人力资源成本。不过因为框架是比较老的而且进行了好多封装，如果要重构的话可以说牵一发动全身。= =~~  嗯嗯就是酱紫，感觉同过这两家公司的学习，确实学到了好多东西。</p>
+</code></pre><p>总的来讲新公司用的东西都是比较新的东西，之前一直想要研究来着，都不知道从哪里学起，终于有机会好好学。<br>其实旧公司的框架算是很稳定的框架，开发时间较长，里面封装了好多工具类，基本上可以支持大部分开发需求，节省了好多人力资源。不过因为框架是比较老的而且进行了好多封装，如果要重构的话可以说牵一发动全身。<br>老框架虽然稳定，但是他不好做修改。但新框架又有很多需要研究的东西。算是各有千秋吧。<br>可能对于有些人他们就喜欢用稳定的框架开发，但作为一名刚下水的移动端开发者来讲我还是觉得新的东西蛮不错的，至少有好多东西可以深入学习，而且这些新技术至少在这几年内还会是主流，这也是学新技术的优势所在啊。<br>对于工作上面的感受就是这样，很喜欢现在有的工作环境。</p>
+<h6 id="担忧"><a href="#担忧" class="headerlink" title="担忧"></a>担忧</h6><p>顺便讲一讲作为一名原生移动端开发者的担忧，最近这几年，尤其是今年Html5发展迅速，再加上4G网络的普及，网速不再成为制约，移动端的Html5开发渐渐成了主流。在年初的时候还没觉得Html5市场占有率这么高，大部分应用也就几个页面做成Web版的，原生的还是占大头。但最近接触的项目渐渐的有大部分页面为纯H5页面开发了。目前接手的几个项目中H5的占比都超过50%了，今天刚要开始的一个项目也是有百分之六七十的页面做成了H5。心中的担忧还是没错的，Html5日渐成熟，现在H5前端开发工程师渐渐成为了主流，特别是移动端这边的，由于各种条件的驱使，H5页面开发也趋于主流。感觉Android和IOS原生渐渐沦为管道了。现在部分应用还是会保留部分原生来确保用户体验，但是随着H5及5G的慢慢普及，原生的部分只会越来越少，到时候一个项目中Android和IOS可能需要的人力就很低了。Html5的需求很明显了。</p>
+<pre><code>现在对比一下自己感觉中的H5所具备的优势。
+1.开发成本低，H5页面是可以跨平台使用的，开发的时候只需要一套H5页面就可以实现两个平台的功能
+2.维护成本也低啊，H5相比原生来讲不需要两个平台同时进行修改，只需要修改一下web页就可以  
+3.迭代用户看不见的，用户根本不需要更新安装包，新版本直接就可以体验到了。
+4.有bug可以及时修复，不需要再次的版本发布
+</code></pre><p>可以看出 在开发和过程中使用h5开发可以节省大量人力成本，原本需要十个人干的活现在只需要6-8个公司肯定乐意啊，而且更多时候可以立即修复的bug，可以免安装进行的更新，用户肯定买单。对于用户体验来讲这绝对是非常酸爽的体验。</p>
 <h5 id="写一点开发过程中遇到的坑"><a href="#写一点开发过程中遇到的坑" class="headerlink" title="写一点开发过程中遇到的坑"></a>写一点开发过程中遇到的坑</h5><p>1.印象比较深刻的<br>之前在自定义虚线的时候，发现预览虚线显示正常，但是装机运行后虚线显示就变成了实线。代码如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">       <span class="attr">android:shape</span>=<span class="string">"line"</span> &gt;</div><div class="line">    <span class="tag">&lt;<span class="name">stroke</span></span></div><div class="line">        <span class="attr">android:dashGap</span>=<span class="string">"6px"</span></div><div class="line">        <span class="attr">android:dashWidth</span>=<span class="string">"12px"</span></div><div class="line">        <span class="attr">android:width</span>=<span class="string">"1px"</span></div><div class="line">        <span class="attr">android:color</span>=<span class="string">"@color/colorLine"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>实在找不到原因，然后后面找到了一篇文章<a href="http://wv1124.iteye.com/blog/218720" target="_blank" rel="external">地址</a> 上面的解释是因为开启了硬件加速，好吧，直接在Manifest中，把使用到这个layout的Activity的设置了 android:hardwareAccelerated=”false”<br>2.</p>
+<p>实在找不到原因，然后后面找了一些网上的解决办法在<a href="http://wv1124.iteye.com/blog/218720" target="_blank" rel="external">地址</a> 终于找到了问题的解决方案了，好吧，直接在Manifest中，把使用到这个layout的Activity的设置了 android:hardwareAccelerated=”false”成功解决问题！！</p>
 <p><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
 
       
