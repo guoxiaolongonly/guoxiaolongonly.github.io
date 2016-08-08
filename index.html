@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/JSOUP/" style="font-size: 10px;">JSOUP</a> <a href="/tags/Java泛型/" style="font-size: 10px;">Java泛型</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Reptile/" style="font-size: 15px;">Reptile</a> <a href="/tags/学习/" style="font-size: 20px;">学习</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a>
+						<a href="/tags/JSOUP/" style="font-size: 10px;">JSOUP</a> <a href="/tags/Java泛型/" style="font-size: 10px;">Java泛型</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Reptile/" style="font-size: 15px;">Reptile</a> <a href="/tags/Summary-of-work/" style="font-size: 10px;">Summary of work</a> <a href="/tags/学习/" style="font-size: 20px;">学习</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a>
 					</div>
 				</section>
 				
@@ -168,6 +168,78 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Summary 2016-08-08" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/08/Summary 2016-08-08/" class="article-date">
+  	<time datetime="2016-08-08T06:23:44.000Z" itemprop="datePublished">2016-08-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/08/Summary 2016-08-08/">工作总结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><p>总结一下最近工作，换了新环境，感觉有好多东西要学的，在这里接触的大部分是Android的新技术。现在对Android开发使用的技术与上一家公司使用的技术进行对比。</p>
+<pre><code>         新公司                            原公司
+网络请求：Retrofit+RxJava                  Volley+OkHttp
+数据解析：Gson+Retrofit                      Gson
+本地数据存储：SQLlite+Sharepreference        SQLlite+Sharepreference
+布局工具：AutoLayout                          Android原生
+Log工具：orhanobut:logger                    自己封装的DebugUtil
+框架模式：MVP                              无
+代码支持：Lambda                              无
+事件总线：eventBus，Broadcast                 Broadcast
+PullTorefresh：RecycleView                  ListView,GridView...
+其他：支持高版本沉浸式                        无
+</code></pre><p>总的来讲新公司用的东西都是比较新的东西，之前一直想要研究来着，都不知道从哪里学起，终于有机会好好学。<br>其实旧公司的框架算是很稳定的框架，开发时间较长，里面封装了好多工具类，基本上可以支持大部分开发需求，节省了好多人力资源成本。不过因为框架是比较老的而且进行了好多封装，如果要重构的话可以说牵一发动全身。= =~~  嗯嗯就是酱紫，感觉同过这两家公司的学习，确实学到了好多东西。</p>
+<h5 id="写一点开发过程中遇到的坑"><a href="#写一点开发过程中遇到的坑" class="headerlink" title="写一点开发过程中遇到的坑"></a>写一点开发过程中遇到的坑</h5><p>1.印象比较深刻的<br>之前在自定义虚线的时候，发现预览虚线显示正常，但是装机运行后虚线显示就变成了实线。代码如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">       <span class="attr">android:shape</span>=<span class="string">"line"</span> &gt;</div><div class="line">    <span class="tag">&lt;<span class="name">stroke</span></span></div><div class="line">        <span class="attr">android:dashGap</span>=<span class="string">"6px"</span></div><div class="line">        <span class="attr">android:dashWidth</span>=<span class="string">"12px"</span></div><div class="line">        <span class="attr">android:width</span>=<span class="string">"1px"</span></div><div class="line">        <span class="attr">android:color</span>=<span class="string">"@color/colorLine"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>实在找不到原因，然后后面找到了一篇文章<a href="http://wv1124.iteye.com/blog/218720" target="_blank" rel="external">地址</a> 上面的解释是因为开启了硬件加速，好吧，直接在Manifest中，把使用到这个layout的Activity的设置了 android:hardwareAccelerated=”false”<br>2.</p>
+<p><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Summary-of-work/">Summary of work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Generic" class="article article-type-post" itemscope itemprop="blogPost">
   
