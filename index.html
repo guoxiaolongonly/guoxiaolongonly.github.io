@@ -1,201 +1,365 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+<!doctype html>
+
+
+
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Xiaolong的个人博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="程序猿">
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Xiaolong, lucky" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="程序猿">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Xiaolong的个人博客">
-<meta property="og:url" content="http://xiaolongonly.cn/index.html">
+<meta property="og:url" content="http://rngift.com/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
 <meta property="og:description" content="程序猿">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xiaolong的个人博客">
 <meta name="twitter:description" content="程序猿">
-  
-    <link rel="alternative" href="/atom.xml" title="Xiaolong的个人博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/"/>
+
+
+
+
+
+  <title>Xiaolong的个人博客</title>
 </head>
 
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://avatars3.githubusercontent.com/u/12853050?v=3&amp;s=460" class="js-avatar">
-			
-		</a>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">小龙</a></h1>
-		</hgroup>
+  
 
-		
-		<p class="header-subtitle">爱生活，爱学习</p>
-		
 
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
 
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/xiaolongonly" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/719243738" title="weibo">weibo</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/JSOUP/" style="font-size: 10px;">JSOUP</a> <a href="/tags/Java泛型/" style="font-size: 10px;">Java泛型</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Reptile/" style="font-size: 15px;">Reptile</a> <a href="/tags/Summary-of-work/" style="font-size: 10px;">Summary of work</a> <a href="/tags/学习/" style="font-size: 20px;">学习</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a>
-					</div>
-				</section>
-				
-				
-				
 
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">一只孤单的程序猿！</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">爱生活，爱学习</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">小龙</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="https://avatars3.githubusercontent.com/u/12853050?v=3&amp;s=460" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">小龙</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">爱生活，爱学习</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/xiaolongonly" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/719243738" title="weibo">weibo</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-nothing">
+          <a href="/mylover/formingge.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            menu.nothing
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-Summary 2016-08-08" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/08/Summary 2016-08-08/" class="article-date">
-  	<time datetime="2016-08-08T06:23:44.000Z" itemprop="datePublished">2016-08-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/08/Summary 2016-08-08/">工作总结</a>
-    </h1>
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/08/08/Summary 2016-08-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/08/Summary 2016-08-08/" itemprop="url">
+                  工作总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-08T14:23:44+08:00">
+                2016-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><h6 id="工作总结"><a href="#工作总结" class="headerlink" title="工作总结"></a>工作总结</h6><p>总结一下最近工作，换了新环境，感觉有好多东西要学的，在这里接触的大部分是Android的新技术。现在对Android开发使用的技术与上一家公司使用的技术进行对比。</p>
+      
+
+      
+        
+          
+            <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><h6 id="工作总结"><a href="#工作总结" class="headerlink" title="工作总结"></a>工作总结</h6><p>总结一下最近工作，换了新环境，感觉有好多东西要学的，在这里接触的大部分是Android的新技术。现在对Android开发使用的技术与上一家公司使用的技术进行对比。</p>
 <pre><code>         新公司                            原公司
 网络请求：Retrofit+RxJava                  Volley+OkHttp
 数据解析：Gson+Retrofit                      Gson
@@ -219,62 +383,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 <p>实在找不到原因，然后后面找了一些网上的解决办法在<a href="http://wv1124.iteye.com/blog/218720" target="_blank" rel="external">地址</a> 终于找到了问题的解决方案了，好吧，直接在Manifest中，把使用到这个layout的Activity的设置了 android:hardwareAccelerated=”false”成功解决问题！！</p>
 <p><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Summary-of-work/">Summary of work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Generic" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/07/Generic/" class="article-date">
-  	<time datetime="2016-08-07T13:56:33.000Z" itemprop="datePublished">2016-08-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/07/Generic/">java泛型</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/08/07/Generic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/07/Generic/" itemprop="url">
+                  java泛型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-07T21:56:33+08:00">
+                2016-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><p>说到泛型，大部分人肯定都不陌生，在我学习泛型之前，对他的概念是一个T类型的对象，它可以指代各种类型。没错，可以这么理解，但是其中又有很多值得思考的问题，泛型跟Object有什么区别，泛型的用法等等，这些都是值得我们去深思的一个问题。<br>以前一直都想着利用泛型来好好装逼，但是因为技术不足，也可以说是人懒，对java的理解没有这么深刻，学习的过程中总觉得特别困难，一直都处于一知半解的状态，最近在公司项目开发过程中，发现框架里面有好多东西都运用了泛型优化代码，感觉也差不多是再对泛型进一步学习的时候了。</p>
+      
+
+      
+        
+          
+            <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><p>说到泛型，大部分人肯定都不陌生，在我学习泛型之前，对他的概念是一个T类型的对象，它可以指代各种类型。没错，可以这么理解，但是其中又有很多值得思考的问题，泛型跟Object有什么区别，泛型的用法等等，这些都是值得我们去深思的一个问题。<br>以前一直都想着利用泛型来好好装逼，但是因为技术不足，也可以说是人懒，对java的理解没有这么深刻，学习的过程中总觉得特别困难，一直都处于一知半解的状态，最近在公司项目开发过程中，发现框架里面有好多东西都运用了泛型优化代码，感觉也差不多是再对泛型进一步学习的时候了。</p>
 <p>说一说我印象最深刻的几行代码，是用来简化Android控件绑定的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">protect (V extends View) myFindView(<span class="keyword">int</span> resId)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> (V)findViewById(resId);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个是写在了基类的Activity中作为所有Activity的父类，在子类中findViewById的写法就变成了如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TextView  mTextView = myFindView(R.id.mTextView);</div></pre></td></tr></table></figure></p>
@@ -300,62 +527,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 泛型的好处是在编译的时候检查类型安全，并且所有的强制转换都是自动和隐式的，提高代码的重用率。
 </code></pre><p><a href="http://iteye.blog.163.com/blog/static/18630809620131472312201/" target="_blank" rel="external">参考自网易博客北漂的小羊</a><br>java编程思想第四版 泛型篇<br><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java泛型/">Java泛型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Lambda" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/20/Lambda/" class="article-date">
-  	<time datetime="2016-06-20T14:52:55.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/Lambda/">Java中的Lambda表达式的使用</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/06/20/Lambda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/20/Lambda/" itemprop="url">
+                  Java中的Lambda表达式的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-20T22:52:55+08:00">
+                2016-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>RxJava学习第一篇，一个优美的表达式，Lambda表达式。</p>
+      
+
+      
+        
+          
+            <p>RxJava学习第一篇，一个优美的表达式，Lambda表达式。</p>
 <h5 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h5><p>之前加入某个python群的时候群验证就要求用Lambda实现求和。<br>当时好像是这么写了 Lambda x,y:x+y.<br>把这个写成一个函数就可以重复利用了，例：f = Lambda x,y:x+y  f(x,y)<br>当时有种发现新大陆的感觉，觉得python真是强大。<br>后来才发现java、C# …中也有Lambda表达式的概念<br>嗯哼，Lambda也是吊吊哒。</p>
 <p>最近在学习响应式编程框架:Rxjava,扩展RxAndroid+Retrofit，还有一些大神们开发出来的Rxjava在Android中牛逼的框架。<br>RxJava其中有很多的Lambda表达式用来代码简化。感觉这种技能装逼又能减少代码量的神器真的是不可或缺啊，好了不多说废话现在先来入门一下Lambda表达式。</p>
 <h4 id="一、Lambda简介"><a href="#一、Lambda简介" class="headerlink" title="一、Lambda简介"></a>一、Lambda简介</h4><p>Lambda 表达式　Lambda 表达式”是一个匿名函数，它可以包含表达式和语句，并且可用于创建委托或表达式目录树类型。<br>所有 Lambda 表达式都使用 Lambda 运算符 =&gt;；，该运算符读为“goes to”。该 Lambda 运算符的左边是输入参数（如果有），右边包含表达式或语句块。Lambda 表达式 x =&gt; x * x 读作“x goes to x times x”。</p>
@@ -400,62 +690,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><pre><code>在本文中,我们学会了使用lambda表达式的不同方式,从基本的示例,到使用lambdas和streams的复杂示例。 此外,我们还学习了如何使用lambda表达式与Comparator 类来对Java集合进行排序。
 </code></pre><p><strong><em>By Xiaolong：没有伞的孩子必须努力奔跑！</em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lambda/">Lambda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Reptile3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/01/Reptile3/" class="article-date">
-  	<time datetime="2016-06-01T12:56:04.000Z" itemprop="datePublished">2016-06-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/01/Reptile3/">java爬虫教程：模拟用户表单登录</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/06/01/Reptile3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/01/Reptile3/" itemprop="url">
+                  java爬虫教程：模拟用户表单登录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-01T20:56:04+08:00">
+                2016-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>这个是爬虫教程第三篇，教大家如何模拟用户表单登录。</p>
+      
+
+      
+        
+          
+            <p>这个是爬虫教程第三篇，教大家如何模拟用户表单登录。</p>
 <p>前期准备：</p>
 <ul>
 <li>JSOUP 1.83 jar包</li>
@@ -485,62 +838,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 爬虫教程到此结束，希望有兴趣的小伙伴可以继续深入研究
 </code></pre><p><strong><em>By Xiaolong：You have a dream,you got to protect it! </em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reptile/">Reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Reptile2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/08/Reptile2/" class="article-date">
-  	<time datetime="2016-05-08T14:30:56.000Z" itemprop="datePublished">2016-05-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/08/Reptile2/">java爬虫教程：爬取CSDN博客文章</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/05/08/Reptile2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/08/Reptile2/" itemprop="url">
+                  java爬虫教程：爬取CSDN博客文章
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-08T22:30:56+08:00">
+                2016-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>这个是爬虫教程第二篇，教大家如何爬取普通页面的内容。</p>
+      
+
+      
+        
+          
+            <p>这个是爬虫教程第二篇，教大家如何爬取普通页面的内容。</p>
 <p>前期准备：</p>
 <ul>
 <li>JSOUP 1.83 jar包</li>
@@ -568,62 +984,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 好运~~ 晚安~
 </code></pre><p><strong><em>By Xiaolong：You have a dream,you got to protect it! </em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reptile/">Reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Reptile1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/06/Reptile1/" class="article-date">
-  	<time datetime="2016-05-06T14:53:53.000Z" itemprop="datePublished">2016-05-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/06/Reptile1/">java爬虫教程：JSOUP</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/05/06/Reptile1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/06/Reptile1/" itemprop="url">
+                  java爬虫教程：JSOUP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-06T22:53:53+08:00">
+                2016-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>爬虫教程第一篇，认识强大的java包JSOUP。<br>接下来我来介绍一下Java爬虫，(ˉ﹃ˉ)我大Java依然这么强大，谁还敢鄙视我大Java~</p>
+      
+
+      
+        
+          
+            <p>爬虫教程第一篇，认识强大的java包JSOUP。<br>接下来我来介绍一下Java爬虫，(ˉ﹃ˉ)我大Java依然这么强大，谁还敢鄙视我大Java~</p>
 <p>嗯哼，刚刚说Java强大，其实Java强大在它的第三方库。每一个jar包都是某个Java开发者的劳动成果，当然每一个Java开发者都应该自豪，因为正是我们的付出让Java日益强大。接下来要讲的是一个非常强大的工具包<a href="http://www.huqiwen.com/2012/05/03/use-jsoup-analytics-html-document/#" target="_blank" rel="external">JSOUP</a>，java爬虫实现基本依赖于它！</p>
 <h3 id="一、Jsoup简介"><a href="#一、Jsoup简介" class="headerlink" title="一、Jsoup简介"></a>一、Jsoup简介</h3><p>在以往用java来处理解析HTML文档或者片段时，我们通常会采用<a href="http://htmlparser.sourceforge.net" target="_blank" rel="external">htmlparser</a>这个开源类库。现在我们有了JSOUP，以后的处理HTML的内容只需要使用JSOUP就已经足够了，JSOUP有更快的更新，更方便的API等。<br>jsoup 是一款 Java 的HTML 解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据，可以看作是java版的jQuery。<br>jsoup的主要功能如下：<br>从一个URL，文件或字符串中解析HTML；<br>使用DOM或CSS选择器来查找、取出数据；<br>可操作HTML元素、属性、文本；<br>jsoup是基于MIT协议发布的，可放心使用于商业项目。官方网站：<a href="http://jsoup.org/" target="_blank" rel="external">http://jsoup.org/</a></p>
 <h3 id="二、解析遍历HTML文档"><a href="#二、解析遍历HTML文档" class="headerlink" title="二、解析遍历HTML文档"></a>二、解析遍历HTML文档</h3><p>Jsoup处理HTML文件是，是将用户输入的HTML文档，解析转换成一个Document对象进行处理。Jsoup一般支持以下几种来源内容的转换。</p>
@@ -689,62 +1168,125 @@ PullTorefresh：RecycleView                  ListView,GridView...
 <h6 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h6><p>文本设置方法与 HTML setter 方法一样：<br>Element.text(String text) 将清除一个元素中的内部HTML内容，然后提供的文本进行代替<br>Element.prepend(String first) 和 Element.append(String last) 将分别在元素的内部html前后添加文本节点。<br>对于传入的文本如果含有像 &lt;, &gt; 等这样的字符，将以文本处理，而非HTML。</p>
 <p><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSOUP/">JSOUP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Welcome" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/07/Welcome/" class="article-date">
-  	<time datetime="2016-03-07T01:53:03.000Z" itemprop="datePublished">2016-03-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/07/Welcome/">Welcome To My Personal Blog</a>
-    </h1>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/03/07/Welcome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/07/Welcome/" itemprop="url">
+                  Welcome To My Personal Blog
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-07T09:53:03+08:00">
+                2016-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="说说感想"><a href="#说说感想" class="headerlink" title="说说感想"></a>说说感想</h2><pre><code>经过几个小时的努力，我的个人博客终于架设完了。之前一直想要有一个个人博客，可以把自己学习的资源，自己的体会分享出来。现在终于可以实现啦~~&lt;(￣︶￣)&gt;
+      
+
+      
+        
+          
+            <h2 id="说说感想"><a href="#说说感想" class="headerlink" title="说说感想"></a>说说感想</h2><pre><code>经过几个小时的努力，我的个人博客终于架设完了。之前一直想要有一个个人博客，可以把自己学习的资源，自己的体会分享出来。现在终于可以实现啦~~&lt;(￣︶￣)&gt;
 
 虽然现在很多平台类似于CSDN、博客园、甚至新浪博客，都已经很普遍了，而我更期待的是有一个个人管理的博客站点，这才是最好玩的一件事情。&lt;(‵□′)/~
 
@@ -761,96 +1303,318 @@ PullTorefresh：RecycleView                  ListView,GridView...
 <p>你将会获得一个免费的域名，和一个一块钱/月的云服务器。可以去做好多好玩的事情啦。</p>
 <p><strong><em>By Xiaolong</em></strong></p>
 
+          
+        
       
     </div>
-    
-    <div class="article-info article-info-index">
+
+    <div>
       
+    </div>
+
+    <div>
       
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/感想/">感想</a></li></ul>
-	</div>
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
 
       
 
       
-      <div class="clearfix"></div>
-    </div>
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
   </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/lucky.jpg"
+               alt="小龙" />
+          <p class="site-author-name" itemprop="name">小龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaolongonly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-csdn"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
 </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 小龙
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
