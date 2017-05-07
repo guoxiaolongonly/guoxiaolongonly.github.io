@@ -527,53 +527,93 @@
 <h1 id="接口通用信息"><a href="#接口通用信息" class="headerlink" title="接口通用信息"></a>接口通用信息</h1><h2 id="示例地址"><a href="#示例地址" class="headerlink" title="示例地址"></a>示例地址</h2><pre><code>http://....../app/getApp
 </code></pre><p>接口控制器：</p>
 <pre><code>外网  http://110.110.1.20/app/
+
 内网  http://192.168.1.22/app/
 </code></pre><p>公共参数:</p>
 <pre><code>getApp接口名称
 </code></pre><h2 id="请求有以下两种方式"><a href="#请求有以下两种方式" class="headerlink" title="请求有以下两种方式"></a>请求有以下两种方式</h2><pre><code>GET
+
 POST
 </code></pre><h2 id="上传参数说明"><a href="#上传参数说明" class="headerlink" title="上传参数说明"></a>上传参数说明</h2><pre><code>UUID 设备号：
+
     每个手机的设备号是唯一的
 </code></pre><h2 id="上传参数的格式"><a href="#上传参数的格式" class="headerlink" title="上传参数的格式"></a>上传参数的格式</h2><pre><code>{&quot;key&quot;:&quot;value&quot;,&quot;key1&quot;:value1,&quot;key2&quot;:&quot;value2&quot;,..........}
 </code></pre><h2 id="返回的数据规范"><a href="#返回的数据规范" class="headerlink" title="返回的数据规范"></a>返回的数据规范</h2><pre><code>a、明文返回值，直接使用
 
+
+
 b、部分字段加密的返回值通过DES.decryptDES()解密，需要key和vi进行解密，
 
+
+
     {
+
         &quot;code&quot;:1,
+
         &quot;msg&quot;:&quot;xxxxxx&quot;,
+
         &quot;data&quot;:{
+
         }
+
     }
 </code></pre><h2 id="返回数据说明"><a href="#返回数据说明" class="headerlink" title="返回数据说明"></a>返回数据说明</h2><pre><code>a、code 标识返回状态
 
+
+
    1    成功
+
   -1    失败
+
 -101    token失效
+
 b、msg 服务端返回的说明
+
 c、data为空，返回 {}
 </code></pre><h2 id="返回示例"><a href="#返回示例" class="headerlink" title="返回示例"></a>返回示例</h2><pre><code>如：
+
 {
+
     &quot;code&quot;:1,
+
     &quot;msg&quot;:&quot;&quot;,
+
     &quot;data&quot;:{
+
         &quot;param1&quot;:&quot;xxx&quot;,
+
         &quot;list&quot;:[
+
             { 
+
                 &quot;aa&quot;:&quot;xxx&quot;,
+
                 &quot;bb&quot;:1,
+
                 &quot;cc&quot;:&quot;xxxxxx&quot;
+
             },
+
             ...........
+
         ]
+
     }
+
 }
 
+
+
 如2：
+
 {
+
     &quot;code&quot;:1,
+
     &quot;msg&quot;:&quot;&quot;,
+
     &quot;data&quot;:{}
+
 }
 </code></pre><h1 id="基础模块"><a href="#基础模块" class="headerlink" title="基础模块"></a>基础模块</h1><h2 id="获取访问令牌"><a href="#获取访问令牌" class="headerlink" title="获取访问令牌"></a>获取访问令牌</h2><p>请求地址</p>
 <pre><code>http://192.168.1.20/app/getAccessToken
@@ -582,30 +622,50 @@ c、data为空，返回 {}
 </code></pre><p>接口参数</p>
 <pre><code>名称           类型        是否必须    示例值                   描述
 
+
+
 uuid          String        是    321234098546345634534526   设备号
 </code></pre><p>响应参数</p>
 <pre><code>名称           类型        是否必须    示例值                   描述
 
+
+
 acccessToken  String        是     访问令牌
+
 expiresIn     String        是       28800                  过期时间, 单位为秒（可不做过期）
+
 sessionKey    String        是     78......610              session key(32位字符)
+
 sessionSecret String        是     2222......0              session密钥(32位字符)
 </code></pre><p>返回示例</p>
 <pre><code>{
+
     &quot;code&quot;:1,
+
     &quot;msg&quot;:&quot;&quot;,
+
     &quot;data&quot;:{
+
         &quot;accessToken&quot;:&quot;AVjWf49ZrHPXsqA1hwSr7AcheUIb/oaRTR
+
         s0GzXxzsHBm79lcNLSNGjnisHaDBAWVM
+
         R8tR0xMQjhIdwkve8eNTs=&quot;,            //访问令牌
+
         &quot;expiresIn&quot;:28800,                                 //Int, 过期时间, 单位为秒
+
         &quot;sessionKey&quot;:&quot;787d9f9beeeca3379cde65ff3354e610&quot;,   //session key
+
         &quot;sessionSecret&quot;:&quot;222baa398b38a499f267ed869215b130&quot;  //session密钥
+
     }
+
 }
 </code></pre><p>code取值</p>
 <pre><code> 1成功
+
 -1失败
+
 
 [TOC]
 </code></pre><h1 id="账号模块"><a href="#账号模块" class="headerlink" title="账号模块"></a>账号模块</h1><h2 id="登录（4-10增加返回字段：classNum-grade）"><a href="#登录（4-10增加返回字段：classNum-grade）" class="headerlink" title="登录（4.10增加返回字段：classNum,grade）"></a>登录（4.10增加返回字段：classNum,grade）</h2><p>请求地址</p>
