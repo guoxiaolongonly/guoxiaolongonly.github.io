@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Xiaolong, lucky" />
+  <meta name="keywords" content="学习,api about," />
 
 
 
@@ -90,11 +90,7 @@
 
 
 
-<meta name="description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
-- 学习
-- code about
-
-接口通用信息示例地址http://....../app/getApp
+<meta name="description" content="接口通用信息示例地址http://....../app/getApp
 接口控制器：
 外网  http://110.110.1.20/app/
 
@@ -104,16 +100,15 @@ getApp接口名称
 请求有以下两种方式GET
 
 POST
-上">
+上传参数说明UUID 设备号：
+
+    每个手机的设备号是唯一的
+上传参数的格式{&amp;quot;key&amp;quot;:&amp;quot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xiaolong的个人博客">
+<meta property="og:title" content="接口设计规范">
 <meta property="og:url" content="http://rngift.com/2017/05/07/ApiStandars/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
-<meta property="og:description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
-- 学习
-- code about
-
-接口通用信息示例地址http://....../app/getApp
+<meta property="og:description" content="接口通用信息示例地址http://....../app/getApp
 接口控制器：
 外网  http://110.110.1.20/app/
 
@@ -123,15 +118,14 @@ getApp接口名称
 请求有以下两种方式GET
 
 POST
-上">
-<meta property="og:updated_time" content="2017-05-07T15:02:57.470Z">
+上传参数说明UUID 设备号：
+
+    每个手机的设备号是唯一的
+上传参数的格式{&amp;quot;key&amp;quot;:&amp;quot">
+<meta property="og:updated_time" content="2017-05-07T15:11:51.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xiaolong的个人博客">
-<meta name="twitter:description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
-- 学习
-- code about
-
-接口通用信息示例地址http://....../app/getApp
+<meta name="twitter:title" content="接口设计规范">
+<meta name="twitter:description" content="接口通用信息示例地址http://....../app/getApp
 接口控制器：
 外网  http://110.110.1.20/app/
 
@@ -141,7 +135,10 @@ getApp接口名称
 请求有以下两种方式GET
 
 POST
-上">
+上传参数说明UUID 设备号：
+
+    每个手机的设备号是唯一的
+上传参数的格式{&amp;quot;key&amp;quot;:&amp;quot">
 
 
 
@@ -175,7 +172,7 @@ POST
 
 
 
-  <title> | Xiaolong的个人博客</title>
+  <title>接口设计规范 | Xiaolong的个人博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -345,7 +342,7 @@ POST
             
             
               
-                
+                接口设计规范
               
             
           </h1>
@@ -395,11 +392,7 @@ POST
       
 
       
-        <p>title: 接口设计规范<br>date: 2017年5月7日 22:06:41<br>tags:</p>
-<pre><code>- 学习
-- code about
-</code></pre><hr>
-<h1 id="接口通用信息"><a href="#接口通用信息" class="headerlink" title="接口通用信息"></a>接口通用信息</h1><h2 id="示例地址"><a href="#示例地址" class="headerlink" title="示例地址"></a>示例地址</h2><pre><code>http://....../app/getApp
+        <h1 id="接口通用信息"><a href="#接口通用信息" class="headerlink" title="接口通用信息"></a>接口通用信息</h1><h2 id="示例地址"><a href="#示例地址" class="headerlink" title="示例地址"></a>示例地址</h2><pre><code>http://....../app/getApp
 </code></pre><p>接口控制器：</p>
 <pre><code>外网  http://110.110.1.20/app/
 
@@ -415,40 +408,21 @@ POST
 </code></pre><h2 id="上传参数的格式"><a href="#上传参数的格式" class="headerlink" title="上传参数的格式"></a>上传参数的格式</h2><pre><code>{&quot;key&quot;:&quot;value&quot;,&quot;key1&quot;:value1,&quot;key2&quot;:&quot;value2&quot;,..........}
 </code></pre><h2 id="返回的数据规范"><a href="#返回的数据规范" class="headerlink" title="返回的数据规范"></a>返回的数据规范</h2><pre><code>a、明文返回值，直接使用
 
-
-
 b、部分字段加密的返回值通过DES.decryptDES()解密，需要key和vi进行解密，
 
-
-
     {
-
         &quot;code&quot;:1,
-
         &quot;msg&quot;:&quot;xxxxxx&quot;,
-
-        &quot;data&quot;:{
-
-        }
-
+        &quot;data&quot;:{}
     }
 </code></pre><h2 id="返回数据说明"><a href="#返回数据说明" class="headerlink" title="返回数据说明"></a>返回数据说明</h2><pre><code>a、code 标识返回状态
-
-
-
    1    成功
-
   -1    失败
-
 -101    token失效
-
 b、msg 服务端返回的说明
-
 c、data为空，返回 {}
 </code></pre><h2 id="返回示例"><a href="#返回示例" class="headerlink" title="返回示例"></a>返回示例</h2><pre><code>如：
-
 {
-
     &quot;code&quot;:1,
 
     &quot;msg&quot;:&quot;&quot;,
@@ -460,33 +434,20 @@ c、data为空，返回 {}
         &quot;list&quot;:[
 
             { 
-
                 &quot;aa&quot;:&quot;xxx&quot;,
-
                 &quot;bb&quot;:1,
-
                 &quot;cc&quot;:&quot;xxxxxx&quot;
-
             },
-
             ...........
-
         ]
-
     }
-
 }
-
-
 
 如2：
 
 {
-
     &quot;code&quot;:1,
-
     &quot;msg&quot;:&quot;&quot;,
-
     &quot;data&quot;:{}
 
 }
@@ -496,43 +457,24 @@ c、data为空，返回 {}
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称           类型        是否必须    示例值                   描述
-
-
-
 uuid          String        是    321234098546345634534526   设备号
 </code></pre><p>响应参数</p>
 <pre><code>名称           类型        是否必须    示例值                   描述
-
-
-
 acccessToken  String        是     访问令牌
-
 expiresIn     String        是       28800                  过期时间, 单位为秒（可不做过期）
-
 sessionKey    String        是     78......610              session key(32位字符)
-
 sessionSecret String        是     2222......0              session密钥(32位字符)
 </code></pre><p>返回示例</p>
 <pre><code>{
-
     &quot;code&quot;:1,
-
     &quot;msg&quot;:&quot;&quot;,
-
     &quot;data&quot;:{
-
         &quot;accessToken&quot;:&quot;AVjWf49ZrHPXsqA1hwSr7AcheUIb/oaRTR
-
         s0GzXxzsHBm79lcNLSNGjnisHaDBAWVM
-
         R8tR0xMQjhIdwkve8eNTs=&quot;,            //访问令牌
-
         &quot;expiresIn&quot;:28800,                                 //Int, 过期时间, 单位为秒
-
         &quot;sessionKey&quot;:&quot;787d9f9beeeca3379cde65ff3354e610&quot;,   //session key
-
         &quot;sessionSecret&quot;:&quot;222baa398b38a499f267ed869215b130&quot;  //session密钥
-
     }
 
 }
@@ -586,7 +528,6 @@ grade           String    是       2013级         年级
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称           类型        是否必须    示例值            描述
-
 stuNo          String         是    SWE13001        学号
 </code></pre><p>响应参数</p>
 <pre><code>名称        类型      是否必须    示例值             描述
@@ -608,7 +549,6 @@ header        String         是     http://xxx.jpg      头像地址
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称           类型     是否必须    示例值            描述
-
 stuNo          String      是     SWE13001        学号（学号要唯一）
 stuPsw         String      是     2341            密码
 data           String      是     xxxx            二进制数据
@@ -643,11 +583,9 @@ phone        String      是     联系电话         13600000001
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称          类型    是否必须    示例值     描述
-
 authenUserId String    是    11...ffb   用户ID
 </code></pre><p> 响应参数</p>
 <pre><code>名称        类型        是否必须    示例值        描述
-
 courseId   String       是     sdfe12        课程Id
 name       String       是     软件工程       课程名称
 date       String       是     20170122      上课日期
@@ -712,7 +650,6 @@ classTime    int       是    节次       上课时间  0一二节 1三四节 2
 authenUserId String    是    11...ffb   用户ID
 </code></pre><p>响应参数</p>
 <pre><code>名称        类型        是否必须    示例值        描述
-
 courseId   String       是     sdfe12        课程Id
 name       String       是     软件工程       课程名称 
 teacher    String       是     顾萍萍          任课教师名称
@@ -748,7 +685,6 @@ endTime      String    是    20170222   结束时间
 courseId     String    否    “sd11002”  课程Id(为空代表查询全部课程)
 </code></pre><p>响应参数</p>
 <pre><code>名称        类型        是否必须    示例值        描述
-
 courseId   String       是     sdfe12        课程Id
 name       String       是     软件工程       课程名称
 date       String       是     20170122      上课日期
@@ -883,8 +819,6 @@ classTime    int       是         0       节次  0一二节 1三四节 2午一
 data         String    是      xxxx       二进制数据
 name         Sring     是      xxx.png    图片名称
 reason       String    是      想睡觉      请假理由
-</code></pre><p>响应参数</p>
-<pre><code>名称        类型        是否必须    示例值        描述
 </code></pre><p>返回示例</p>
 <pre><code>{
     &quot;code&quot;:1,
@@ -901,7 +835,6 @@ reason       String    是      想睡觉      请假理由
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称          类型    是否必须    示例值     描述
-
 authenUserId String  是    11...ffb      用户ID
 data         String  是  xxxx           二进制数据
 name         String  是 picture_0105    图片名称
@@ -922,7 +855,6 @@ type         int     是       0         0头像
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称          类型    是否必须    示例值     描述
-
 authenUserId String  是    11...ffb      用户ID
 oldpsw       String  是    10086         旧密码
 newpsw       String  是    10087         新密码
@@ -942,7 +874,6 @@ newpsw       String  是    10087         新密码
 <pre><code>POST
 </code></pre><p>接口参数</p>
 <pre><code>名称          类型    是否必须    示例值     描述
-
 authenUserId String  是    11...ffb      用户ID
 phone        String  是    10086         手机号码
 </code></pre><p>返回示例</p>
@@ -981,6 +912,14 @@ phone        String  是    10086         手机号码
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/api-about/" rel="tag"># api about</a>
+          
+        </div>
       
 
       
@@ -1088,7 +1027,7 @@ phone        String  是    10086         手机号码
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
