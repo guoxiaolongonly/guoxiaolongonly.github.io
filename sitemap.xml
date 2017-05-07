@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://rngift.com/404.html</loc>
+    <loc>http://rngift.com/2017/05/07/ApiStandars/</loc>
     
-    <lastmod>2017-04-23T01:47:38.950Z</lastmod>
+    <lastmod>2017-05-07T14:55:13.329Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://rngift.com/mylover/formingge.html</loc>
+    <loc>http://rngift.com/2017/05/07/CodeStandars/</loc>
     
-    <lastmod>2017-04-23T01:06:19.547Z</lastmod>
+    <lastmod>2017-05-07T14:52:15.326Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://rngift.com/2017/05/07/SummaryOfWork/</loc>
+    
+    <lastmod>2017-05-07T14:07:26.219Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://rngift.com/2016/08/08/Summary%202016-08-08/</loc>
+    
+    <lastmod>2017-05-07T05:31:32.159Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://rngift.com/404.html</loc>
+    
+    <lastmod>2017-04-23T01:47:38.950Z</lastmod>
     
   </url>
   
@@ -33,13 +54,6 @@
     <loc>http://rngift.com/tags/index.html</loc>
     
     <lastmod>2017-04-23T00:09:17.697Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/2016/08/08/Summary%202016-08-08/</loc>
-    
-    <lastmod>2016-08-08T15:22:38.763Z</lastmod>
     
   </url>
   
@@ -82,55 +96,6 @@
     <loc>http://rngift.com/2016/03/07/Welcome/</loc>
     
     <lastmod>2016-08-07T01:57:35.856Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/css/default_dev.css</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/js/garden_dev.js</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/css/default.css</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/js/functions_dev.js</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/js/garden.js</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/js/functions.js</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://rngift.com/mylover/js/jquery.js</loc>
-    
-    <lastmod>2011-11-08T13:42:31.000Z</lastmod>
     
   </url>
   

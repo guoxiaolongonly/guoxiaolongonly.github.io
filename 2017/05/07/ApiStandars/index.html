@@ -1,0 +1,1268 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Xiaolong, lucky" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
+- 学习
+- code about
+
+接口通用信息示例地址http://....../app/getApp
+接口控制器：
+外网  http://110.110.1.20/app/
+内网  http://192.168.1.22/app/
+公共参数:
+getApp接口名称
+请求有以下两种方式GET
+POST
+上传参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xiaolong的个人博客">
+<meta property="og:url" content="http://rngift.com/2017/05/07/ApiStandars/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
+- 学习
+- code about
+
+接口通用信息示例地址http://....../app/getApp
+接口控制器：
+外网  http://110.110.1.20/app/
+内网  http://192.168.1.22/app/
+公共参数:
+getApp接口名称
+请求有以下两种方式GET
+POST
+上传参">
+<meta property="og:updated_time" content="2017-05-07T14:55:13.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xiaolong的个人博客">
+<meta name="twitter:description" content="title: 接口设计规范date: 2017年5月7日 22:06:41tags:
+- 学习
+- code about
+
+接口通用信息示例地址http://....../app/getApp
+接口控制器：
+外网  http://110.110.1.20/app/
+内网  http://192.168.1.22/app/
+公共参数:
+getApp接口名称
+请求有以下两种方式GET
+POST
+上传参">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2017/05/07/ApiStandars/"/>
+
+
+
+
+
+  <title> | Xiaolong的个人博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">爱生活，爱学习</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-mylover">
+          <a href="/MyLover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            menu.mylover
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/05/07/ApiStandars/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T22:55:46+08:00">
+                2017-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>title: 接口设计规范<br>date: 2017年5月7日 22:06:41<br>tags:</p>
+<pre><code>- 学习
+- code about
+</code></pre><hr>
+<h1 id="接口通用信息"><a href="#接口通用信息" class="headerlink" title="接口通用信息"></a>接口通用信息</h1><h2 id="示例地址"><a href="#示例地址" class="headerlink" title="示例地址"></a>示例地址</h2><pre><code>http://....../app/getApp
+</code></pre><p>接口控制器：</p>
+<pre><code>外网  http://110.110.1.20/app/
+内网  http://192.168.1.22/app/
+</code></pre><p>公共参数:</p>
+<pre><code>getApp接口名称
+</code></pre><h2 id="请求有以下两种方式"><a href="#请求有以下两种方式" class="headerlink" title="请求有以下两种方式"></a>请求有以下两种方式</h2><pre><code>GET
+POST
+</code></pre><h2 id="上传参数说明"><a href="#上传参数说明" class="headerlink" title="上传参数说明"></a>上传参数说明</h2><pre><code>UUID 设备号：
+    每个手机的设备号是唯一的
+</code></pre><h2 id="上传参数的格式"><a href="#上传参数的格式" class="headerlink" title="上传参数的格式"></a>上传参数的格式</h2><pre><code>{&quot;key&quot;:&quot;value&quot;,&quot;key1&quot;:value1,&quot;key2&quot;:&quot;value2&quot;,..........}
+</code></pre><h2 id="返回的数据规范"><a href="#返回的数据规范" class="headerlink" title="返回的数据规范"></a>返回的数据规范</h2><pre><code>a、明文返回值，直接使用
+
+b、部分字段加密的返回值通过DES.decryptDES()解密，需要key和vi进行解密，
+
+    {
+        &quot;code&quot;:1,
+        &quot;msg&quot;:&quot;xxxxxx&quot;,
+        &quot;data&quot;:{
+        }
+    }
+</code></pre><h2 id="返回数据说明"><a href="#返回数据说明" class="headerlink" title="返回数据说明"></a>返回数据说明</h2><pre><code>a、code 标识返回状态
+
+   1    成功
+  -1    失败
+-101    token失效
+b、msg 服务端返回的说明
+c、data为空，返回 {}
+</code></pre><h2 id="返回示例"><a href="#返回示例" class="headerlink" title="返回示例"></a>返回示例</h2><pre><code>如：
+{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;&quot;,
+    &quot;data&quot;:{
+        &quot;param1&quot;:&quot;xxx&quot;,
+        &quot;list&quot;:[
+            { 
+                &quot;aa&quot;:&quot;xxx&quot;,
+                &quot;bb&quot;:1,
+                &quot;cc&quot;:&quot;xxxxxx&quot;
+            },
+            ...........
+        ]
+    }
+}
+
+如2：
+{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;&quot;,
+    &quot;data&quot;:{}
+}
+</code></pre><h1 id="基础模块"><a href="#基础模块" class="headerlink" title="基础模块"></a>基础模块</h1><h2 id="获取访问令牌"><a href="#获取访问令牌" class="headerlink" title="获取访问令牌"></a>获取访问令牌</h2><p>请求地址</p>
+<pre><code>http://192.168.1.20/app/getAccessToken
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称           类型        是否必须    示例值                   描述
+
+uuid          String        是    321234098546345634534526   设备号
+</code></pre><p>响应参数</p>
+<pre><code>名称           类型        是否必须    示例值                   描述
+
+acccessToken  String        是     访问令牌
+expiresIn     String        是       28800                  过期时间, 单位为秒（可不做过期）
+sessionKey    String        是     78......610              session key(32位字符)
+sessionSecret String        是     2222......0              session密钥(32位字符)
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;&quot;,
+    &quot;data&quot;:{
+        &quot;accessToken&quot;:&quot;AVjWf49ZrHPXsqA1hwSr7AcheUIb/oaRTR
+        s0GzXxzsHBm79lcNLSNGjnisHaDBAWVM
+        R8tR0xMQjhIdwkve8eNTs=&quot;,            //访问令牌
+        &quot;expiresIn&quot;:28800,                                 //Int, 过期时间, 单位为秒
+        &quot;sessionKey&quot;:&quot;787d9f9beeeca3379cde65ff3354e610&quot;,   //session key
+        &quot;sessionSecret&quot;:&quot;222baa398b38a499f267ed869215b130&quot;  //session密钥
+    }
+}
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+
+[TOC]
+</code></pre><h1 id="账号模块"><a href="#账号模块" class="headerlink" title="账号模块"></a>账号模块</h1><h2 id="登录（4-10增加返回字段：classNum-grade）"><a href="#登录（4-10增加返回字段：classNum-grade）" class="headerlink" title="登录（4.10增加返回字段：classNum,grade）"></a>登录（4.10增加返回字段：classNum,grade）</h2><p>请求地址</p>
+<pre><code>http://..../getLogin
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称           类型        是否必须    示例值            描述
+
+stuNo          String         是    SWE13001        学号
+stuPsw         String         是    2341            密码
+</code></pre><p>响应参数</p>
+<pre><code>名称             类型     是否必须     示例值           描述
+displayName     String    是       张三            显示名称
+authenUserId    String    是       11.......fb    登录用户ID
+headerUrl       String    是       http://.x.png  头像
+major           String    是       软件工程        专业
+stuNo           String    是       SWE13001       学号
+phone           String    是       13600000001    联系电话 
+calssNum        String    是       软件工程一班     班级 
+grade           String    是       2013级         年级
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;登录成功&quot;,
+    &quot;data&quot;:{
+        &quot;displayName&quot;:&quot;张三&quot;,
+        &quot;headerUrl&quot;：&quot;http://192.168.1.20/image/header.png&quot;
+        &quot;authenUserId&quot;:&quot;1120d8d6ea4a4850b65d0faa40d6dffb
+        &quot;major&quot;:&quot;软件工程&quot;,
+        &quot;stuNo&quot;：&quot;SWE13001&quot;,
+        &quot;phone&quot;:&quot;13600000001&quot;,
+        &quot;calssNum&quot;：&quot;软件工程一班&quot;,
+        &quot;phone&quot;:&quot;2013级&quot;
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="获取用户头像-已弃用"><a href="#获取用户头像-已弃用" class="headerlink" title="获取用户头像(已弃用)"></a><del>获取用户头像</del>(已弃用)</h2><p>请求地址</p>
+<pre><code>http://..../getUserHeader
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称           类型        是否必须    示例值            描述
+
+stuNo          String         是    SWE13001        学号
+</code></pre><p>响应参数</p>
+<pre><code>名称        类型      是否必须    示例值             描述
+header        String         是     http://xxx.jpg      头像地址
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;获取头像成功&quot;,
+    &quot;data&quot;:{
+        &quot;header&quot;:&quot;http://xxx.jpg&quot;,
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="注册（已弃用）"><a href="#注册（已弃用）" class="headerlink" title="注册（已弃用）"></a><del>注册</del>（已弃用）</h2><p>请求地址</p>
+<pre><code>http://..../register
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称           类型     是否必须    示例值            描述
+
+stuNo          String      是     SWE13001        学号（学号要唯一）
+stuPsw         String      是     2341            密码
+data           String      是     xxxx            二进制数据
+name           String      是     picture_0105    图片名称
+</code></pre><p>响应参数</p>
+<pre><code>名称          类型    是否必须     示例值           描述
+stuName      String      是     张三             显示名称
+authenUserId String      是     11.......fb     登录用户ID
+headerUrl    String      是     http://.x.png   头像
+major        String      是     软件工程         专业
+stuNo        String      是     SWE13001        学号
+phone        String      是     联系电话         13600000001
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;注册成功&quot;,
+    &quot;data&quot;:{
+        &quot;displayName&quot;:&quot;张三&quot;,
+        &quot;headerUrl&quot;：&quot;http://192.168.1.20/image/header.png&quot;
+        &quot;authenUserId&quot;:&quot;1120d8d6ea4a4850b65d0faa40d6dffb
+        &quot;major&quot;:&quot;软件工程&quot;,
+        &quot;stuNo&quot;：&quot;SWE13001&quot;
+        &quot;phone&quot;:&quot;13600000001&quot;
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h1 id="主页"><a href="#主页" class="headerlink" title="主页"></a>主页</h1><h2 id="获取今日课程列表"><a href="#获取今日课程列表" class="headerlink" title="获取今日课程列表"></a>获取今日课程列表</h2><p>请求地址</p>
+<pre><code>http://..../getTodayCourse(4.10 state 增加未签到状态)
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String    是    11...ffb   用户ID
+</code></pre><p> 响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+
+courseId   String       是     sdfe12        课程Id
+name       String       是     软件工程       课程名称
+date       String       是     20170122      上课日期
+state      int          是      0            签到状态 0未开放签到 1正常
+                                                    2旷课      3迟到  4请假 5.未签到
+teacher    String       是     顾萍萍        教师名称
+classPlace String       是     主一110       上课地点
+classTime  int          是     0            节次  0一二节 1三四节 2午一午二
+                                                    3五六节 4七八节 5 九十节
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;&quot;,
+    &quot;data&quot;:{
+        &quot;total&quot;:5,
+        &quot;list&quot;:[
+            {
+                &quot;courseId&quot;:&quot;sdfe12&quot;,
+                &quot;name&quot;:&quot;软件工程&quot;,
+                &quot;date&quot;:&quot;20170122&quot;,
+                &quot;state&quot;:0,
+                &quot;teacher&quot;:顾萍萍,
+                &quot;classPlace&quot;:&quot;主一110&quot;,
+                &quot;classTime&quot; : 0
+            },
+            ......
+        ]
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p>请求地址</p>
+<pre><code>http://..../signIn
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String    是    11...ffb   用户ID
+courseId     String    是    xxxx      课程Id
+date         String    是    20170328  日期
+image        String    否    xxxx      二进制数据
+classTime    int       是    节次       上课时间  0一二节 1三四节 2午一午二
+                                                3五六节 4七八节 5九十节
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;签到成功&quot;,
+    &quot;data&quot;:{
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="获取当前用户全部课程（可以查询每门课的考勤结果）"><a href="#获取当前用户全部课程（可以查询每门课的考勤结果）" class="headerlink" title="获取当前用户全部课程（可以查询每门课的考勤结果）"></a>获取当前用户全部课程（可以查询每门课的考勤结果）</h2><p>请求地址</p>
+<pre><code>http://..../getAllCourseList
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+authenUserId String    是    11...ffb   用户ID
+</code></pre><p>响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+
+courseId   String       是     sdfe12        课程Id
+name       String       是     软件工程       课程名称 
+teacher    String       是     顾萍萍          任课教师名称
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;获取课程列表成功&quot;,
+    &quot;data&quot;:{
+     &quot;total&quot;:5,
+        &quot;list&quot;:[
+               {
+                &quot;courseId&quot;:&quot;sdfe12&quot;,
+                &quot;name&quot;:&quot;软件工程&quot;,
+                &quot;teacher&quot;:&quot;任课教师名称&quot;,
+            },
+            ......
+        ]
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="考勤结果查询-4-10-state-增加未签到状态"><a href="#考勤结果查询-4-10-state-增加未签到状态" class="headerlink" title="考勤结果查询(4.10 state 增加未签到状态)"></a>考勤结果查询(4.10 state 增加未签到状态)</h2><p>请求地址</p>
+<pre><code>http://..../checkResult
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String    是    11...ffb   用户ID
+startTime    String    是    20170222   起始时间
+endTime      String    是    20170222   结束时间
+courseId     String    否    “sd11002”  课程Id(为空代表查询全部课程)
+</code></pre><p>响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+
+courseId   String       是     sdfe12        课程Id
+name       String       是     软件工程       课程名称
+date       String       是     20170122      上课日期
+state      int          是      0            签到状态 0未开放签到 1正常
+                                                    2旷课      3迟到  4请假 5未签到
+teacher    String       是     顾萍萍        教师名称
+classPlace String       是     主一110       上课地点
+classTime  int          是     0            节次  0一二节 1三四节 2午一午二
+                                                    3五六节 4七八节 5 九十节
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;获取考勤结果成功&quot;,
+    &quot;data&quot;:{
+        &quot;total&quot;:5,
+        &quot;list&quot;:[
+           {
+                &quot;courseId&quot;:&quot;sdfe12&quot;,
+                &quot;name&quot;:&quot;软件工程&quot;,
+                &quot;date&quot;:&quot;20170122&quot;,
+                &quot;state&quot;:0,
+                &quot;teacher&quot;:顾萍萍,
+                &quot;classPlace&quot;:&quot;主一110&quot;,
+                &quot;classTime&quot; : 0
+            },
+            ......
+        ]
+
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="考勤结果列表-4-10-state-增加未签到状态"><a href="#考勤结果列表-4-10-state-增加未签到状态" class="headerlink" title="考勤结果列表(4.10 state 增加未签到状态)"></a>考勤结果列表(4.10 state 增加未签到状态)</h2><p>请求地址</p>
+<pre><code>http://..../checkTruant
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String    是    11...ffb   用户ID
+</code></pre><p>响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+
+courseId   String       是     sdfe12        课程Id
+name       String       是     软件工程       课程名称
+date       String       是     20170122      上课日期
+state      int          是      0            签到状态 0未开放签到 1正常
+                                                    2旷课      3迟到  4请假 5.未签到
+teacher    String       是     顾萍萍        教师名称
+classPlace String       是     主一110       上课地点
+classTime  int          是     0            节次  0一二节 1三四节 2午一午二
+                                                    3五六节 4七八节 5 九十节
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;获取考勤结果成功&quot;,
+    &quot;data&quot;:{
+        &quot;total&quot;:5,
+        &quot;list&quot;:[
+           {
+                &quot;courseId&quot;:&quot;sdfe12&quot;,
+                &quot;name&quot;:&quot;软件工程&quot;,
+                &quot;date&quot;:&quot;20170122&quot;,
+                &quot;state&quot;:0,
+                &quot;teacher&quot;:顾萍萍,
+                &quot;classPlace&quot;:&quot;主一110&quot;,
+                &quot;classTime&quot; : 0
+            },
+            ......
+        ]
+
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="获取本周课程列表"><a href="#获取本周课程列表" class="headerlink" title="获取本周课程列表"></a>获取本周课程列表</h2><p>请求地址</p>
+<pre><code>http://..../getWeekCourse(4.10 state 增加未签到状态)
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String    是    11...ffb   用户ID
+</code></pre><p> 响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+
+courseId   String       是     sdfe12        课程Id
+name       String       是     软件工程       课程名称
+date       String       是     20170122      上课日期
+state      int          是      0            签到状态 0未开放签到 1正常
+                                                    2旷课      3迟到  4请假 5.未签到
+teacher    String       是     顾萍萍        教师名称
+classPlace String       是     主一110       上课地点
+classTime  int          是     0            节次  0一二节 1三四节 2午一午二
+                                                    3五六节 4七八节 5 九十节
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;&quot;,
+    &quot;data&quot;:{
+        &quot;total&quot;:5,
+        &quot;list&quot;:[
+            {
+                &quot;courseId&quot;:&quot;sdfe12&quot;,
+                &quot;name&quot;:&quot;软件工程&quot;,
+                &quot;date&quot;:&quot;20170122&quot;,
+                &quot;state&quot;:0,
+                &quot;teacher&quot;:顾萍萍,
+                &quot;classPlace&quot;:&quot;主一110&quot;,
+                &quot;classTime&quot; : 0
+            },
+            ......
+        ]
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="请假"><a href="#请假" class="headerlink" title="请假"></a>请假</h2><p>请求地址</p>
+<pre><code>http://..../takeOff
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+authenUserId String    是      11...ffb   用户ID
+courseId     String    是      ddasd131   课程ID
+date         String    是      20170328   请假日期
+classTime    int       是         0       节次  0一二节 1三四节 2午一午二
+                                                    3五六节 4七八节 5 九十节
+data         String    是      xxxx       二进制数据
+name         Sring     是      xxx.png    图片名称
+reason       String    是      想睡觉      请假理由
+</code></pre><p>响应参数</p>
+<pre><code>名称        类型        是否必须    示例值        描述
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;请假成功&quot;,
+    &quot;data&quot;:{
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="图片上传-4-10弃用"><a href="#图片上传-4-10弃用" class="headerlink" title="图片上传(4.10弃用)"></a><del>图片上传</del>(4.10弃用)</h2><p>请求地址</p>
+<pre><code>http://..../uploadPicture
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String  是    11...ffb      用户ID
+data         String  是  xxxx           二进制数据
+name         String  是 picture_0105    图片名称
+type         int     是       0         0头像
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;头像上传成功！&quot;,
+    &quot;data&quot;:{
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="用户密码修改（4-10新增）"><a href="#用户密码修改（4-10新增）" class="headerlink" title="用户密码修改（4.10新增）"></a>用户密码修改（4.10新增）</h2><p>请求地址</p>
+<pre><code>http://..../pswModify
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String  是    11...ffb      用户ID
+oldpsw       String  是    10086         旧密码
+newpsw       String  是    10087         新密码
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;密码修改成功！&quot;,
+    &quot;data&quot;:{
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre><h2 id="用户信息修改（4-10新增）"><a href="#用户信息修改（4-10新增）" class="headerlink" title="用户信息修改（4.10新增）"></a>用户信息修改（4.10新增）</h2><p>请求地址</p>
+<pre><code>http://..../userInfoModify
+</code></pre><p>请求方式</p>
+<pre><code>POST
+</code></pre><p>接口参数</p>
+<pre><code>名称          类型    是否必须    示例值     描述
+
+authenUserId String  是    11...ffb      用户ID
+phone        String  是    10086         手机号码
+</code></pre><p>返回示例</p>
+<pre><code>{
+    &quot;code&quot;:1,
+    &quot;msg&quot;:&quot;修改成功！&quot;,
+    &quot;data&quot;:{
+    }
+ }
+</code></pre><p>code取值</p>
+<pre><code> 1成功
+-1失败
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/07/SummaryOfWork/" rel="next" title="工作总结（二）">
+                <i class="fa fa-chevron-left"></i> 工作总结（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/07/CodeStandars/" rel="prev" title="代码命名规范">
+                代码命名规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/lucky.jpg"
+               alt="小龙" />
+          <p class="site-author-name" itemprop="name">小龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaolongonly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-csdn"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#接口通用信息"><span class="nav-number">1.</span> <span class="nav-text">接口通用信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例地址"><span class="nav-number">1.1.</span> <span class="nav-text">示例地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求有以下两种方式"><span class="nav-number">1.2.</span> <span class="nav-text">请求有以下两种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传参数说明"><span class="nav-number">1.3.</span> <span class="nav-text">上传参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传参数的格式"><span class="nav-number">1.4.</span> <span class="nav-text">上传参数的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回的数据规范"><span class="nav-number">1.5.</span> <span class="nav-text">返回的数据规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回数据说明"><span class="nav-number">1.6.</span> <span class="nav-text">返回数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回示例"><span class="nav-number">1.7.</span> <span class="nav-text">返回示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础模块"><span class="nav-number">2.</span> <span class="nav-text">基础模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取访问令牌"><span class="nav-number">2.1.</span> <span class="nav-text">获取访问令牌</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#账号模块"><span class="nav-number">3.</span> <span class="nav-text">账号模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录（4-10增加返回字段：classNum-grade）"><span class="nav-number">3.1.</span> <span class="nav-text">登录（4.10增加返回字段：classNum,grade）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取用户头像-已弃用"><span class="nav-number">3.2.</span> <span class="nav-text">获取用户头像(已弃用)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册（已弃用）"><span class="nav-number">3.3.</span> <span class="nav-text">注册（已弃用）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主页"><span class="nav-number">4.</span> <span class="nav-text">主页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取今日课程列表"><span class="nav-number">4.1.</span> <span class="nav-text">获取今日课程列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#签到"><span class="nav-number">4.2.</span> <span class="nav-text">签到</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前用户全部课程（可以查询每门课的考勤结果）"><span class="nav-number">4.3.</span> <span class="nav-text">获取当前用户全部课程（可以查询每门课的考勤结果）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考勤结果查询-4-10-state-增加未签到状态"><span class="nav-number">4.4.</span> <span class="nav-text">考勤结果查询(4.10 state 增加未签到状态)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考勤结果列表-4-10-state-增加未签到状态"><span class="nav-number">4.5.</span> <span class="nav-text">考勤结果列表(4.10 state 增加未签到状态)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取本周课程列表"><span class="nav-number">4.6.</span> <span class="nav-text">获取本周课程列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请假"><span class="nav-number">4.7.</span> <span class="nav-text">请假</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片上传-4-10弃用"><span class="nav-number">4.8.</span> <span class="nav-text">图片上传(4.10弃用)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户密码修改（4-10新增）"><span class="nav-number">4.9.</span> <span class="nav-text">用户密码修改（4.10新增）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户信息修改（4-10新增）"><span class="nav-number">4.10.</span> <span class="nav-text">用户信息修改（4.10新增）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
