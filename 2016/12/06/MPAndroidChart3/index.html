@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MPAndroidChart," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="因为需求中大部分图表的样式都差不多，只有里面的数据做了变化，而使用图表的时候又需要对图表进行各种各样的配置，所以对图表框架进一步封装是有必要的。我这里将图表的配置写在一个类中，将常用的方法（数据，图表颜色，描述，等等）令写方法出来设置。。因为使用的是建造者模式，可以根据需求定义。这里封装了线性图、饼状图、柱状图、雷达图。
+写了一个数据类ChartValue用来存放所需数据的XY值，然后将数据设置也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPAndroidChart的简单封装">
+<meta property="og:url" content="http://rngift.com/2016/12/06/MPAndroidChart3/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="因为需求中大部分图表的样式都差不多，只有里面的数据做了变化，而使用图表的时候又需要对图表进行各种各样的配置，所以对图表框架进一步封装是有必要的。我这里将图表的配置写在一个类中，将常用的方法（数据，图表颜色，描述，等等）令写方法出来设置。。因为使用的是建造者模式，可以根据需求定义。这里封装了线性图、饼状图、柱状图、雷达图。
+写了一个数据类ChartValue用来存放所需数据的XY值，然后将数据设置也">
+<meta property="og:image" content="http://img.blog.csdn.net/20161206202946914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-12T14:19:31.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MPAndroidChart的简单封装">
+<meta name="twitter:description" content="因为需求中大部分图表的样式都差不多，只有里面的数据做了变化，而使用图表的时候又需要对图表进行各种各样的配置，所以对图表框架进一步封装是有必要的。我这里将图表的配置写在一个类中，将常用的方法（数据，图表颜色，描述，等等）令写方法出来设置。。因为使用的是建造者模式，可以根据需求定义。这里封装了线性图、饼状图、柱状图、雷达图。
+写了一个数据类ChartValue用来存放所需数据的XY值，然后将数据设置也">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161206202946914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2016/12/06/MPAndroidChart3/"/>
+
+
+
+
+
+  <title>MPAndroidChart的简单封装 | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/12/06/MPAndroidChart3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MPAndroidChart的简单封装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-06T20:44:21+08:00">
+                2016-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android第三方框架/" itemprop="url" rel="index">
+                    <span itemprop="name">Android第三方框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>因为需求中大部分图表的样式都差不多，只有里面的数据做了变化，而使用图表的时候又需要对图表进行各种各样的配置，所以对图表框架进一步封装是有必要的。<br>我这里将图表的配置写在一个类中，将常用的方法（数据，图表颜色，描述，等等）令写方法出来设置。。因为使用的是建造者模式，可以根据需求定义。这里封装了线性图、饼状图、柱状图、雷达图。</p>
+<p>写了一个数据类ChartValue用来存放所需数据的XY值，然后将数据设置也封装到了，配置类中，图表构建完成后获得图表的View对象，填充到想要的布局中去。</p>
+<h6 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h6><p>ChartView数据类：用来存放X，Y轴值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.xiaolongonly.mpchartsample.bean;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> xiaolong</div><div class="line"> * <span class="doctag">@version</span> v1.0</div><div class="line"> * <span class="doctag">@function</span> &lt;描述功能&gt;</div><div class="line"> * <span class="doctag">@date</span> 2016/9/22-17:32</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChartValue</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">    <span class="keyword">public</span> String xVal;</div><div class="line">    <span class="keyword">public</span> T yVal;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ChartValue</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ChartValue</span><span class="params">(String xVal, T yVal)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.xVal = xVal;</div><div class="line">        <span class="keyword">this</span>.yVal = yVal;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Item项：每个需要的图表构建一个item对象,存放固定配置和数据设置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.xiaolongonly.mpchartsample.chart.item;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.content.Context;</div><div class="line"><span class="keyword">import</span> android.graphics.Color;</div><div class="line"><span class="keyword">import</span> android.view.LayoutInflater;</div><div class="line"><span class="keyword">import</span> android.view.View;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.charts.LineChart;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.AxisBase;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.Legend;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.XAxis;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.YAxis;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.ChartData;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.Entry;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.LineData;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.LineDataSet;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.formatter.IAxisValueFormatter;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.interfaces.datasets.ILineDataSet;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.R;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.bean.ChartValue;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.chart.markview.DataMarkView;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.chart.util.ColorTemplate;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LineChartItem</span> <span class="keyword">extends</span> <span class="title">BaseChartItem</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String xDesc;</div><div class="line">    <span class="keyword">private</span> String yDesc;</div><div class="line">    <span class="keyword">private</span> DataMarkView dataMarkView;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LineChartItem</span><span class="params">(ChartData cd, Context c, IAxisValueFormatter iAxisValueFormatter)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(cd, c, iAxisValueFormatter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LineChartItem</span><span class="params">(ChartData cd, Context c, DataMarkView dataMarkView, IAxisValueFormatter iAxisValueFormatter)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(cd, c, iAxisValueFormatter);</div><div class="line">        <span class="keyword">this</span>.dataMarkView = dataMarkView;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemType</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> TYPE_LINECHART;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> getView(<span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getxDesc</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> xDesc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setxDesc</span><span class="params">(String xDesc)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.xDesc = xDesc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getyDesc</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> yDesc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setyDesc</span><span class="params">(String yDesc)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.yDesc = yDesc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">(View convertView)</span> </span>&#123;</div><div class="line"></div><div class="line">        ViewHolder holder = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (convertView == <span class="keyword">null</span>) &#123;</div><div class="line"></div><div class="line">            holder = <span class="keyword">new</span> ViewHolder();</div><div class="line"></div><div class="line">            convertView = LayoutInflater.from(mContext).inflate(</div><div class="line">                    R.layout.list_item_linechart, <span class="keyword">null</span>);</div><div class="line">            holder.chart = (LineChart) convertView.findViewById(R.id.chart);</div><div class="line"></div><div class="line">            convertView.setTag(holder);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            holder = (ViewHolder) convertView.getTag();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// apply styling</span></div><div class="line"></div><div class="line">        LineChart lineChart = (LineChart) holder.chart;</div><div class="line">        lineChart.setBackgroundColor(mContext.getResources().getColor(R.color.chart_bg));</div><div class="line">        lineChart.getLegend().setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);</div><div class="line">        lineChart.getLegend().setForm(Legend.LegendForm.CIRCLE);</div><div class="line">        <span class="comment">// 设置无数据文本提示</span></div><div class="line">        lineChart.setDescription(<span class="keyword">null</span>);</div><div class="line"><span class="comment">//        lineChart.setNoDataText(mContext.getResources().getString(R.string.chart_no_data));</span></div><div class="line"><span class="comment">//        lineChart.setXYDesc(xDesc, yDesc);</span></div><div class="line">        <span class="keyword">if</span> (!xDesc.equals(<span class="string">""</span>) || !yDesc.equals(<span class="string">""</span>)) &#123;</div><div class="line">            lineChart.setXYDesc(xDesc, yDesc, <span class="number">10f</span>, mContext.getResources().getColor(R.color.normal_black_color));</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//设置单方向和双方向缩放 true x,y方向可以同时控制，false只能控制x方向的缩小放大或者Y方向的缩小放大</span></div><div class="line">        lineChart.setPinchZoom(<span class="keyword">true</span>);</div><div class="line">        DataMarkView dataMarkView = <span class="keyword">new</span> DataMarkView(mContext, <span class="number">0</span>, <span class="string">""</span>);</div><div class="line">        lineChart.setMarkerView(dataMarkView);</div><div class="line">        lineChart.setDrawGridBackground(<span class="keyword">false</span>);</div><div class="line">        XAxis xAxis = lineChart.getXAxis();</div><div class="line">        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); <span class="comment">//定制X轴是在图表上方还是下方。</span></div><div class="line">        xAxis.setDrawGridLines(<span class="keyword">false</span>);</div><div class="line">        xAxis.setGranularity(<span class="number">1</span>);<span class="comment">//放大的时候X值不增多</span></div><div class="line">        xAxis.setValueFormatter(mIAxisValueFormatter);</div><div class="line">        <span class="keyword">if</span> (dataMarkView != <span class="keyword">null</span>) &#123;</div><div class="line">            lineChart.setMarkerView(dataMarkView);</div><div class="line">        &#125;</div><div class="line">        YAxis yAxisRight = lineChart.getAxisRight();</div><div class="line">        yAxisRight.setEnabled(<span class="keyword">false</span>);</div><div class="line">        YAxis yAxisLeft = lineChart.getAxisLeft();</div><div class="line">        yAxisLeft.setAxisMinimum(<span class="number">0</span>);</div><div class="line">        <span class="comment">// set data</span></div><div class="line">        lineChart.setData((LineData) mChartData);</div><div class="line"></div><div class="line">        <span class="comment">// do not forget to refresh the chart</span></div><div class="line">        <span class="comment">// holder.chart.invalidate();</span></div><div class="line">        lineChart.animateX(<span class="number">750</span>);</div><div class="line">        lineChart.animateY(<span class="number">750</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> convertView;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">int</span>[] colors = ColorTemplate.PIE_COLORS;</div><div class="line">        <span class="keyword">private</span> String[] describles = <span class="keyword">new</span> String[]&#123;<span class="string">""</span>&#125;;</div><div class="line">        <span class="keyword">private</span> String xDesc = <span class="string">""</span>;</div><div class="line">        <span class="keyword">private</span> String yDesc = <span class="string">""</span>;</div><div class="line">        <span class="keyword">private</span> List&lt;List&lt;ChartValue&gt;&gt; charValueLists = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">private</span> Context context;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> isFillColor;</div><div class="line">        <span class="keyword">private</span> ArrayList&lt;String&gt; labels = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.context = context;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">addChartValueList</span><span class="params">(List&lt;ChartValue&gt; charValueLists)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.charValueLists.add(charValueLists);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setChartValueList</span><span class="params">(List&lt;List&lt;ChartValue&gt;&gt; charValueLists)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.charValueLists = charValueLists;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setyDesc</span><span class="params">(String yDesc)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.yDesc = yDesc;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setxDesc</span><span class="params">(String xDesc)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.xDesc = xDesc;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setDescribles</span><span class="params">(String[] describles)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.describles = describles;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setColorReses</span><span class="params">(<span class="keyword">int</span>[] colorReses)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.colors = <span class="keyword">new</span> <span class="keyword">int</span>[colorReses.length];</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; colors.length; i++) &#123;</div><div class="line">                colors[i] = context.getResources().getColor(colorReses[i]);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">fillColorEnable</span><span class="params">(<span class="keyword">boolean</span> isFillColor)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.isFillColor = isFillColor;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> LineChartItem <span class="title">build</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> build(<span class="keyword">null</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> LineChartItem <span class="title">build</span><span class="params">(DataMarkView dataMarkView)</span> </span>&#123;</div><div class="line">            List&lt;ILineDataSet&gt; lineDataSets = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> listIndexOutside = <span class="number">0</span>; listIndexOutside &lt; charValueLists.size(); listIndexOutside++) &#123;</div><div class="line">                ArrayList&lt;Entry&gt; entries = <span class="keyword">new</span> ArrayList&lt;Entry&gt;();</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> listIndexInside = <span class="number">0</span>; listIndexInside &lt; charValueLists.get(listIndexOutside).size(); listIndexInside++) &#123;</div><div class="line">                    entries.add(<span class="keyword">new</span> Entry((<span class="keyword">float</span>) listIndexInside, (<span class="keyword">float</span>) charValueLists.get(listIndexOutside).get(listIndexInside).yVal));</div><div class="line">                    <span class="keyword">if</span> (listIndexOutside == <span class="number">0</span>) &#123;</div><div class="line">                        labels.add(charValueLists.get(listIndexOutside).get(listIndexInside).xVal);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                lineDataSets.add(generateLineDataSet(entries, describles[listIndexOutside], colors[listIndexOutside % colors.length]));</div><div class="line">            &#125;</div><div class="line">            IAxisValueFormatter iAxisValueFormatter = <span class="keyword">new</span> IAxisValueFormatter() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getFormattedValue</span><span class="params">(<span class="keyword">float</span> value, AxisBase axis)</span> </span>&#123;</div><div class="line">                    <span class="keyword">return</span> labels.get((<span class="keyword">int</span>) value % labels.size());</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">            LineData cd = <span class="keyword">new</span> LineData(lineDataSets);</div><div class="line">            LineChartItem lineChartItem = <span class="keyword">null</span>;</div><div class="line">            <span class="keyword">if</span> (dataMarkView != <span class="keyword">null</span>) &#123;</div><div class="line">                lineChartItem = <span class="keyword">new</span> LineChartItem(cd, context, dataMarkView, iAxisValueFormatter);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                lineChartItem = <span class="keyword">new</span> LineChartItem(cd, context, iAxisValueFormatter);</div><div class="line">            &#125;</div><div class="line">            lineChartItem.setxDesc(xDesc);</div><div class="line">            lineChartItem.setyDesc(yDesc);</div><div class="line">            <span class="keyword">return</span> lineChartItem;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> ILineDataSet <span class="title">generateLineDataSet</span><span class="params">(ArrayList&lt;Entry&gt; entries, String describle, <span class="keyword">int</span> color)</span> </span>&#123;</div><div class="line">            LineDataSet dataSet = <span class="keyword">new</span> LineDataSet(entries, describle);</div><div class="line">            dataSet.setLineWidth(<span class="number">2.0f</span>);</div><div class="line">            dataSet.setCircleRadius(<span class="number">3.5f</span>);</div><div class="line">            dataSet.setDrawCircleHole(<span class="keyword">true</span>);<span class="comment">//填充圆</span></div><div class="line">            dataSet.setValueTextSize(<span class="number">9f</span>);</div><div class="line">            dataSet.setHighlightLineWidth(<span class="number">2.0f</span>);</div><div class="line">            dataSet.setDrawFilled(isFillColor);</div><div class="line">            dataSet.setFillAlpha(<span class="number">51</span>);</div><div class="line">            dataSet.setFillColor(color); <span class="comment">//填充色</span></div><div class="line">            dataSet.setHighLightColor(color); <span class="comment">//选中十字线色</span></div><div class="line">            dataSet.setColor(color); <span class="comment">//线条颜色</span></div><div class="line">            dataSet.setCircleColor(color); <span class="comment">//圆点颜色</span></div><div class="line">            dataSet.setCircleColorHole(Color.WHITE);</div><div class="line">            dataSet.setCircleHoleRadius(<span class="number">2.0f</span>);</div><div class="line">            dataSet.setDrawValues(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">return</span> dataSet;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当然如果需求图表有其他样式的的话，我觉得也可以把配置信息抽取出来，通过不同的配置来设置不同的样式。</p>
+<p>在Activity中的使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.xiaolongonly.mpchartsample.ui;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.widget.RelativeLayout;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.R;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.base.BaseTitleActivity;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.bean.ChartValue;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.chart.item.LineChartItem;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> xiaolong</div><div class="line"> * <span class="doctag">@version</span> v1.0</div><div class="line"> * <span class="doctag">@function</span> &lt;描述功能&gt;</div><div class="line"> * <span class="doctag">@date</span> 2016/12/5-17:32</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LineChartActivity2</span> <span class="keyword">extends</span> <span class="title">BaseTitleActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> RelativeLayout rlContent;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> R.layout.activity_chart;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</div><div class="line">        rlContent = findView(R.id.rlContent);</div><div class="line">        List&lt;ChartValue&gt; chartValues = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        chartValues.add(<span class="keyword">new</span> ChartValue(<span class="string">"11月"</span>, <span class="number">110f</span>));</div><div class="line">        chartValues.add(<span class="keyword">new</span> ChartValue(<span class="string">"10月"</span>, <span class="number">120f</span>));</div><div class="line">        chartValues.add(<span class="keyword">new</span> ChartValue(<span class="string">"9月"</span>, <span class="number">100f</span>));</div><div class="line">        List&lt;ChartValue&gt; chartValues2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        chartValues2.add(<span class="keyword">new</span> ChartValue(<span class="string">"11月"</span>, <span class="number">155f</span>));</div><div class="line">        chartValues2.add(<span class="keyword">new</span> ChartValue(<span class="string">"10月"</span>, <span class="number">133f</span>));</div><div class="line">        chartValues2.add(<span class="keyword">new</span> ChartValue(<span class="string">"9月"</span>, <span class="number">122f</span>));</div><div class="line">        LineChartItem lineChartItem = <span class="keyword">new</span> LineChartItem.Builder(<span class="keyword">this</span>).setxDesc(<span class="string">"单位(月)"</span>)</div><div class="line">                .setyDesc(<span class="string">"单位(万)"</span>).setDescribles(<span class="keyword">new</span> String[]&#123;<span class="string">"项目支出金额"</span>&#125;)</div><div class="line">                .addChartValueList(chartValues).addChartValueList(chartValues2)</div><div class="line">                .build();</div><div class="line">        rlContent.addView(lineChartItem.getView());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setListener</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>是不是就简单多了只要构建一个Item对象，然后将item对象的图表布局，add到View中去就可以了。</p>
+<p>实现效果<br><img src="http://img.blog.csdn.net/20161206202946914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="实现效果"></p>
+<p><a href="https://github.com/xiaolongonly/MPAndroid-Chart" target="_blank" rel="external">项目github下载</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一直都没想到有一天我也能这么写代码，感觉代码写多了很多东西就懂了。</p>
+<p>在最开始的时候老大让我对图表框架进行二次封装，我听的一脸懵逼，经过一段时间的思考，反复对照之前的项目，因为之前的项目的配置都写在继承的图表中，在xml布局中要将图表改成继承的图表，数据导入也写在了Activity类中，感觉代码特别多且杂，后来想到了一句话，多用组合少用继承，现在看来确实，组合的方式会比继承好很多。虽然参考了好多代码，封装的也不怎么样，但是我确实是做到了。</p>
+<p>那时候跟同时说我把图表框架封装完的时候，同事说，不会啊封装的不错。对于我这种渣渣来讲就是莫大的安慰了。离自己的目标又近了一步。加油~~</p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MPAndroidChart/" rel="tag"># MPAndroidChart</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/06/MPAndroidChart2/" rel="next" title="MPAndroidChart添加自定义样式">
+                <i class="fa fa-chevron-left"></i> MPAndroidChart添加自定义样式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/08/RTAuthority/" rel="prev" title="Android6.0运行时权限解决方案">
+                Android6.0运行时权限解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#具体实现"><span class="nav-number">1.</span> <span class="nav-text">具体实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

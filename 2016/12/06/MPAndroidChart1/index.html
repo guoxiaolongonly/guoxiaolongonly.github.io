@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MPAndroidChart," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近做了两个数据展示的APP，都使用到了MPAndroidChart这个图表框架。
+框架地址：https://github.com/PhilJay/MPAndroidChart
+下面就来讲解一下MPChart的使用
+MPAndoridChartChart types（目前支持的图表类别）
+LineChart (with legend, simple design) (线性图1)
+
+LineChar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非常实用的图表工具MPAndroidChart">
+<meta property="og:url" content="http://rngift.com/2016/12/06/MPAndroidChart1/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="最近做了两个数据展示的APP，都使用到了MPAndroidChart这个图表框架。
+框架地址：https://github.com/PhilJay/MPAndroidChart
+下面就来讲解一下MPChart的使用
+MPAndoridChartChart types（目前支持的图表类别）
+LineChart (with legend, simple design) (线性图1)
+
+LineChar">
+<meta property="og:image" content="https://camo.githubusercontent.com/a9eaa5fc7fb6c1e70b22acd09385055e0f5c4fe7/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6c696e656368617274342e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/8c1c9cf68af994a1e17690834603c450638cc62c/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6c696e656368617274332e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/4e85ee91169c2ad5dc500b3b415a0c974766615d/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f63756269636c696e6563686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/e29d8d3316203700965cc6cc56e67b779f2845bb/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f636f6d62696e65645f63686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/e29d8d3316203700965cc6cc56e67b779f2845bb/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f636f6d62696e65645f63686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/78b4bc4e50e151970961daf56e81c4c0db72d27c/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6261726368617274332e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/4bf136c2fd25bcbeac0bcf363bc8f48dae0651fc/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f67726f7570656462617263686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/2ec281e0ac3013076bff1c3ac00d8d6de372d7a4/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f686f72697a6f6e74616c5f62617263686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/7e8a4a3c938c21d032d44d999edd781b6e146f2a/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f7069656368617274312e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/6b254aa699df7f9464967009129c3017de721b77/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f7363617474657263686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/6dbee4e35fde8691e5ac29417583dc8e16608895/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f63616e646c65737469636b63686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/6704c21e680e831c3c07d0bebf2676f5e99a3d41/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f627562626c6563686172742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/782ded242133f98db56004fc94401570b8749620/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f726164617263686172742e706e67">
+<meta property="og:image" content="http://img.blog.csdn.net/20161206202040496?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-12T14:20:00.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="非常实用的图表工具MPAndroidChart">
+<meta name="twitter:description" content="最近做了两个数据展示的APP，都使用到了MPAndroidChart这个图表框架。
+框架地址：https://github.com/PhilJay/MPAndroidChart
+下面就来讲解一下MPChart的使用
+MPAndoridChartChart types（目前支持的图表类别）
+LineChart (with legend, simple design) (线性图1)
+
+LineChar">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/a9eaa5fc7fb6c1e70b22acd09385055e0f5c4fe7/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6c696e656368617274342e706e67">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2016/12/06/MPAndroidChart1/"/>
+
+
+
+
+
+  <title>非常实用的图表工具MPAndroidChart | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/12/06/MPAndroidChart1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">非常实用的图表工具MPAndroidChart</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-06T20:23:12+08:00">
+                2016-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android第三方框架/" itemprop="url" rel="index">
+                    <span itemprop="name">Android第三方框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近做了两个数据展示的APP，都使用到了MPAndroidChart这个图表框架。</p>
+<p>框架地址：<a href="https://github.com/PhilJay/MPAndroidChart" target="_blank" rel="external">https://github.com/PhilJay/MPAndroidChart</a></p>
+<p>下面就来讲解一下MPChart的使用</p>
+<h1 id="MPAndoridChart"><a href="#MPAndoridChart" class="headerlink" title="MPAndoridChart"></a>MPAndoridChart</h1><h2 id="Chart-types（目前支持的图表类别）"><a href="#Chart-types（目前支持的图表类别）" class="headerlink" title="Chart types（目前支持的图表类别）"></a>Chart types（目前支持的图表类别）</h2><ul>
+<li><p>LineChart (with legend, simple design) (线性图1)<br><img src="https://camo.githubusercontent.com/a9eaa5fc7fb6c1e70b22acd09385055e0f5c4fe7/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6c696e656368617274342e706e67" alt="线性图1"></p>
+</li>
+<li><p>LineChart (with legend, simple design) (线性图2)<br><img src="https://camo.githubusercontent.com/8c1c9cf68af994a1e17690834603c450638cc62c/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6c696e656368617274332e706e67" alt="线性图2"></p>
+</li>
+<li><p>LineChart (cubic lines) (线性图3)<br><img src="https://camo.githubusercontent.com/4e85ee91169c2ad5dc500b3b415a0c974766615d/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f63756269636c696e6563686172742e706e67" alt="线性图3"></p>
+</li>
+<li><p>LineChart (gradient fill)    (线性图4)<br><img src="https://camo.githubusercontent.com/e29d8d3316203700965cc6cc56e67b779f2845bb/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f636f6d62696e65645f63686172742e706e67" alt="线性图4"></p>
+</li>
+<li><p>Combined-Chart (bar- and linechart in this case) (组合图 柱状图加线形图组合)<br><img src="https://camo.githubusercontent.com/e29d8d3316203700965cc6cc56e67b779f2845bb/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f636f6d62696e65645f63686172742e706e67" alt="组合图"></p>
+</li>
+<li><p>BarChart (with legend, simple design)(柱状图1)<br><img src="https://camo.githubusercontent.com/78b4bc4e50e151970961daf56e81c4c0db72d27c/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f6261726368617274332e706e67" alt="柱状图1"></p>
+</li>
+<li><p>BarChart (grouped DataSets) (柱状图2)</p>
+</li>
+</ul>
+<p><img src="https://camo.githubusercontent.com/4bf136c2fd25bcbeac0bcf363bc8f48dae0651fc/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f67726f7570656462617263686172742e706e67" alt="柱状图2"></p>
+<ul>
+<li><p>Horizontal-BarChart(横向柱状图)<br><img src="https://camo.githubusercontent.com/2ec281e0ac3013076bff1c3ac00d8d6de372d7a4/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d5043686172742f6d61737465722f73637265656e73686f74732f686f72697a6f6e74616c5f62617263686172742e706e67" alt="横向柱状图"></p>
+</li>
+<li><p>PieChart (with selection, …) (饼状图)<br><img src="https://camo.githubusercontent.com/7e8a4a3c938c21d032d44d999edd781b6e146f2a/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f73696d706c6564657369676e5f7069656368617274312e706e67" alt="饼状图"></p>
+</li>
+<li><p>ScatterChart (with squares, triangles, circles, … and more)(散点图)<br><img src="https://camo.githubusercontent.com/6b254aa699df7f9464967009129c3017de721b77/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f7363617474657263686172742e706e67" alt="散点图"></p>
+</li>
+</ul>
+<ul>
+<li>CandleStickChart (for financial data)    （烛形图）<br><img src="https://camo.githubusercontent.com/6dbee4e35fde8691e5ac29417583dc8e16608895/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f63616e646c65737469636b63686172742e706e67" alt="烛形图"></li>
+</ul>
+<ul>
+<li>BubbleChart (area covered by bubbles indicates the yValue)（气泡图）<br><img src="https://camo.githubusercontent.com/6704c21e680e831c3c07d0bebf2676f5e99a3d41/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f627562626c6563686172742e706e67" alt="气泡图"></li>
+</ul>
+<ul>
+<li>RadarChart (spider web chart)(雷达图)<br><img src="https://camo.githubusercontent.com/782ded242133f98db56004fc94401570b8749620/68747470733a2f2f7261772e6769746875622e636f6d2f5068696c4a61792f4d50416e64726f696443686172742f6d61737465722f73637265656e73686f74732f726164617263686172742e706e67" alt="雷达图"></li>
+</ul>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul>
+<li>支持x，y轴缩放</li>
+<li>支持拖拽</li>
+<li>支持手指滑动</li>
+<li>支持高亮显示</li>
+<li>支持保存图表到文件中</li>
+<li>支持从文件（txt）中读取数据</li>
+<li>预先定义颜色模板</li>
+<li>自动生成标注</li>
+<li>支持自定义x，y轴的显示标签</li>
+<li>支持x，y轴动画</li>
+<li>支持x，y轴设置最大值和附加信息</li>
+<li>支持自定义字体，颜色，背景，手势，虚线等</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>写sample的时候才发现，从1.0版本到3.0版本这个框架改动还是蛮多的。
+主要是把雷达图和饼状图抽取共用了。为了实现复合图将X轴值的设置放到了Axais中。之前是直接放到ChartData中的。
+
+图表常用的实现：
+每个图表都必须实现填充ChartData，也就是XY轴的数据。
+系统有默认的图表样式，可根据喜好设置图表的样式，各种颜色、形状、数据之间的间距等。
+可以根据图表的绘制流程和图表的点击事件(点击某个数据的监听)设置监听。
+可以添加图表的一些辅助显示工具：MarkView(以MarkView的形式显示数据，这种在数据量大的情况能避免数据显示重叠)，Legend(图表轴描述)
+</code></pre><p>这边以LineChart为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.xiaolongonly.mpchartsample.ui;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.graphics.Color;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.charts.LineChart;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.AxisBase;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.Legend;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.XAxis;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.components.YAxis;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.Entry;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.LineData;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.data.LineDataSet;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.formatter.IAxisValueFormatter;</div><div class="line"><span class="keyword">import</span> com.github.mikephil.charting.interfaces.datasets.ILineDataSet;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.R;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.base.BaseActivity;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.chart.markview.DataMarkView;</div><div class="line"><span class="keyword">import</span> cn.xiaolongonly.mpchartsample.chart.util.ColorTemplate;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> xiaolong</div><div class="line"> * <span class="doctag">@version</span> v1.0</div><div class="line"> * <span class="doctag">@function</span> &lt;描述功能&gt;</div><div class="line"> * <span class="doctag">@date</span> 2016/12/6-9:10</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LineChartActivity1</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> LineChart chart;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> R.layout.list_item_linechart;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</div><div class="line">        chart = findView(R.id.chart);</div><div class="line"></div><div class="line">        ChartConfig();</div><div class="line">		<span class="comment">//XY轴配置</span></div><div class="line">        XAxis xAxis = chart.getXAxis();</div><div class="line">        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); <span class="comment">//定制X轴是在图表上方还是下方。</span></div><div class="line">        xAxis.setDrawGridLines(<span class="keyword">false</span>);</div><div class="line">        xAxis.setGranularity(<span class="number">1</span>);</div><div class="line">        xAxis.setValueFormatter(<span class="keyword">new</span> IAxisValueFormatter() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">getFormattedValue</span><span class="params">(<span class="keyword">float</span> value, AxisBase axis)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> (<span class="keyword">int</span>) value + <span class="string">"年"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        YAxis yAxisRight = chart.getAxisRight();</div><div class="line">        yAxisRight.setEnabled(<span class="keyword">false</span>);</div><div class="line">        YAxis yAxisLeft = chart.getAxisLeft();</div><div class="line">        yAxisLeft.setAxisMinValue(<span class="number">0</span>);</div><div class="line">		<span class="comment">//动画效果</span></div><div class="line">        chart.animateX(<span class="number">750</span>);</div><div class="line">        chart.animateY(<span class="number">750</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 图表的配置 一些提示和Legend</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ChartConfig</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//设置覆盖物</span></div><div class="line">        DataMarkView dataMarkView = <span class="keyword">new</span> DataMarkView(<span class="keyword">this</span>, <span class="number">0</span>, <span class="string">""</span>);<span class="comment">//自定义覆盖物</span></div><div class="line">        chart.setMarkerView(dataMarkView);</div><div class="line"></div><div class="line">        <span class="comment">//背景设置</span></div><div class="line">        chart.setDrawGridBackground(<span class="keyword">false</span>);<span class="comment">//表格背景绘制</span></div><div class="line">        chart.setBackgroundColor(getResources().getColor(R.color.chart_bg));</div><div class="line"></div><div class="line">        <span class="comment">//Legend定制</span></div><div class="line">        chart.getLegend().setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);</div><div class="line">        chart.getLegend().setForm(Legend.LegendForm.CIRCLE);<span class="comment">//Legend样式</span></div><div class="line"></div><div class="line">        <span class="comment">//图表描述</span></div><div class="line">        chart.setDescription(<span class="keyword">null</span>);</div><div class="line">        <span class="comment">// 设置无数据文本提示</span></div><div class="line">        chart.setNoDataText(getResources().getString(R.string.chart_no_data));</div><div class="line">        <span class="comment">//XY轴描述</span></div><div class="line">        chart.setXYDesc(<span class="string">"年份"</span>, <span class="string">"总金额（元)"</span>);</div><div class="line">        <span class="comment">//设置单方向和双方向缩放 true x,y方向可以同时控制，false只能控制x方向的缩小放大或者Y方向的缩小放大</span></div><div class="line">        chart.setPinchZoom(<span class="keyword">true</span>);</div><div class="line">        <span class="comment">//填充数据</span></div><div class="line">        chart.setData(<span class="keyword">new</span> LineData(generateLineDataSet()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setListener</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> ILineDataSet <span class="title">generateLineDataSet</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> color = ColorTemplate.PIE_COLORS[<span class="number">0</span>];</div><div class="line">        LineDataSet dataSet = <span class="keyword">new</span> LineDataSet(generateData(), <span class="string">"年度营业额曲线"</span>);</div><div class="line">        dataSet.setLineWidth(<span class="number">2.0f</span>);</div><div class="line">        dataSet.setCircleRadius(<span class="number">3.5f</span>);</div><div class="line">        dataSet.setDrawCircleHole(<span class="keyword">true</span>);<span class="comment">//填充圆</span></div><div class="line">        dataSet.setValueTextSize(<span class="number">9f</span>);</div><div class="line">        dataSet.setHighlightLineWidth(<span class="number">2.0f</span>);</div><div class="line">        dataSet.setDrawFilled(<span class="keyword">true</span>);<span class="comment">//区域颜色</span></div><div class="line">        dataSet.setFillAlpha(<span class="number">51</span>);</div><div class="line">        dataSet.setFillColor(color); <span class="comment">//填充色</span></div><div class="line">        dataSet.setHighLightColor(color); <span class="comment">//选中十字线色</span></div><div class="line">        dataSet.setColor(color); <span class="comment">//线条颜色</span></div><div class="line">        dataSet.setCircleColor(color); <span class="comment">//圆点颜色</span></div><div class="line">        dataSet.setCircleColorHole(Color.WHITE);</div><div class="line">        dataSet.setCircleHoleRadius(<span class="number">2.0f</span>);</div><div class="line">        dataSet.setDrawValues(<span class="keyword">false</span>);</div><div class="line">        <span class="keyword">return</span> dataSet;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> List&lt;Entry&gt; <span class="title">generateData</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Entry&gt; entryList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        entryList.add(<span class="keyword">new</span> Entry(<span class="number">2013</span>, <span class="number">1000</span>));</div><div class="line">        entryList.add(<span class="keyword">new</span> Entry(<span class="number">2014</span>, <span class="number">2000</span>));</div><div class="line">        entryList.add(<span class="keyword">new</span> Entry(<span class="number">2015</span>, <span class="number">3000</span>));</div><div class="line">        entryList.add(<span class="keyword">new</span> Entry(<span class="number">2016</span>, <span class="number">4000</span>));</div><div class="line">        <span class="keyword">return</span> entryList;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如下<br><img src="http://img.blog.csdn.net/20161206202040496?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="效果图"></p>
+<pre><code>简单的介绍了一下MPChart的实现，一般就两个流程：
+一是设置图表配置（Legend,X，Y轴样式，图表样式，markView添加，动画效果等，注：不设置的话会使用默认的配置）
+二是填充数据（将需要展示的数据绑定到图表框架中）。
+图表框架有写地方并不能满足我们的需求，比如说没有XY轴描述。
+国内的人大部分看图表的习惯就只需要显示单条X，Y轴，并在轴末端设置单位等。
+下一篇文章介绍 自定义需求，XY轴描述添加。
+</code></pre><p>参考自：<a href="http://blog.csdn.net/u013338165/article/details/44810025" target="_blank" rel="external">http://blog.csdn.net/u013338165/article/details/44810025</a></p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MPAndroidChart/" rel="tag"># MPAndroidChart</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/08/Summary 2016-08-08/" rel="next" title="工作总结（一）">
+                <i class="fa fa-chevron-left"></i> 工作总结（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/06/MPAndroidChart2/" rel="prev" title="MPAndroidChart添加自定义样式">
+                MPAndroidChart添加自定义样式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MPAndoridChart"><span class="nav-number">1.</span> <span class="nav-text">MPAndoridChart</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chart-types（目前支持的图表类别）"><span class="nav-number">1.1.</span> <span class="nav-text">Chart types（目前支持的图表类别）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能"><span class="nav-number">1.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">1.3.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

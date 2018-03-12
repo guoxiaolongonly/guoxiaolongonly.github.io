@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android运行时权限," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今天在测试APP的时候发现部分手机APP定位权限使用不了。看了一下机型都是Android6.0以上版本的Android手机。
+之前就听说Android6.0以上版本权限管理更严格了，没想到今天踩坑了。
+
+6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
+这样子容易出现的问题是：
+1.如果某个权限被禁用了。应用开发中根本没提供方法来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android6.0运行时权限解决方案">
+<meta property="og:url" content="http://rngift.com/2016/12/08/RTAuthority/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="今天在测试APP的时候发现部分手机APP定位权限使用不了。看了一下机型都是Android6.0以上版本的Android手机。
+之前就听说Android6.0以上版本权限管理更严格了，没想到今天踩坑了。
+
+6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
+这样子容易出现的问题是：
+1.如果某个权限被禁用了。应用开发中根本没提供方法来">
+<meta property="og:image" content="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-12T14:18:59.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android6.0运行时权限解决方案">
+<meta name="twitter:description" content="今天在测试APP的时候发现部分手机APP定位权限使用不了。看了一下机型都是Android6.0以上版本的Android手机。
+之前就听说Android6.0以上版本权限管理更严格了，没想到今天踩坑了。
+
+6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
+这样子容易出现的问题是：
+1.如果某个权限被禁用了。应用开发中根本没提供方法来">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2016/12/08/RTAuthority/"/>
+
+
+
+
+
+  <title>Android6.0运行时权限解决方案 | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/12/08/RTAuthority/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android6.0运行时权限解决方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-08T16:23:31+08:00">
+                2016-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>今天在测试APP的时候发现部分手机APP定位权限使用不了。看了一下机型都是Android6.0以上版本的Android手机。
+之前就听说Android6.0以上版本权限管理更严格了，没想到今天踩坑了。
+
+6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
+这样子容易出现的问题是：
+1.如果某个权限被禁用了。应用开发中根本没提供方法来判断该权限是否被禁用。我们就需要自己的方法去判断。
+比如说录音权限被禁用了：http://blog.csdn.net/omrapollo/article/details/51150280，是从录音功能下手做判断。而不是从权限列表获取权限状态。这是真的坑。
+2.我们知道权限被禁用了，还需要判断一下是哪个系统好提醒用户按照操作去开启这个权限。
+也就是说开发过程中需要把主流的机型测试一遍。然后如果有权限管理的话把权限流程过一遍。加个判别系统的方法，然后在把流程做成一个一个加上去。简直可怕。
+
+Google最终解决方案，给系统弄一个权限管理。
+太棒了，权限管理由Android系统本身来做才是对开发者最友好的解决方案。
+</code></pre><p>废话不多说，接下来就讲讲6.0版本权限问题的终极解决方案吧。</p>
+<p>Android在 6.0以上版本需要进行动态的权限配置。</p>
+<h2 id="一、SDK新增方法"><a href="#一、SDK新增方法" class="headerlink" title="一、SDK新增方法"></a>一、SDK新增方法</h2><h3 id="1-在ActivityCompat增加的方法"><a href="#1-在ActivityCompat增加的方法" class="headerlink" title="1.在ActivityCompat增加的方法"></a>1.在ActivityCompat增加的方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ActivityCompat.requestPermissions(context, needPermissions, REQUEST_CODE_REQUEST_PERMISSION);</div></pre></td></tr></table></figure>
+<p>这个方法用来动态配置权限。如果没有所需的权限。将会弹窗提醒用户配置权限。<br>三个参数分别为:当前上下文，需要申请的权限列表列表，请求码。请求码用于后面回调返回请求结果用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ActivityCompat.checkSelfPermission(context, needPermission);</div></pre></td></tr></table></figure>
+<p>这个方法用来监测某个权限是否被配置。<br>两个参数分别为：当前上下文，需要监测的权限信息。<br>这个方法的返回值有两个0或-1 分别是已授权，和未授权</p>
+<p>在PackManager这个类中有与之相匹配的常量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * Permission check result: this is returned by &#123;<span class="doctag">@link</span> #checkPermission&#125;</div><div class="line">    * if the permission has been granted to the given package.</div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSION_GRANTED = <span class="number">0</span>;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * Permission check result: this is returned by &#123;<span class="doctag">@link</span> #checkPermission&#125;</div><div class="line">    * if the permission has not been granted to the given package.</div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSION_DENIED = -<span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="2-Activity中增加回调方法"><a href="#2-Activity中增加回调方法" class="headerlink" title="2.Activity中增加回调方法"></a>2.Activity中增加回调方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="keyword">int</span>[]grantResults)</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这个方法会在用户配置完权限后回调<br>三个回调参数分别是：请求码，请求的权限，权限当前状态</p>
+<h2 id="二、写个demo试验一下"><a href="#二、写个demo试验一下" class="headerlink" title="二、写个demo试验一下"></a>二、写个demo试验一下</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.xiaolongonly.myapplication;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.Manifest;</div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.support.annotation.NonNull;</div><div class="line"><span class="keyword">import</span> android.support.v4.app.ActivityCompat;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"><span class="keyword">import</span> android.util.Log;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String[] requestPermissions = &#123;</div><div class="line">            Manifest.permission.WRITE_EXTERNAL_STORAGE,</div><div class="line">            Manifest.permission.READ_EXTERNAL_STORAGE,</div><div class="line">            Manifest.permission.ACCESS_COARSE_LOCATION,</div><div class="line">            Manifest.permission.ACCESS_FINE_LOCATION&#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        <span class="keyword">int</span> write = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.WRITE_EXTERNAL_STORAGE);</div><div class="line">        <span class="keyword">int</span> read = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.READ_EXTERNAL_STORAGE);</div><div class="line">        <span class="keyword">int</span> coarse = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.ACCESS_COARSE_LOCATION);</div><div class="line">        <span class="keyword">int</span> fine = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.ACCESS_FINE_LOCATION);</div><div class="line">        Log.d(<span class="string">"permissionState："</span>, <span class="string">"write:"</span>+write + <span class="string">"_"</span> + <span class="string">"read:"</span>+read + <span class="string">"_"</span> + <span class="string">"coarse:"</span>+coarse + <span class="string">"_"</span> + <span class="string">"fine:"</span>+fine);</div><div class="line">        ActivityCompat.requestPermissions(<span class="keyword">this</span>, requestPermissions, <span class="number">10086</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">        Log.d(<span class="string">"RequestCode"</span>, requestCode + <span class="string">""</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; permissions.length; i++) &#123;</div><div class="line">            Log.d(<span class="string">"permissionInfo"</span>, <span class="string">"permissionName："</span> + permissions[i] + <span class="string">"permission State："</span> + grantResults[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> write = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.WRITE_EXTERNAL_STORAGE);</div><div class="line">        <span class="keyword">int</span> read = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.READ_EXTERNAL_STORAGE);</div><div class="line">        <span class="keyword">int</span> coarse = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.ACCESS_COARSE_LOCATION);</div><div class="line">        <span class="keyword">int</span> fine = ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.ACCESS_FINE_LOCATION);</div><div class="line">        Log.d(<span class="string">"permissionState："</span>, <span class="string">"write:"</span>+write + <span class="string">"_"</span> + <span class="string">"read:"</span>+read + <span class="string">"_"</span> + <span class="string">"coarse:"</span>+coarse + <span class="string">"_"</span> + <span class="string">"fine:"</span>+fine);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="打印出的Log如下"><a href="#打印出的Log如下" class="headerlink" title="打印出的Log如下"></a>打印出的Log如下</h3><p>允许的情况</p>
+<p><strong>D/CreatePermissionState：: write:-1_read:-1_coarse:-1_fine:-1</strong><br><strong>D/RequestCode: 10086</strong><br><strong>D/permissionInfo: permissionName：android.permission.WRITE_EXTERNAL_STORAGEpermission State：0</strong><br><strong>D/permissionInfo: permissionName：android.permission.READ_EXTERNAL_STORAGEpermission State：0</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_COARSE_LOCATIONpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_FINE_LOCATIONpermission State：-1</strong><br><strong>D/FinishPermissionState：: write:0_read:0_coarse:-1_fine:-1</strong></p>
+<p>拒绝后</p>
+<p><strong>D/CreatePermissionState：: write:-1_read:-1_coarse:-1_fine:-1</strong><br><strong>D/RequestCode: 10086</strong><br><strong>D/permissionInfo: permissionName：android.permission.WRITE_EXTERNAL_STORAGEpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.READ_EXTERNAL_STORAGEpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_COARSE_LOCATIONpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_FINE_LOCATIONpermission State：-1</strong><br><strong>D/FinishPermissionState：: write:-1_read:-1_coarse:-1_fine:-1</strong></p>
+<p>界面：</p>
+<p><img src="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="授权提醒"></p>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>发现只出现一个授权文件读写的提醒框。<br>最后发现我在清单文件Manifest中只注册了读写权限。没有注册网络定位和精准定位权限。加上这两个。<br>这次启动的时候就出现了两个提示框了。（授权文件读写和定位）<br>可以看出，文件读写是归一个权限控制来管理的，两个定位权限也是归于一个权限控制来管理的。<br>清单权限注册<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_EXTERNAL_STORAGE"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_COARSE_LOCATION"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ol>
+<li><p>需要动态配置的权限一定要在清单文件中做注册，不然默认都是不做配置的。之前踩过的一个坑是只注册了COARSE_LOCATION没有注册FINE_LOCATION，发现FINE_LOCATION一直是未授权，但是COARSE_LOCATION授权成功了。</p>
+</li>
+<li><p>当用户拒绝权限授权之后，在次权限申请的时候是会出现不在询问的提示框的。勾选之后只能选择拒绝权限。拒绝之后以后就不会再做提醒了，<br>权限会自动被拒绝，requestPermissions方法是有走的，系统自动拒绝了这个权限。所以在onRequestPermissionResult()中一样能看到不提醒但requestPermissions做了申请的权限。</p>
+</li>
+</ol>
+<p>##三、最后再对代码进行简单的封装<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.xiaolongonly.myapplication;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.Manifest;</div><div class="line"><span class="keyword">import</span> android.app.Activity;</div><div class="line"><span class="keyword">import</span> android.content.Intent;</div><div class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</div><div class="line"><span class="keyword">import</span> android.net.Uri;</div><div class="line"><span class="keyword">import</span> android.provider.Settings;</div><div class="line"><span class="keyword">import</span> android.support.v4.app.ActivityCompat;</div><div class="line"><span class="keyword">import</span> android.util.Log;</div><div class="line"><span class="keyword">import</span> android.widget.Toast;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PermissionUtil</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CODE_REQUEST_PERMISSION = <span class="number">1027</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PACKAGE_URL_SCHEME = <span class="string">"package:"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CODE_REQUEST_SETTING = <span class="number">1028</span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PermissionListener</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">allGranted</span><span class="params">()</span></span>;                                          <span class="comment">//申请的权限已全部被允许;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PermissionTool</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> String[] lackPermission;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 需要进行检测的权限数组</div><div class="line">         */</div><div class="line">        <span class="keyword">public</span> String[] mainNeedPermissions = &#123;       <span class="comment">//SD卡权限，定位权限</span></div><div class="line">                Manifest.permission.WRITE_EXTERNAL_STORAGE,</div><div class="line">                Manifest.permission.READ_EXTERNAL_STORAGE,</div><div class="line">                Manifest.permission.ACCESS_COARSE_LOCATION,</div><div class="line">                Manifest.permission.ACCESS_FINE_LOCATION,</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 需要进行检测的权限数组</div><div class="line">         */</div><div class="line">        <span class="keyword">public</span> String[] qrCodeNeedPermissions = &#123;       <span class="comment">//获取相机权限</span></div><div class="line">                Manifest.permission.CAMERA</div><div class="line">        &#125;;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 需要进行检测的权限数组</div><div class="line">         */</div><div class="line">        <span class="keyword">public</span> String[] requestNeedPermissions = &#123;       <span class="comment">//获取手机设备号用</span></div><div class="line">                Manifest.permission.READ_PHONE_STATE</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> PermissionListener mListener;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">PermissionTool</span><span class="params">(PermissionListener listener)</span> </span>&#123;</div><div class="line">            mListener = listener;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkAndRequestPermission</span><span class="params">(Activity activity, String... needPermissions)</span> </span>&#123;</div><div class="line">            <span class="keyword">boolean</span> isAllGranted = <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">for</span> (String needPermission : needPermissions) &#123;</div><div class="line">                <span class="keyword">if</span> (ActivityCompat.checkSelfPermission(activity, needPermission)</div><div class="line">                        != PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">                    isAllGranted = <span class="keyword">false</span>;</div><div class="line">                &#125;</div><div class="line">                Log.d(<span class="string">"state"</span>, ActivityCompat.checkSelfPermission(activity, needPermission) + <span class="string">""</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (isAllGranted) &#123;</div><div class="line">                mListener.allGranted();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                ActivityCompat.requestPermissions(activity, needPermissions, REQUEST_CODE_REQUEST_PERMISSION);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionResult</span><span class="params">(<span class="keyword">final</span> Activity activity,</span></span></div><div class="line">                                              <span class="keyword">int</span> requestCode, String[] permissions, <span class="keyword">int</span>[] grantResults) &#123;</div><div class="line">            <span class="keyword">if</span> (requestCode == REQUEST_CODE_REQUEST_PERMISSION) &#123;</div><div class="line">                <span class="keyword">boolean</span> allGrant = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; grantResults.length; i++) &#123;</div><div class="line">                    <span class="keyword">if</span> (grantResults[i] != PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">                        allGrant = <span class="keyword">false</span>;</div><div class="line">                    &#125;</div><div class="line">                    Log.d(<span class="string">"PermissionTool"</span>, <span class="string">"onRequestPermissionResult(): "</span> + grantResults[i] + <span class="string">"permission"</span> + permissions[i]);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (allGrant) &#123;</div><div class="line">                    mListener.allGranted();</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    Toast.makeText(activity, <span class="string">"部分所需权限未开启，将影响功能正常使用，请开启权限！"</span>, Toast.LENGTH_LONG).show();</div><div class="line">                    startAppSettings(activity);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startAppSettings</span><span class="params">(Activity activity)</span> </span>&#123;</div><div class="line">            Intent intent = <span class="keyword">new</span> Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);</div><div class="line">            intent.setData(Uri.parse(PACKAGE_URL_SCHEME + activity.getPackageName()));</div><div class="line">            activity.startActivityForResult(intent, REQUEST_CODE_REQUEST_SETTING);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里将权限管理的方法和回调都抽取到一个类中了。直接调用方法和回调就可以了。</p>
+<p>值得注意的是：在自己写的APP有一些页面没有这些授权是无法使用的。但是用户又禁止了权限。而用户可能不知道要去哪里开启这个权限，就可以通过打开当前应用的设置页面来引导用户开启。startAppSettings(Activity activity)</p>
+<p>###使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.xiaolongonly.myapplication;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.Manifest;</div><div class="line"><span class="keyword">import</span> android.os.Build;</div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.support.annotation.NonNull;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String[] requestPermissions = &#123;</div><div class="line">            Manifest.permission.WRITE_EXTERNAL_STORAGE,</div><div class="line">            Manifest.permission.READ_EXTERNAL_STORAGE,</div><div class="line">            Manifest.permission.ACCESS_COARSE_LOCATION,</div><div class="line">            Manifest.permission.ACCESS_FINE_LOCATION&#125;;</div><div class="line">    <span class="keyword">private</span> PermissionUtil.PermissionTool permissionTool;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>) &#123; <span class="comment">//针对6.0以后的版本加权限判断</span></div><div class="line">            permissionTool = <span class="keyword">new</span> PermissionUtil.PermissionTool(<span class="keyword">new</span> PermissionUtil.PermissionListener() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">allGranted</span><span class="params">()</span> </span>&#123;</div><div class="line">                    initView();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">            permissionTool.checkAndRequestPermission(MainActivity.<span class="keyword">this</span>, requestPermissions);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            initView();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//在这里做界面初始化</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">        permissionTool.onRequestPermissionResult(<span class="keyword">this</span>, requestCode, permissions, grantResults);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>总结对于Android6.0运行时权限暂时就知道怎么配置了，如果有不足的地方欢迎指出。<br><a href="http://download.csdn.net/detail/guoxiaolongonly/9705842" target="_blank" rel="external">demo下载</a></p>
+<p>##新功能<br>这边顺便讲一下在manifest清单文件中多了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission-sdk-23</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>这样的权限设置，这个跟应用动态授权没有什么关系。<br>在<a href="https://developer.android.google.cn/guide/topics/manifest/uses-permission-sdk-23-element.html" target="_blank" rel="external">谷歌官方文档</a><br>是这么解释的</p>
+<pre><code>指明应用需要特定权限，但仅当应用在 API 级别 23 或更高版本的设备上运行时才需要。如果设备运行的是 API 级别 22 或更低版本，则应用没有指定的权限。
+当您更新应用以包含需要其他权限的新功能时，此元素很有用。如果用户在运行 API 级别 22 或更低版本的设备更新应用，系统在安装时会提示用户授予在该更新中声明的所有新权限。如果某个新功能无关紧要，您可能想同时在这些设备上停用该功能，以便用户不需要授予额外权限即可更新应用。如果使用 &lt;uses-permission-sdk-23&gt; 元素而不使用 &lt;uses-permission&gt;，则仅当应用在支持运行时权限模式（用户在应用运行时向其授予权限）的平台上运行时才可请求权限。
+如需了解有关权限的详细信息，请参阅简介的权限部分和单独的系统权限 API 指南。在 android.Manifest.permission 上可以找到基础平台定义的权限列表。
+</code></pre><p>也就是说如果使用的是<uses-permission-sdk-23>来注册的话这个权限就只能运行时动态赋予。 而版本低于SDK23的Android设备不支持动态设置权限。所以低于SDK23的应用是不能有这个权限的。</uses-permission-sdk-23></p>
+<h1 id="好消息好消息"><a href="#好消息好消息" class="headerlink" title="好消息好消息"></a>好消息好消息</h1><p><a href="https://developer.android.google.cn/index.html" target="_blank" rel="external">谷歌Developers</a>中国网站今天发布了。</p>
+<p>英文四级的我感到非常happy。</p>
+<p>毕竟看英文文档都要借助翻译一个单词一个单词查还是很辛苦的，现在文档都有官方的中文版本了。</p>
+<p>手动撒花！！！！手动撒花！！！！手动撒花！！！！</p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android运行时权限/" rel="tag"># Android运行时权限</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/06/MPAndroidChart3/" rel="next" title="MPAndroidChart的简单封装">
+                <i class="fa fa-chevron-left"></i> MPAndroidChart的简单封装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/10/CodeRepository/" rel="prev" title="Github仓库创建及git常用命令使用">
+                Github仓库创建及git常用命令使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、SDK新增方法"><span class="nav-number">1.</span> <span class="nav-text">一、SDK新增方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在ActivityCompat增加的方法"><span class="nav-number">1.1.</span> <span class="nav-text">1.在ActivityCompat增加的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Activity中增加回调方法"><span class="nav-number">1.2.</span> <span class="nav-text">2.Activity中增加回调方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、写个demo试验一下"><span class="nav-number">2.</span> <span class="nav-text">二、写个demo试验一下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打印出的Log如下"><span class="nav-number">2.1.</span> <span class="nav-text">打印出的Log如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现的问题"><span class="nav-number">2.2.</span> <span class="nav-text">出现的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项："><span class="nav-number">2.3.</span> <span class="nav-text">注意事项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#好消息好消息"><span class="nav-number"></span> <span class="nav-text">好消息好消息</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

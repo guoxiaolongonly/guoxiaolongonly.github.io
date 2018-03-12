@@ -1,15 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -33,36 +37,11 @@
 
 
 
+
   
   
   <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,19 +50,29 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="学习,MPAndroidChart," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
 
 
+  <meta name="keywords" content="MPAndroidChart," />
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
 
 
 
@@ -93,14 +82,14 @@
 <meta name="description" content="前言一直在使用MPAndroidChart但对其内部机制却没有做多少了解，自己之前还修改过MPAndroidChart的源码，某次面试被问到，MPAndroidChart是怎样进行绘制的，瞬间一脸懵逼，回答了个大概，但是被看出其实不是很了解。算亡羊补牢吧，今天抽了点时间看了MPAndroidChart 3.0的源码部分。直接进入正题吧。
 Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MPAndroidChart">
+<meta property="og:title" content="MPAndroidChart源码解析">
 <meta property="og:url" content="http://rngift.com/2017/03/31/MPAndroidChartSource/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
 <meta property="og:description" content="前言一直在使用MPAndroidChart但对其内部机制却没有做多少了解，自己之前还修改过MPAndroidChart的源码，某次面试被问到，MPAndroidChart是怎样进行绘制的，瞬间一脸懵逼，回答了个大概，但是被看出其实不是很了解。算亡羊补牢吧，今天抽了点时间看了MPAndroidChart 3.0的源码部分。直接进入正题吧。
 Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
-<meta property="og:updated_time" content="2017-05-09T13:26:48.530Z">
+<meta property="og:updated_time" content="2018-03-12T14:23:00.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MPAndroidChart">
+<meta name="twitter:title" content="MPAndroidChart源码解析">
 <meta name="twitter:description" content="前言一直在使用MPAndroidChart但对其内部机制却没有做多少了解，自己之前还修改过MPAndroidChart的源码，某次面试被问到，MPAndroidChart是怎样进行绘制的，瞬间一脸懵逼，回答了个大概，但是被看出其实不是很了解。算亡羊补牢吧，今天抽了点时间看了MPAndroidChart 3.0的源码部分。直接进入正题吧。
 Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
@@ -110,10 +99,12 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -136,11 +127,7 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
 
 
-  <title>MPAndroidChart | Xiaolong的个人博客</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>MPAndroidChart源码解析 | Xiaolong的个人博客</title>
   
 
 
@@ -150,18 +137,16 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
 
 
+</head>
 
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -177,7 +162,7 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
       </a>
     </div>
       
-        <p class="site-subtitle">爱生活，爱学习</p>
+        <p class="site-subtitle">每一天都值得被认真对待</p>
       
   </div>
 
@@ -207,52 +192,12 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/pastLove" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
-            
-            爱过的人
           </a>
         </li>
       
@@ -284,13 +229,17 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/03/31/MPAndroidChartSource/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小龙">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -302,14 +251,7 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                MPAndroidChart
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">MPAndroidChart源码解析</h1>
         
 
         <div class="post-meta">
@@ -344,8 +286,8 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/源码解析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码解析</span>
+                  <a href="/categories/Android源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">Android源码解析</span>
                   </a>
                 </span>
 
@@ -372,6 +314,9 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -913,36 +858,23 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 <li>图表对象</li>
 </ol>
 <p>之后根据Touch事件判断相应的手势或者点击，触摸事件作出反应（点击，手势缩放，移动等）。调用View的postInvalidate 方法通知刷新。</p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/学习/" rel="tag"># 学习</a>
           
             <a href="/tags/MPAndroidChart/" rel="tag"># MPAndroidChart</a>
           
@@ -950,15 +882,15 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
       
 
       
-        
+      
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/31/EventBusSource/" rel="next" title="EventBus">
-                <i class="fa fa-chevron-left"></i> EventBus
+              <a href="/2017/02/23/MeetMomeryLeak/" rel="next" title="初识内存泄露">
+                <i class="fa fa-chevron-left"></i> 初识内存泄露
               </a>
             
           </div>
@@ -967,8 +899,8 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/07/SummaryOfWork/" rel="prev" title="工作总结（二）">
-                工作总结（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/31/EventBusSource/" rel="prev" title="EventBus源码解析">
+                EventBus源码解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -978,6 +910,10 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -993,9 +929,9 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+
 
 
         </div>
@@ -1011,101 +947,80 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/lucky.jpg"
-               alt="小龙" />
-          <p class="site-author-name" itemprop="name">小龙</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
               <p class="site-description motion-element" itemprop="description">程序猿</p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">13</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
+          <nav class="site-state motion-element">
 
-          
             
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/xiaolongonly" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
-              </span>
+              </div>
             
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-android"></i>
-                  
-                  CSDN
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
                 </a>
-              </span>
+              </div>
             
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
           
+
+          
+
+          
+          
+
+          
+          
+
+          
+
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -1138,30 +1053,36 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -1172,6 +1093,8 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -1206,53 +1129,58 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
@@ -1282,14 +1210,8 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
 
 
-  
 
 
-
-
-
-
-  
 
 
 
@@ -1297,6 +1219,17 @@ Chart基类这边顺便讲解一下Chart这个类，它是所有图表">
 
   
 
+
+
+
+
+  
+
+  
+
+  
+
+  
   
 
   

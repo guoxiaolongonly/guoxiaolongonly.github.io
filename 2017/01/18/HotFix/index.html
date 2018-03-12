@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="热修复," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="热修复技术前景分析近两年来，热修复技术在安卓开发圈儿成为焦点。随之而来的是，相关的解决方案也不断涌现。为此，本文将热修复的几大流派分别做较深入的阐述，以使关注这一技术的开发同学有更深的了解。
+在正式切入话题之前，我们先来看看传统的开发流程究竟有哪些痛点。概括之，可以用三个“太”来描述：1.重新发布版本的代价太大；2.用户下载安装的成本太高；3.BUG修复不及时造成用户体验太差。
+正因为如此，热修复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里百川HotFix的使用">
+<meta property="og:url" content="http://rngift.com/2017/01/18/HotFix/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="热修复技术前景分析近两年来，热修复技术在安卓开发圈儿成为焦点。随之而来的是，相关的解决方案也不断涌现。为此，本文将热修复的几大流派分别做较深入的阐述，以使关注这一技术的开发同学有更深的了解。
+在正式切入话题之前，我们先来看看传统的开发流程究竟有哪些痛点。概括之，可以用三个“太”来描述：1.重新发布版本的代价太大；2.用户下载安装的成本太高；3.BUG修复不及时造成用户体验太差。
+正因为如此，热修复">
+<meta property="og:image" content="http://img.blog.csdn.net/20170118163628380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-12T14:45:05.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里百川HotFix的使用">
+<meta name="twitter:description" content="热修复技术前景分析近两年来，热修复技术在安卓开发圈儿成为焦点。随之而来的是，相关的解决方案也不断涌现。为此，本文将热修复的几大流派分别做较深入的阐述，以使关注这一技术的开发同学有更深的了解。
+在正式切入话题之前，我们先来看看传统的开发流程究竟有哪些痛点。概括之，可以用三个“太”来描述：1.重新发布版本的代价太大；2.用户下载安装的成本太高；3.BUG修复不及时造成用户体验太差。
+正因为如此，热修复">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170118163628380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2017/01/18/HotFix/"/>
+
+
+
+
+
+  <title>阿里百川HotFix的使用 | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/01/18/HotFix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阿里百川HotFix的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-18T16:52:57+08:00">
+                2017-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android第三方/" itemprop="url" rel="index">
+                    <span itemprop="name">Android第三方</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="热修复技术前景分析"><a href="#热修复技术前景分析" class="headerlink" title="热修复技术前景分析"></a>热修复技术前景分析</h3><p>近两年来，热修复技术在安卓开发圈儿成为焦点。随之而来的是，相关的解决方案也不断涌现。为此，本文将热修复的几大流派分别做较深入的阐述，以使关注这一技术的开发同学有更深的了解。</p>
+<p>在正式切入话题之前，我们先来看看传统的开发流程究竟有哪些痛点。概括之，可以用三个“太”来描述：1.重新发布版本的代价太大；2.用户下载安装的成本太高；3.BUG修复不及时造成用户体验太差。</p>
+<p>正因为如此，热修复技术才得以施展，并被广大开发者追捧。那么，热修复开发流程具有怎样的优势？总结起来，也有三点。</p>
+<p>第一， 无需重新发版，而且实时高效。</p>
+<p>第二， 用户对修复过程无感知，也无需下载新的应用，总之，代价非常小。</p>
+<p>第三， 修复的成功率高，可以吧损失降至最低。</p>
+<p>哎呀，热修复技术真是棒棒哒。但是热修复技术虽好，可不能“贪杯”，毕竟流派较多，哪款才适合呢？</p>
+<h3 id="市面上流行的热修复技术对比"><a href="#市面上流行的热修复技术对比" class="headerlink" title="市面上流行的热修复技术对比"></a>市面上流行的热修复技术对比</h3><p>目前，市面上主流的几个热修复流派有这些，阿里andfix、美团Robust、QQ空间和微信Tinker。那，咱们就一起来看看这些技术方案都有哪些优缺点？</p>
+<p>阿里andfix  </p>
+<p>hook本地方法. 并没有整体替换class。1. 打开链接库得到操作句柄, 获取native层内部函数, 得到classobject对象. 2. 修复访问权限属性为public 3. 得到新旧方法的指针, 新方法指向目标方法, 实现方法的替换</p>
+<p>优点： 1. 不侵入打包, 性能无损耗；2. 即时生效。</p>
+<p>缺点： 1. 需要针对dalvik虚拟机和art虚拟机做适配，需要考虑指令集的兼容问题，需要native代码支持，兼容性上会有一定的影响； 2. 不支持新增类方法/字段，以及修改<init>方法，也不支持对资源的替换。</init></p>
+<p>美团Robust  </p>
+<p>类似Instant Run原理, 每个产品代码的每个函数都在编译打包阶段自动的插入了一段代码。</p>
+<p>客户端拿到patch.dex后，用DexClassLoader加载patch.dex. 其中的changeQuickRedirect字段赋值为用patch.dex中的StatePatch.java这个class new出来的对象。这就是打patch的主要过程。</p>
+<p>优点： 正常的使用DexClassLoader，兼容性高，未反射注入，实时生效。</p>
+<p>缺点： 1. 原来能被ProGuard内联的函数不能被内联了，所以可能导致方法数的增加，原来没超过65536但是后面可能就操作了65536限制，同时apk的体积也会一定程度的增大；2. so和资源的替换暂时不支持；3. 侵入式打包。</p>
+<p>QQ空间</p>
+<p>类似Multidex, 注入, 插桩. 大致的过程就是：把BUG方法修复以后，放到一个单独的DEX里，插入到dexElements数组的最前面，让虚拟机去加载修复完后的方法。</p>
+<p>davilk: 但是有一个问题是，当两个调用关系的类不在同一个DEX时，就会产生异常报错。我们知道，在APK安装时，davilk虚拟机通过dexopt将classes.dex优化成odex文件，然后才会执行。在这个过程中，会进行类的verify操作，如果调用关系的类都在同一个DEX中的话就会被打上CLASS_ISPREVERIFIED的标志，然后才会写入odex文件。所以，为了可以正常的进行打补丁修复，必须避免类被打上CLASS_ISPREVERIFIED标志，具体的做法就是单独放一个类在另外DEX中，让其他类调用。但是虽然阻止了被打上CLASS_ISPREVERIFIED标志, 但是运行时加载类做verify与optimize所以效率低下. 特别是应用刚启动的情况下需要加载大量类的情况下就会花不少时间。</p>
+<p>art: Art采用了新的方式，插桩对代码的执行效率并没有什么影响。但是若补丁中的类出现修改类变量或者方法，可能会导致出现内存地址错乱的问题。为了解决这个问题我们需要将修改了变量、方法以及接口的类的父类以及调用这个类的所有类都加入到补丁包中。</p>
+<p>优点： 兼容性高</p>
+<p>缺点： 1. 不支持实时生效；2. avilk下类加载性能问题；3. art下补丁包包很大；4. 侵入式打包。</p>
+<p>微信Tinker</p>
+<p>dex merge，微信针对QQ空间超级补丁技术的不足提出了一个提供DEX差量包，整体替换DEX的方案。主要的原理是与QQ空间超级补丁技术基本相同，区别在于不再将patch.dex增加到elements数组中，而是差量的方式给出patch.dex，然后将patch.dex与应用的classes.dex合并，然后整体替换掉旧的DEX，达到修复的目的。</p>
+<p>优点： 1. 自研DexDiff算法, 深度利用Dex的格式来减少差异的大小。它的粒度是Dex格式的每一项，可以充分利用原本Dex的信息，而BsDiff的粒度是文件 补丁包足够小。2. 有效防止了qq空间导致的加载效率下降问题。3. 侵入式打包。</p>
+<p>缺点： 1. 不支持即时生效；2. 需要给应用开启新的进程才能进行合并，并且很容易因为内存消耗等原因合并失败；3. 合并时占用额外磁盘空间，对于多DEX的应用来说，如果修改了多个DEX文件，就需要下发多个patch.dex与对应的classes.dex进行合并操作时，这种情况会更严重。</p>
+<p>阿里百川HotFix</p>
+<p>百川HotFix是在阿里AndFix的基础上，增加了补丁管理后台。我们可以在下面的图中看到我们的服务后台功能，可以上传补丁。补丁必须跟版本号绑定，同时提供了补丁控制功能, 比如停止发布/继续发布/灰度/全量发布等功能。 </p>
+<p>同时HotFix基于手淘的实践针对andfix做了大量优化，性能上提高了兼容和稳定性，功能上比如支持新增类和基于类方法作为粒度所以有更小的补丁包，开源的andfix补丁包是以类作为粒度。</p>
+<p>事实上，阿里百川HotFix也在不断演进之中，最新的2.0版已经突破了很多限制，比如，不支持资源修复，so修复；不支持新增类方法/类字段等。现在这些都不是问题啦，而且它还在依然在不断进化！</p>
+<p>相较于最初的1.X版本，阿里百川HotFix  2.0可谓发生了“翻天覆地”的变化。有哪些？请看。</p>
+<ul>
+<li><p>将1.x版本的所有限制全部取消；</p>
+</li>
+<li><p>不仅仅只基于AndFix而是自由切换方案；</p>
+</li>
+<li><p>不管资源/SO文件/类修复都能做到实时生效；</p>
+</li>
+<li><p>傻瓜式接入, 完全不侵入你的打包过程, 可视化UI界面打补丁。</p>
+</li>
+</ul>
+<p>这么一个好东东究竟啥时候有啊？别急，2017年1月中旬就会上线，到时候就可以“你有我有全都有了！”</p>
+<p>另外，阿里百川HotFix还有一些“计划”。</p>
+<p>1、更小的补丁包，比如尝试so和资源文件做bsdiff。</p>
+<p>2、支持四大组件的代理。</p>
+<p>3、更好的性能和稳定兼容性。</p>
+<p>你以为这样就完了？No，下面再给大家分享一下阿里百川HotFix的一些具体修复方案。</p>
+<p>百川Hotfix2.X 类修复方案</p>
+<p>补丁工具检测补丁冷部署or热部署</p>
+<ul>
+<li>由于热部署andfix修复正在运行的方法有crash的风险, 所以补丁工具提供参数由业务方来决定是否尝试走热部署, 如果用户patch的方法没有被高频调用同时又有实时生效的需求, 那么可以优先选择走热部署方案</li>
+</ul>
+<p>热部署 -&gt;andfix支持的代码变更</p>
+<ul>
+<li>此时走优化后的andfix方案</li>
+</ul>
+<blockquote>
+<p>也就是目前hotfix1.0的方案</p>
+</blockquote>
+<p>冷部署 -&gt;andfix不支持代码变更</p>
+<ul>
+<li>davilk下hack本地方法native层绕过dvmresolveclass</li>
+</ul>
+<blockquote>
+<p>patch dex追加到PathClassLoad的dexElements中, 同时我们知道插桩的解决方案会影响到运行时性能的原因在于：app内的所有类都预埋引用一个独立dex的空类，导致安装dexopt阶段的preverify失败，运行时将再次verify+optimize. 所以我们选择了hack本地方法native层绕过dvmresolveclass方法的方式。 </p>
+</blockquote>
+<ul>
+<li>art下直接合成dex，采用手淘目前成熟的art动态部署方案 </li>
+</ul>
+<blockquote>
+<p>不同于微信tinker的dex merge方案, dex merge其实很占用应用内存, 所以最终会导致dex merge失败, 实际上art上默认已经支持多dex的合并, 我们只需要把patch dex跟原来apk中的dex合并成完整的新dex, 然后去替换PathClassLoad的dexElements即可.</p>
+</blockquote>
+<p>阿里百川Hotfix2.X SO文件修复方案</p>
+<ul>
+<li><p>art下预load原来so, 再load补丁so</p>
+</li>
+<li><p>davilk下预load补丁so, 再load原来的so </p>
+</li>
+<li><p>关键:  综合机型支持的abis和补丁包中的abis共同决定补丁so的新libPath</p>
+</li>
+</ul>
+<p>davilk和art下so文件加载的方式不一样, 导致了需要区分art和davilk做不同的处理. 实际上我们还有另外一个so补丁的方案, 这里暂时不对外透露 </p>
+<p>更好的性能</p>
+<ul>
+<li><p>SOPatchManager.load(String libPath) -&gt;代替  System.load(String pathName)</p>
+</li>
+<li><p>SOPatchManager.loadLibrary(String libName) -&gt;代替  System.loadLibrary(String libName)</p>
+</li>
+</ul>
+<p>我们知道一个so文件如果load两次那么本地内存的使用会变大. 所以我们提供了替代System加载so文件的方法, 我们建议所有的so文件加载都通过这个方法, 那么加载so文件的时候只会尝试去加载指定目录下去的补丁so, 而不会去加载安装apk中的so文件</p>
+<p>阿里百川Hotfix2.X 资源文件修复方案</p>
+<p>Android资源文件的特点</p>
+<ul>
+<li><p>资源id编码于resources.arsc文件中，排布紧密。按照排布顺序进行自动编号</p>
+</li>
+<li><p>res目录保存所有带id的资源文件。布局文件为二进制形式的xml文件，xml以资源id的方式引用其他资源</p>
+</li>
+<li><p>assets目录存放所有原始文件，不带id</p>
+</li>
+<li><p>aapt进行资源的构造，包括自动分配资源id与R文件的生成，默认情况下，每次编译不保证和之前包中的id一致</p>
+</li>
+</ul>
+<p>目前市面上普遍采用的三种方式。</p>
+<ul>
+<li><p>差量合成完整的资源包，运行时完整加载资源。 缺点：合成资源占用时间和内存，容易引起卡顿。</p>
+</li>
+<li><p>修改aapt，对以后可能新增的资源提前留空，运行时patch包中新增资源id对应留出的位置。 缺点：需改变打包流程，修改代码并编译替换sdk中的aapt。打包侵入太强，且留空占用一定磁盘空间。留空多少是预先定好的，无法改变。</p>
+</li>
+<li><p>插件化，组件化资源。 缺点：资源需要划分模块，提前规划。杀鸡焉用牛刀？</p>
+</li>
+</ul>
+<p>一个优秀的资源热修复方案应该做到：</p>
+<ul>
+<li><p>补丁包尽可能地小。加载补丁迅速，性能好，内存和时间消耗极小。</p>
+</li>
+<li><p>不改变打包流程，保持sdk工具链的完整性。</p>
+</li>
+<li><p>开发透明，开发者无感知。不需要事先固定资源id。</p>
+</li>
+<li><p>方便易用，傻瓜式操作。一键完成patch工作。</p>
+</li>
+</ul>
+<p>阿里百川资源热修复</p>
+<ul>
+<li><p>直接基于新旧两个apk来构造补丁包，不需要改造aapt，对编译过程无要求。</p>
+</li>
+<li><p>精确比较各个资源id的使用情况，最大程度利用原先基线包资源，补丁包中只包含新增和修改的资源。</p>
+</li>
+<li><p>运行时无需合成操作，快速应用生效。不影响性能。</p>
+</li>
+<li><p>不仅仅是简单修复，对于任意程度、乃至天翻地覆的修改都能适用。只是补丁文件会比较大。</p>
+</li>
+<li><p>使用方便，只需要选取新旧两个apk，一键生成补丁。</p>
+</li>
+<li><p>兼容Android所有机型，稳定性好。</p>
+</li>
+<li><p>配合类修复方案, 我们能够做到资源修复的实时生效</p>
+</li>
+</ul>
+<p>需要注意的地方</p>
+<ul>
+<li><p>如果事先自己做了资源混淆，需要保证新旧包混淆的关系保持一致，否则打补丁时会找不到原来基线包中资源，而将非新增资源视为新增资源，导致补丁包变大。</p>
+</li>
+<li><p>建议每次打包时设置去除无用的资源。这样即可以减小包大小，同时也保证补丁包中新增资源都是有用的。</p>
+</li>
+<li><p>AndroidManifest中引用的资源无法改变。有些资源如icon是安装时固定的，目前所有补丁方案都无法进行改变。而另一些资源，如Theme，我们可以提取AndroidManifest中的资源信息，通过代码的方式进行设置。</p>
+</li>
+</ul>
+<p>阿里百川HotFix管理后台服务</p>
+<ul>
+<li>补丁灰度发布/正式发布  </li>
+</ul>
+<blockquote>
+<p>发布前可以通过本地/扫码两种方式验证之后再发布上线, 本地补丁模式是指补丁可以放到任何一个指定的目录下即可. 扫码模式是扫描二维码生成一个下载url, 然后直接下载这个时候不需要和服务器验证身份.  灰度发布指定具体的用户数然后随机推送</p>
+</blockquote>
+<ul>
+<li>补丁回滚  </li>
+</ul>
+<blockquote>
+<p>回滚到目标补丁版本, 所有该应用版本下的设备都会回滚到目标补丁的版本。</p>
+</blockquote>
+<ul>
+<li>补丁安全</li>
+</ul>
+<blockquote>
+<ol>
+<li>平台托管RSA秘钥  2. 补丁加载安全签名校验</li>
+</ol>
+</blockquote>
+<p>我们后续提供的服务</p>
+<ul>
+<li>补丁自定义平台无关AES秘钥</li>
+</ul>
+<blockquote>
+<p>更安全, 此时打补丁的时候用户可以填入自定义AES秘钥, 然后SDK初始化的时候填入这个秘钥即可. 我们阿里百川平台完全不知道你的秘钥, 所以你们的补丁在我们的后台是绝对安全的. </p>
+</blockquote>
+<ul>
+<li>补丁条件下发 </li>
+</ul>
+<blockquote>
+<ol>
+<li><p>分系统版本 比如一个bug只在android5.0上复现, 那么可能只想对android5.0下发补丁</p>
+</li>
+<li><p>分渠道  比如只想对某个具体的渠道, 豌豆荚/小米不同的渠道进行分发 </p>
+</li>
+<li><p>自定义TAG 上述几个是默认提供的条件, 当然我们提供了更加自由的方式, 你可以对任何一个补丁打tag, 然后客户端只能请求下载到后台指定tag的补丁.   </p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>实时显示补丁加载成功率等数据</li>
+</ul>
+<blockquote>
+<p>后续可能会上报补丁加载失败详情, 方便排查问题. </p>
+</blockquote>
+<ul>
+<li>一键清除补丁  </li>
+</ul>
+<blockquote>
+<p>使用回滚功能必需要具备一下几个条件：1. 当前的版本已停止发布 2. 该版本之前存在至少一个历史版本 所以如果第一个补丁就下发错误的话, 补丁回滚就无能为力了, 所以我们提供一键清除补丁的功能。</p>
+</blockquote>
+<p><img src="http://img.blog.csdn.net/20170118163628380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="热修复技术对比"></p>
+<p>对比完这些热修复技术是不是觉得Hotfix是不错的选择。接下来就一起来了解一下hotfix的接入和使用吧。</p>
+<p>接入流程大概如下：<br><a href="http://console.baichuan.taobao.com/" target="_blank" rel="external">1. 注册阿里百川开发者帐号（这个用来对阿里百川一些sdk的接入进行管理）</a></p>
+<ol>
+<li>新建一个项目，并开通阿里百川hotfix的使用权限。<br><a href="http://baichuan.taobao.com/docs/doc.htm?spm=a3c0d.7629140.0.0.Lxy877&amp;treeId=234&amp;articleId=105517&amp;docType=1" target="_blank" rel="external">3. 下载，集成sdk。</a></li>
+</ol>
+<h3 id="Hotfix-SDK接入"><a href="#Hotfix-SDK接入" class="headerlink" title="Hotfix SDK接入"></a>Hotfix SDK接入</h3><p><a href="http://baichuan.taobao.com/docs/doc.htm?spm=a3c0d.7629140.0.0.ZZm6TK&amp;treeId=234&amp;articleId=105456&amp;docType=1" target="_blank" rel="external">HotFix项目文档地址</a></p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/热修复/" rel="tag"># 热修复</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/04/DeadLock/" rel="next" title="产生死锁的原因和必要条件+解决死锁的基本方法">
+                <i class="fa fa-chevron-left"></i> 产生死锁的原因和必要条件+解决死锁的基本方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/19/AnnualSummary 2016/" rel="prev" title="2016年总结">
+                2016年总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#热修复技术前景分析"><span class="nav-number">1.</span> <span class="nav-text">热修复技术前景分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#市面上流行的热修复技术对比"><span class="nav-number">2.</span> <span class="nav-text">市面上流行的热修复技术对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hotfix-SDK接入"><span class="nav-number">3.</span> <span class="nav-text">Hotfix SDK接入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

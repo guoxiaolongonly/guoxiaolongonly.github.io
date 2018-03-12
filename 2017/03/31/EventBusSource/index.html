@@ -1,15 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -33,36 +37,11 @@
 
 
 
+
   
   
   <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,19 +50,29 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="学习,EventBus源码解析," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
 
 
+  <meta name="keywords" content="EventBus源码解析," />
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
 
 
 
@@ -93,16 +82,16 @@
 <meta name="description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EventBus">
+<meta property="og:title" content="EventBus源码解析">
 <meta property="og:url" content="http://rngift.com/2017/03/31/EventBusSource/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
 <meta property="og:description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta property="og:image" content="http://img.blog.csdn.net/20170325221620023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170330145236125?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-05-09T13:26:12.761Z">
+<meta property="og:updated_time" content="2018-03-12T14:24:14.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EventBus">
+<meta name="twitter:title" content="EventBus源码解析">
 <meta name="twitter:description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170325221620023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
@@ -113,10 +102,12 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -139,11 +130,7 @@
 
 
 
-  <title>EventBus | Xiaolong的个人博客</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>EventBus源码解析 | Xiaolong的个人博客</title>
   
 
 
@@ -153,18 +140,16 @@
 
 
 
+</head>
 
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -180,7 +165,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">爱生活，爱学习</p>
+        <p class="site-subtitle">每一天都值得被认真对待</p>
       
   </div>
 
@@ -210,52 +195,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/pastLove" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
-            
-            爱过的人
           </a>
         </li>
       
@@ -287,13 +232,17 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/03/31/EventBusSource/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小龙">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -305,14 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                EventBus
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">EventBus源码解析</h1>
         
 
         <div class="post-meta">
@@ -347,8 +289,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/源码解析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码解析</span>
+                  <a href="/categories/Android源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">Android源码解析</span>
                   </a>
                 </span>
 
@@ -375,6 +317,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -400,7 +345,7 @@
 <p>第一种实现方案：这种方案在以前还是蛮常见的，以前学Android的时候会看到一些大牛们，自己写一个ActivityManager用来存放Activity对象做生命周期管理。但是这样做其实是会有问题的。因为持有的是Activity的对象，这就导致了Activity只能手动销毁。每次写关闭页面的时候都要调用这个方法来销毁Activity，不然分分钟就OOM了。还有另外一个缺点就是需要遍历整个栈来确定存活的Activity对象。找到你要找的Activity，然后调用其中的方法。如果是要销毁则还要将它移除栈中。（心很累）</p>
 </blockquote>
 <p>想想这些方法真的都好难用呀。<br>这个时候就需要来个上帝来管理这些东西了。EventBus一脸害羞的跳出来了。一种全局的观察者模式，你可以把你的愿望（Event）请求post给这位上帝，它提供多线程的处理方案，来让你的(愿望)在你指定的地方实现。</p>
-<h2 id="EventBus使用"><a href="#EventBus使用" class="headerlink" title="EventBus使用"></a>EventBus使用</h2><p> 在<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">Github</a>上可以看到gradle所需配置<br> <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'org.greenrobot:eventbus:3.0.0'</span></div></pre></td></tr></table></figure></p>
+<h2 id="EventBus使用"><a href="#EventBus使用" class="headerlink" title="EventBus使用"></a>EventBus使用</h2><p> 在<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">Github</a>上可以看到gradle所需配置<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;org.greenrobot:eventbus:3.0.0&apos;</div></pre></td></tr></table></figure></p>
 <p> 在gradle文件做上如上配置就可以了</p>
 <p>分三个步骤</p>
 <ol>
@@ -531,36 +476,23 @@
 1. 注册EventBus，EventBus会获取当前类中的订阅方法，包括方法的参数，类型，优先级等信息。在获取的方法中，经常会有缓存。如果在缓存中没有才去调用获取方法。获取订阅方法有两种方式，一种是反射，反射获取全部方法，找到加了@Subscribe注解并有一个参数的方法，另外一种是通过订阅方法索引来得到订阅方法。反射的效率较低，所以一般都是用订阅方法索引来获取，有些情况下找不到这个方法。它还是会走反射的途径。注册过后这个订阅方法就被存起来了。等待接受消息。（这边值得说一下在3.0以前是没有注解方法的那时候都是通过反射来获取和执行方法。而且方法必须以onEvent开头，分别为onEventMainThead,onEventBackground,onEvent,onEventAsync)
 3. postEvent，会把这个Event加入消息队列，然后通过Event的类型信息来得到它的订阅方法，然后根据相应的订阅方式反射调用订阅方法。没有选择的Post一般都会在UI线程执行。如果当前post不是UI线程这边会用Handle的机制来让方法运行在UI线程。
 4. 解除注册，将该对象从对象缓存列表中移除，获取当前对象的订阅列表，然后将其从订阅列表移除
-</code></pre>
-      
-    </div>
-
-    <div>
-      
-        
+</code></pre><p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/学习/" rel="tag"># 学习</a>
           
             <a href="/tags/EventBus源码解析/" rel="tag"># EventBus源码解析</a>
           
@@ -568,15 +500,15 @@
       
 
       
-        
+      
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/23/MeetMomeryLeak/" rel="next" title="初识内存泄露">
-                <i class="fa fa-chevron-left"></i> 初识内存泄露
+              <a href="/2017/03/31/MPAndroidChartSource/" rel="next" title="MPAndroidChart源码解析">
+                <i class="fa fa-chevron-left"></i> MPAndroidChart源码解析
               </a>
             
           </div>
@@ -585,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/MPAndroidChartSource/" rel="prev" title="MPAndroidChart">
-                MPAndroidChart <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/07/WorkSummary 2017-05-07/" rel="prev" title="工作总结（二）">
+                工作总结（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -596,6 +528,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -611,9 +547,9 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+
 
 
         </div>
@@ -629,101 +565,80 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/lucky.jpg"
-               alt="小龙" />
-          <p class="site-author-name" itemprop="name">小龙</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
               <p class="site-description motion-element" itemprop="description">程序猿</p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">13</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
+          <nav class="site-state motion-element">
 
-          
             
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/xiaolongonly" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
-              </span>
+              </div>
             
-              <span class="links-of-author-item">
-                <a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" title="CSDN">
-                  
-                    <i class="fa fa-fw fa-android"></i>
-                  
-                  CSDN
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
                 </a>
-              </span>
+              </div>
             
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
           
+
+          
+
+          
+          
+
+          
+          
+
+          
+
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -756,30 +671,36 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -790,6 +711,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -824,53 +747,58 @@
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
@@ -900,14 +828,8 @@
 
 
 
-  
 
 
-
-
-
-
-  
 
 
 
@@ -915,6 +837,17 @@
 
   
 
+
+
+
+
+  
+
+  
+
+  
+
+  
   
 
   

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="旅行青蛙攻略," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="界面效果如下
+不要忘了我们的所有数据和界面都可以在github的json文件里面配置有需要的小伙伴自行拿去用吧!!
+项目github地址Apk下载地址
+设计意图最近旅行青蛙很火，我自己也在玩，然后发现一个痛点是每次找小动物喜欢吃什么，每个道具的用途，都需要打开浏览器搜索。实在不能忍，感觉很痛，于是决心自己写一个APP攻略！！
+需求分析1.需要先对界面上的每个功能放一张图解，还有基本玩法操作！！
+2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写一个旅行青蛙攻略APP">
+<meta property="og:url" content="http://rngift.com/2018/02/09/TravelFrog/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="界面效果如下
+不要忘了我们的所有数据和界面都可以在github的json文件里面配置有需要的小伙伴自行拿去用吧!!
+项目github地址Apk下载地址
+设计意图最近旅行青蛙很火，我自己也在玩，然后发现一个痛点是每次找小动物喜欢吃什么，每个道具的用途，都需要打开浏览器搜索。实在不能忍，感觉很痛，于是决心自己写一个APP攻略！！
+需求分析1.需要先对界面上的每个功能放一张图解，还有基本玩法操作！！
+2">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/launcher.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/main.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/animal.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/collect.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/specialy.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/name.png">
+<meta property="og:updated_time" content="2018-03-12T15:10:02.583Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="写一个旅行青蛙攻略APP">
+<meta name="twitter:description" content="界面效果如下
+不要忘了我们的所有数据和界面都可以在github的json文件里面配置有需要的小伙伴自行拿去用吧!!
+项目github地址Apk下载地址
+设计意图最近旅行青蛙很火，我自己也在玩，然后发现一个痛点是每次找小动物喜欢吃什么，每个道具的用途，都需要打开浏览器搜索。实在不能忍，感觉很痛，于是决心自己写一个APP攻略！！
+需求分析1.需要先对界面上的每个功能放一张图解，还有基本玩法操作！！
+2">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/launcher.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2018/02/09/TravelFrog/"/>
+
+
+
+
+
+  <title>写一个旅行青蛙攻略APP | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/02/09/TravelFrog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">写一个旅行青蛙攻略APP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-09T09:11:09+08:00">
+                2018-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人开源/" itemprop="url" rel="index">
+                    <span itemprop="name">个人开源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="界面效果如下"><a href="#界面效果如下" class="headerlink" title="界面效果如下"></a>界面效果如下</h1><p><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/launcher.png" alt="启动页"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/main.png" alt="首页"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/animal.png" alt="小伙伴"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/collect.png" alt="收藏"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/specialy.png" alt="特产"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/TravelGuaGuide/master/screen/name.png" alt="称号"></p>
+<pre><code>不要忘了我们的所有数据和界面都可以在github的json文件里面配置有需要的小伙伴自行拿去用吧!!
+</code></pre><p><a href="https://github.com/guoxiaolongonly/TravelGuaGuide" target="_blank" rel="external">项目github地址</a><br><a href="https://fir.im/qwgl" target="_blank" rel="external">Apk下载地址</a></p>
+<h1 id="设计意图"><a href="#设计意图" class="headerlink" title="设计意图"></a>设计意图</h1><p>最近旅行青蛙很火，我自己也在玩，然后发现一个痛点是每次找小动物喜欢吃什么，每个道具的用途，都需要打开浏览器搜索。实在不能忍，感觉很痛，于是决心自己写一个APP攻略！！</p>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><p>1.需要先对界面上的每个功能放一张图解，还有基本玩法操作！！</p>
+<p>2.针对出现的每个道具的名称和用途做一个分类查看器，描述名称，用途等… 比如说商城道具和带回来的特产，收藏品，抽奖的奖品等…</p>
+<p>3.如果单机版其实就这么考虑。后面觉得应该做一个动态数据的功能。（因为如果游戏有新版本更新了APP也得更新新版本，所以我想给APP一个接口，用来传输每次更新的数据。这样我们就不用每次发一个版本了。 very nice!!）</p>
+<p>4.既然需要提供接口，就需要一个服务器了。这边其实是有多种考虑。</p>
+<ul>
+<li>bomb后端云，这种免费后端数据库可以一键式增删改查，这个可是上上之选。</li>
+<li>写个页面，导入jsoup，动态爬数据，技术帝的不二选择，不过网页经常变感觉还是很蛋疼的。</li>
+<li>哈哈哈哈哈哈，因为我比较懒，不想再去看文档，所以在github上面写了一个json文件，发现文件在github上的页面结构好像跟平时json请求的一样，试着做了一下请求。发现鸡然可以，那就用github来维护吧，反正博客都github上搭过了)</li>
+</ul>
+<h1 id="产品规划"><a href="#产品规划" class="headerlink" title="产品规划"></a>产品规划</h1><pre><code>coding之前的一些其他细节，首现是需要什么样的页面，怎样才能长得好看。噗，自己写APP都要兼职PM.UI.UE。 心疼的抱住了自己。  
+</code></pre><p>1.页面既定的规划就是提供一个首页，实现列表对每个模块做划分，</p>
+<ul>
+<li>入门操作，因为日版的APP很多东西还是看不懂的，做一个引导用户入门。</li>
+<li>商店道具和作用介绍</li>
+<li>收藏品介绍</li>
+<li>特产介绍</li>
+<li>称号介绍</li>
+<li>小动物喜欢吃什么</li>
+<li>进阶攻略 提供一些骨灰级玩家需要的信息。（比如收割草，给小动物喂食什么合适等等..）</li>
+<li>更新数据</li>
+</ul>
+<ol>
+<li>根据需求其实已经很明了了首页6个tab，<ul>
+<li>入门和进阶</li>
+<li>小动物介绍</li>
+<li>商店道具介绍</li>
+<li>特产介绍</li>
+<li>称号介绍</li>
+<li>收藏品介绍</li>
+<li>另外配置一个侧拉的View用来展示作者介绍，和数据更新，2333，装逼用！！</li>
+</ul>
+</li>
+</ol>
+<h1 id="Then-coding"><a href="#Then-coding" class="headerlink" title="Then coding"></a>Then coding</h1><p>主要是考虑动态配置问题，不同数据分配不同页面</p>
+<p>1.首页一个列表用来展示所有模块</p>
+<p>2.模块下面可能有子模块，根据类别启动子模块的Activity。</p>
+<p>3.功能，不同功能展示的页面效果也不一样。gridView</p>
+<ul>
+<li>小动物，中图，中文字描述，点击查看详情gridView</li>
+<li>商店道具，中图，中文字描述，点击查看详情gridView</li>
+<li>特产，小图，小文字描述，点击查看详情gridView</li>
+<li>称号，中图，中文字描述，点击查看详情gridView</li>
+<li>收藏品，中图，中文字描述，点击查看详情gridView</li>
+<li>入门和进阶，子模块，实现做图右文字列表做选择gridView</li>
+<li>详情页大图大文字listView 图片+文字每个段落</li>
+<li>预留一个webActivity做web加载。 预留一个TextActivity做文本加载</li>
+</ul>
+<p>4.两种类型的模块选择页  ModularGridViewActivity,ModularListViewActivity.</p>
+<p>5.三种详情查看页 BigPicDetailActivity,WebActivity,TextActivity</p>
+<p>6.两种描述页 MiddleDecribeActivity,SmallDeScribeActivity</p>
+<p>7.侧拉菜单</p>
+<p>8.关于APP</p>
+<p>最近太忙了，没时间写这个，今天花了一天时间把它全部做完了，功能设计什么的都不难，就是界面和一些交互体验，还有素材整理花了点时间。最终实现的结果可能跟之前预想的不太一样。</p>
+<p>谈一谈不一样的地方<br>小动物，商店道具，特产，称号，收藏品，入门和进阶的页面，我写到了一个页面中。<br>原本预想其实就是分成好几个Activity来写，但是后来想想写了那么多Activity其实参数都一样，逻辑也都一样，就是页面的布局不一样而已。<br>写那么多的Activity其实可以写成一个Activity，然后Adapter做抽象，实现不同的 Adapter来实现不同的列表。<br>后面又想了一下，Adapter其实也不用做什么操作，只有布局不一样，点击响应和数据传递都是一样的。就把布局直接传给了Adapter。由数据来确定初始化什么布局，和布局的样式。<br>最终实现就是这样，但是也看出了这样实现的一些弊端，就是不适合数据量大的场景。不过我们的数据量确实不大，就先这样了！！nice day!!</p>
+<hr>
+<p>就写到这里了。攻略也不想整理了！！！！  因为根本就找不到用户 2333！！</p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/旅行青蛙攻略/" rel="tag"># 旅行青蛙攻略</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/29/BluetoothForAndroid5/" rel="next" title="蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）">
+                <i class="fa fa-chevron-left"></i> 蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#界面效果如下"><span class="nav-number">1.</span> <span class="nav-text">界面效果如下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计意图"><span class="nav-number">2.</span> <span class="nav-text">设计意图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求分析"><span class="nav-number">3.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#产品规划"><span class="nav-number">4.</span> <span class="nav-text">产品规划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Then-coding"><span class="nav-number">5.</span> <span class="nav-text">Then coding</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

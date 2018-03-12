@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Realm数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。
+##Realm的缺点
+###id不能自增解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.
+###实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。只能直接继承不能间接继承。我的遇到的问题如下，因为所有的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Realm数据库的那些坑">
+<meta property="og:url" content="http://rngift.com/2017/07/04/Realm/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。
+##Realm的缺点
+###id不能自增解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.
+###实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。只能直接继承不能间接继承。我的遇到的问题如下，因为所有的数据">
+<meta property="og:image" content="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170711111806643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171204175727236?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-12T14:51:09.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Realm数据库的那些坑">
+<meta name="twitter:description" content="Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。
+##Realm的缺点
+###id不能自增解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.
+###实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。只能直接继承不能间接继承。我的遇到的问题如下，因为所有的数据">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2017/07/04/Realm/"/>
+
+
+
+
+
+  <title>Realm数据库的那些坑 | Xiaolong的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/07/04/Realm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Realm数据库的那些坑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T11:00:05+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android第三方/" itemprop="url" rel="index">
+                    <span itemprop="name">Android第三方</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。</p>
+<p>##Realm的缺点</p>
+<p>###id不能自增<br>解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.</p>
+<p>###实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。<br><strong>只能直接继承不能间接继承。</strong><br>我的遇到的问题如下，因为所有的数据库实体类都有一部分同样的字段。我就想把这些字段写到MyBaseObject基类中，再由基类来继承ReamObject。实体类直接继承基类。编译不过。<br>Error:(14, 8) 错误: Valid model classes must either extend RealmObject or implement RealmModel. </p>
+<p><strong>不能参照RealmObject自己实现RealmModel</strong><br>翻看了一下ReamObject的源码发现它是对RealmModel的实现。天真的以为我也可以这么写一个基类来继承。依然编译不过。一样的错误。<br>这个RealmModel+注解的方式，简直是来逗我的</p>
+<p>暂无解决方案。老老实实一个一个写！</p>
+<p>###查询的对象带有RealmProxy对象代理</p>
+<p>带有代理的对象是可以直接进行Realm数据库操作的。<br><img src="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="RealmProxy"> </p>
+<p>实体会多一个ColumnInfo和ProxyState 的对象实例。。ProxyState里面又包含了该RealmProxy对象。<br>结构如下：<br><img src="http://img.blog.csdn.net/20170711111806643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="层级嵌套结构"><br>可以看出这是一种递归的存储方式。至于java为什么不溢出，因为它的model直接指向了自己的地址。<br>问题：做遍历操作会导致ANR和内存溢出<br>解决方案：</p>
+<ol>
+<li>类似于这种递归的方式如果需要做遍历操作的话。比如说转Json或者一些其他的操作的时候不要忘了忽略掉递归的对象，否则分分钟就内存溢出ANR了。比如Gson忽略某个字段<a href="http://blog.csdn.net/lionliu6/article/details/50787893" target="_blank" rel="external">参考</a></li>
+<li>也可以直接把对象copyfromRealm，拿到真正的对象<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm.getDefaultInstance().copyFromRealm(object);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="数据库版本更新的那些坑"><a href="#数据库版本更新的那些坑" class="headerlink" title="数据库版本更新的那些坑"></a>数据库版本更新的那些坑</h3><h4 id="数据库版本更新介绍"><a href="#数据库版本更新介绍" class="headerlink" title="数据库版本更新介绍"></a>数据库版本更新介绍</h4><p>通常来讲数据库更新有三个需要关注的地方。 </p>
+<ul>
+<li>版本号 .schemaVersion(3)</li>
+<li>新版本信息  .migration() </li>
+<li>删库更新  .deleteRealmIfMigrationNeeded()<br>代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Realm.init(<span class="keyword">this</span>);</div><div class="line">RealmConfiguration config = <span class="keyword">new</span> RealmConfiguration.Builder()</div><div class="line">            .schemaVersion(<span class="number">3</span>)</div><div class="line">            .migration(<span class="keyword">new</span> Migration()) </div><div class="line">            .deleteRealmIfMigrationNeeded()</div><div class="line">            .build();</div><div class="line">Realm.setDefaultConfiguration(config);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>版本号就需要每次有做更新schemaVersion往上增加<br>3 . 4 . 5 …<br>deleteRealmIfMigrationNeeded() 这句话慎用。</p>
+<p>官方说明：</p>
+<p>设置这将改变如何处理迁移异常的行为。磁盘上的Realm将被清除并重新创建<br>加了这句话，如果出现版本号不一致，或者更新出了某些问题。<br>就会清除掉所有的数据。<br>migration实现就不做过多介绍了，可以<a href="http://blog.csdn.net/u014608640/article/details/77530917" target="_blank" rel="external">参考这个</a>。</p>
+<h4 id="坑——数据库更新后不能回退"><a href="#坑——数据库更新后不能回退" class="headerlink" title="坑——数据库更新后不能回退"></a>坑——数据库更新后不能回退</h4><p>如果版本更新做了错误的表字段更新，你想要回退。<br>有两个解决方案（1） 删除掉应用重新安装。（数据会全部丢失）<br>（2）更新一个版本，把修改还原回去。（工作量大，但是数据不会丢。）</p>
+<h4 id="坑——基本类型字段添加"><a href="#坑——基本类型字段添加" class="headerlink" title="坑——基本类型字段添加"></a>坑——基本类型字段添加</h4><p>addField(“xxxfield”,long.class);<br>一定要用基本类型的class,如long.class,int.class,byte.class 不能用Long.class,Byte.class<br>这个坑将导致上面的坑。解决方案就看上面看上面吧。</p>
+<p>realm对于这种经常用数据库存储的应用，真的不好用！！！</p>
+<h4 id="坑——Rx流操作"><a href="#坑——Rx流操作" class="headerlink" title="坑——Rx流操作"></a>坑——Rx流操作</h4><p>最近想把Realm用Rx流改写一下，然后又发现了他的坑了。</p>
+<h4 id="不支持线程切换"><a href="#不支持线程切换" class="headerlink" title="不支持线程切换"></a>不支持线程切换</h4><p>在Rx流中我们经常会做线程变换操作，然后Realm并不支持其他非创建线程中访问Realm对象。</p>
+<p><img src="http://img.blog.csdn.net/20171204175727236?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="线程切换"><br>也就是说，你在哪个线程创建的Realm对象只能在哪个线程中使用。mmp，好吧，谢谢你的异常提醒，但我用的不是很爽。</p>
+<p>不是很爽解决方案：把Realm对象创建在子线程<br>在IO线程中创建一个Realm对象毕竟数据库操作是个耗时操作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm.getInstance(<span class="keyword">new</span> RealmConfiguration.Builder().build());</div></pre></td></tr></table></figure></p>
+<p>之后就只能在IO线程中做操作了。别忘了~~  2333</p>
+<h4 id="Rx操作"><a href="#Rx操作" class="headerlink" title="Rx操作"></a>Rx操作</h4><p>嗯，一个Rx流的查询操作，莫名其妙给我一直发数据流，相当于无限的查询。后面才发现是因为我的另外一个操作也是有对数据库的查询操作的。 不知道Realm内部怎么实现。就导致这两个的subscribe一直重复走。</p>
+<p>解决方案：没有解决方案，建议不要用Rx流。。。。啊啊啊MMP啊 我回不去了!</p>
+<p>迎接坑吧！！<br>realm对于这种经常用数据库存储的应用，真的不好用！！！</p>
+<p><strong><em>By Xiaolong：You have a dream,you got to protect it!</em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Realm数据库/" rel="tag"># Realm数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/07/CodeStandars/" rel="next" title="代码命名规范">
+                <i class="fa fa-chevron-left"></i> 代码命名规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/07/Gradle/" rel="prev" title="gradle学习笔记，常用命令，多渠道打包等">
+                gradle学习笔记，常用命令，多渠道打包等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小龙</p>
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库版本更新的那些坑"><span class="nav-number">1.</span> <span class="nav-text">数据库版本更新的那些坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库版本更新介绍"><span class="nav-number">1.1.</span> <span class="nav-text">数据库版本更新介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑——数据库更新后不能回退"><span class="nav-number">1.2.</span> <span class="nav-text">坑——数据库更新后不能回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑——基本类型字段添加"><span class="nav-number">1.3.</span> <span class="nav-text">坑——基本类型字段添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑——Rx流操作"><span class="nav-number">1.4.</span> <span class="nav-text">坑——Rx流操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不支持线程切换"><span class="nav-number">1.5.</span> <span class="nav-text">不支持线程切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rx操作"><span class="nav-number">1.6.</span> <span class="nav-text">Rx操作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
