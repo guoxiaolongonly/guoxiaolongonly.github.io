@@ -90,16 +90,16 @@
 <meta name="description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EventBus源码解析">
-<meta property="og:url" content="http://rngift.com/2017/03/31/EventBusSource/index.html">
+<meta property="og:title" content="EventBus的使用和源码解析">
+<meta property="og:url" content="http://rngift.com/2017/03/25/EventBusSource/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
 <meta property="og:description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta property="og:image" content="http://img.blog.csdn.net/20170325221620023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170330145236125?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-03-12T14:24:14.254Z">
+<meta property="og:updated_time" content="2018-03-14T15:05:17.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EventBus源码解析">
+<meta name="twitter:title" content="EventBus的使用和源码解析">
 <meta name="twitter:description" content="为什么要使用EventBus在Android开发过程中经常有这样的场景–&amp;gt;栈顶Activity需要关闭非栈顶的Activity，或调用其中的某些方法。
 案例：我有三个Activity，主界面Activity,个人中心Activity，登录界面Activity，主界面打开了个人中心页面，个人中心页面有个退出登录的功能，点击后退出登录关闭主界面Activity和当前Activity,打开登录页面">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170325221620023?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://rngift.com/2017/03/31/EventBusSource/"/>
+  <link rel="canonical" href="http://rngift.com/2017/03/25/EventBusSource/"/>
 
 
 
 
 
-  <title> EventBus源码解析 | Xiaolong的个人博客 </title>
+  <title> EventBus的使用和源码解析 | Xiaolong的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -285,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/03/31/EventBusSource/">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/03/25/EventBusSource/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小龙">
@@ -306,7 +306,7 @@
             
             
               
-                EventBus源码解析
+                EventBus的使用和源码解析
               
             
           </h1>
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T14:08:11+08:00">
-                2017-03-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-25T14:08:11+08:00">
+                2017-03-25
               </time>
             
 
@@ -582,8 +582,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/MPAndroidChartSource/" rel="prev" title="MPAndroidChart源码解析">
-                MPAndroidChart源码解析 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/31/MPAndroidChartSource/" rel="prev" title="MPAndroidChart绘制浅析">
+                MPAndroidChart绘制浅析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
