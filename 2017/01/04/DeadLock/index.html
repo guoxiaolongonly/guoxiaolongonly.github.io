@@ -90,14 +90,12 @@
 <meta name="description" content="死锁：指多个进程因竞争共享资源而造成的一种僵局，若无外力作用，这些进程都将永远不能再 向前推进。
 安全状态与不安全状态：安全状态指系统能按某种进程顺序来为每个进程分配其所需资源，直至最大需求，使每个进程都可顺利完成。
 若系统不存在这样一个序列，则称系统处于不安全状态。
-####产生死锁的原因
-
+产生死锁的原因
 竞争系统资源 
 进程的推进顺序不当
 
-####产生死锁的必要条件
-
-互斥条件：进程要求对所分配的资源进行">
+产生死锁的必要条件
+互斥条件：进程要求对所分配的资源进行排它性控制，即在一段">
 <meta property="og:type" content="article">
 <meta property="og:title" content="产生死锁的原因和必要条件+解决死锁的基本方法">
 <meta property="og:url" content="http://rngift.com/2017/01/04/DeadLock/index.html">
@@ -105,28 +103,24 @@
 <meta property="og:description" content="死锁：指多个进程因竞争共享资源而造成的一种僵局，若无外力作用，这些进程都将永远不能再 向前推进。
 安全状态与不安全状态：安全状态指系统能按某种进程顺序来为每个进程分配其所需资源，直至最大需求，使每个进程都可顺利完成。
 若系统不存在这样一个序列，则称系统处于不安全状态。
-####产生死锁的原因
-
+产生死锁的原因
 竞争系统资源 
 进程的推进顺序不当
 
-####产生死锁的必要条件
-
-互斥条件：进程要求对所分配的资源进行">
-<meta property="og:updated_time" content="2018-03-12T14:42:21.690Z">
+产生死锁的必要条件
+互斥条件：进程要求对所分配的资源进行排它性控制，即在一段">
+<meta property="og:updated_time" content="2018-03-15T15:44:15.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="产生死锁的原因和必要条件+解决死锁的基本方法">
 <meta name="twitter:description" content="死锁：指多个进程因竞争共享资源而造成的一种僵局，若无外力作用，这些进程都将永远不能再 向前推进。
 安全状态与不安全状态：安全状态指系统能按某种进程顺序来为每个进程分配其所需资源，直至最大需求，使每个进程都可顺利完成。
 若系统不存在这样一个序列，则称系统处于不安全状态。
-####产生死锁的原因
-
+产生死锁的原因
 竞争系统资源 
 进程的推进顺序不当
 
-####产生死锁的必要条件
-
-互斥条件：进程要求对所分配的资源进行">
+产生死锁的必要条件
+互斥条件：进程要求对所分配的资源进行排它性控制，即在一段">
 
 
 
@@ -406,20 +400,17 @@
         <pre><code>死锁：指多个进程因竞争共享资源而造成的一种僵局，若无外力作用，这些进程都将永远不能再 向前推进。
 安全状态与不安全状态：安全状态指系统能按某种进程顺序来为每个进程分配其所需资源，直至最大需求，使每个进程都可顺利完成。
 若系统不存在这样一个序列，则称系统处于不安全状态。
-</code></pre><p>####产生死锁的原因</p>
-<ol>
+</code></pre><h3 id="产生死锁的原因"><a href="#产生死锁的原因" class="headerlink" title="产生死锁的原因"></a>产生死锁的原因</h3><ol>
 <li>竞争系统资源 </li>
 <li>进程的推进顺序不当</li>
 </ol>
-<p>####产生死锁的必要条件</p>
-<ol>
+<h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3><ol>
 <li>互斥条件：进程要求对所分配的资源进行排它性控制，即在一段时间内某资源仅为一进程所占用。</li>
 <li>请求和保持条件：当进程因请求资源而阻塞时，对已获得的资源保持不放。</li>
 <li>不剥夺条件：进程已获得的资源在未使用完之前，不能剥夺，只能在使用完时由自己释放。</li>
 <li>环路等待条件：在发生死锁时，必然存在一个进程–资源的环形链。</li>
 </ol>
-<p>####解决死锁的基本方法</p>
-<ol>
+<h3 id="解决死锁的基本方法"><a href="#解决死锁的基本方法" class="headerlink" title="解决死锁的基本方法"></a>解决死锁的基本方法</h3><ol>
 <li>预防死锁：</li>
 </ol>
 <ul>
@@ -595,8 +586,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/lucky.jpg"
@@ -678,6 +678,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#产生死锁的原因"><span class="nav-number">1.</span> <span class="nav-text">产生死锁的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生死锁的必要条件"><span class="nav-number">2.</span> <span class="nav-text">产生死锁的必要条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决死锁的基本方法"><span class="nav-number">3.</span> <span class="nav-text">解决死锁的基本方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
