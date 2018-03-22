@@ -599,13 +599,11 @@ OS:           Windows 7 6.1 amd64
         
           
             <p>Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。</p>
-<p>##Realm的缺点</p>
-<p>###id不能自增<br>解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.</p>
-<p>###实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。<br><strong>只能直接继承不能间接继承。</strong><br>我的遇到的问题如下，因为所有的数据库实体类都有一部分同样的字段。我就想把这些字段写到MyBaseObject基类中，再由基类来继承ReamObject。实体类直接继承基类。编译不过。<br>Error:(14, 8) 错误: Valid model classes must either extend RealmObject or implement RealmModel. </p>
+<h2 id="Realm的缺点"><a href="#Realm的缺点" class="headerlink" title="Realm的缺点"></a>Realm的缺点</h2><p>###id不能自增<br>解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.</p>
+<h3 id="实体类只能继承RealmObjet-或者实现RealmModel加-RealmClass注解。"><a href="#实体类只能继承RealmObjet-或者实现RealmModel加-RealmClass注解。" class="headerlink" title="实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。"></a>实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。</h3><p><strong>只能直接继承不能间接继承。</strong><br>我的遇到的问题如下，因为所有的数据库实体类都有一部分同样的字段。我就想把这些字段写到MyBaseObject基类中，再由基类来继承ReamObject。实体类直接继承基类。编译不过。<br>Error:(14, 8) 错误: Valid model classes must either extend RealmObject or implement RealmModel. </p>
 <p><strong>不能参照RealmObject自己实现RealmModel</strong><br>翻看了一下ReamObject的源码发现它是对RealmModel的实现。天真的以为我也可以这么写一个基类来继承。依然编译不过。一样的错误。<br>这个RealmModel+注解的方式，简直是来逗我的</p>
 <p>暂无解决方案。老老实实一个一个写！</p>
-<p>###查询的对象带有RealmProxy对象代理</p>
-<p>带有代理的对象是可以直接进行Realm数据库操作的。<br><img src="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="RealmProxy"> </p>
+<h3 id="查询的对象带有RealmProxy对象代理"><a href="#查询的对象带有RealmProxy对象代理" class="headerlink" title="查询的对象带有RealmProxy对象代理"></a>查询的对象带有RealmProxy对象代理</h3><p>带有代理的对象是可以直接进行Realm数据库操作的。<br><img src="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="RealmProxy"> </p>
 <p>实体会多一个ColumnInfo和ProxyState 的对象实例。。ProxyState里面又包含了该RealmProxy对象。<br>结构如下：<br><img src="http://img.blog.csdn.net/20170711111806643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="层级嵌套结构"><br>可以看出这是一种递归的存储方式。至于java为什么不溢出，因为它的model直接指向了自己的地址。<br>问题：做遍历操作会导致ANR和内存溢出<br>解决方案：</p>
 <ol>
 <li>类似于这种递归的方式如果需要做遍历操作的话。比如说转Json或者一些其他的操作的时候不要忘了忽略掉递归的对象，否则分分钟就内存溢出ANR了。比如Gson忽略某个字段<a href="http://blog.csdn.net/lionliu6/article/details/50787893" target="_blank" rel="external">参考</a></li>
