@@ -280,6 +280,178 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/04/03/BluetoothDoc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/03/BluetoothDoc/" itemprop="url">
+                  从零开始写一个蓝牙SPP通讯
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T23:23:26+08:00">
+                2018-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android蓝牙/" itemprop="url" rel="index">
+                    <span itemprop="name">Android蓝牙</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="流程思考"><a href="#流程思考" class="headerlink" title="流程思考"></a>流程思考</h3><p>这边有几个需求点，</p>
+<p>1.<strong>一个统一的蓝牙管理类</strong>，BtManger,针对蓝牙连接和各种数据回调处理。</p>
+<p><img src=".\TIM截图20180330145900.png" alt="TIM截图20180330145900.png"></p>
+<p>变量说明一下，<br>（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认的BluetoothAdapter,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">BluetoothManager btManager = (BluetoothManager) context</div><div class="line">               .getSystemService(Context.BLUETOOTH_SERVICE);</div><div class="line">BluetoothAdapter bluetoothAdapter = btManager.getAdapter;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();</div></pre></td></tr></table></figure>
+<p>两种方式的区别在于，第一种方式可以通过btManager来获取蓝牙的一些状态信息，包括已连接的设备列表等…</p>
+<p>（2）Context上下文，如果有全局的蓝牙处理需求，建议在Application创建的时候传入应用上下文,这个上下文需要注册广播还有一些其他的功能，如果不是声明周期长的Activiy会导致内存泄露。<br>（3）BluetoothTransferService 传输服务类，提供设备连接，还有蓝牙Socket数据传输。后面会详细讲到。<br>（4）BluetoothStatusReceiver 广播接收器，用来接收蓝牙状态的广播，蓝牙开启/关闭。<br>（5）BluetoothScanRecevier  广播接收器，用来接收蓝牙设备扫描的广播<br>（6）BtManager 蓝牙管理类的单实例，因为蓝牙SPP对接整个周期只做一个，没必要每次都创建新的连接。<br>（7）DeviceHandler  这个类用来做跨线程的诸多状态的通信。（整个连接，监听，和传输过程都放在线程中）</p>
+<p>2.<strong>蓝牙搜索</strong>，需要有一个能搜索附近的蓝牙的回调<br><img src=".\TIM图片20180328151248.png" alt="TIM图片20180328151248.png"><br>整个设计大致如下，BluetoothDevice为蓝牙设备信息，rssi为信号强度，提供单设备扫描，扫描超时，和全部扫描结束列表回调</p>
+<p>3.<strong>蓝牙对接</strong>，需要有一个能让用户知道蓝牙连接状态的回调  成功，失败，中断等..</p>
+<p><img src=".\TIM图片20180328152721.png" alt="TIM图片20180328152721.png"><br>四个方法分别 是连接中,已连接,断开连接,等待接入,连接到设备</p>
+<p>4.<strong>蓝牙数据传输(发送)</strong>，这个是重点，分析一下这一块需要的功能，（1）发送消息的功能，称之为sendMessage。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组,也可能是一串字符串，好了这边这边提供一个抽象。提供一个基础的RequestMessage，和getRequestBody根据不同的文件类型做策略包装。甚至可以提供静态工厂来包装一个这样的对象;</p>
+<p>5.<strong>蓝牙数据传输(接收)</strong>，这个也是重点，分析一下这一块需要的功能，（1）接收消息的功能，当消息接收完毕后告诉用户。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组等等。提供一个扩展的接口用来做消息处理，针对不同的消息做不同的处理。提供一个基础的 ResponseMessage，getResponseBody也做策略封装。</p>
+<p>6.分包传输，分包接收这类的机制。降低仪器数据量大小限制</p>
+<p>7.最后针对以上的功能提供一些静态的方法做数据处理，ByteUtil,FileUtil等。</p>
+<h3 id="协议定制"><a href="#协议定制" class="headerlink" title="协议定制"></a>协议定制</h3><p>需求如下既要考虑到不同文件的传输，又要考虑到文件传输的大小限制。</p>
+<h4 id="协议可以这么做"><a href="#协议可以这么做" class="headerlink" title="协议可以这么做"></a>协议可以这么做</h4><ol>
+<li>包头，当接收到头部的时候代表一次请求开始，</li>
+<li>文件名称，如果当前传输为文件的话填入文件名称否则为00 00;</li>
+<li>总包数 针对数据太大的问题采用分包发送，AllPack总包</li>
+<li>分包  当前传出分包</li>
+<li>数据区长度  传输的数据区长度，用来确认接下来需要读取的字节数</li>
+<li>数据    待传输数据，可以为空</li>
+<li>校验和  针对前面传输数据的累加和，取低位</li>
+</ol>
+<h4 id="具体内容如下"><a href="#具体内容如下" class="headerlink" title="具体内容如下"></a>具体内容如下</h4><p><strong>包头</strong>  0x7e 0x7e 两个十六进制数 占两字节</p>
+<p><strong>文件名称</strong> 00 00 … 占50字节大致能传16个UTF-8中文字符和1个英文字符，或者50个英文字符，扩展名算进去。</p>
+<p><strong>总包数</strong>     00 01    占两个字节<br><strong>分包</strong>       00 01   占两个字节<br><strong>数据区域长度</strong> 00 01  占两个字节<br><strong>数据</strong>          01   占1-n个字节<br><strong>校验和</strong>            00  占一个字节，取低位 假设文件名为空数据为01 校验和为 7e+7e+01+01+01+01=01 00 取低位得00</p>
+<h4 id="一个完整的包如下"><a href="#一个完整的包如下" class="headerlink" title="一个完整的包如下"></a>一个完整的包如下</h4><p>7e 7e  00 00… 00(50个00) 00 01 00 01  00 01 00 01 00</p>
+<p>完美！！</p>
+<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/03/13/AnnualSummary 2017/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2034,169 +2206,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/07/20/Introspection 2017-07-20/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiaolong的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/20/Introspection 2017-07-20/" itemprop="url">
-                  自省
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T20:33:17+08:00">
-                2017-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/阶段性总结/" itemprop="url" rel="index">
-                    <span itemprop="name">阶段性总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="想离职却又变心的自己"><a href="#想离职却又变心的自己" class="headerlink" title="想离职却又变心的自己"></a>想离职却又变心的自己</h3><p>最近下班时间都在玩游戏，基本没怎么花时间反思最近的自己，现在做一下阶段总结。在这家公司待了三个多月了，最直观的感受是在这边基本上没人能带着你工作，手头的项目也都是我一个人在做，先后做了一个离线版的应用还有另外一个面向企业的应用的改版。在这期间也遇到了很多问题，一步一步克服了，但总的感觉最近的生活太安逸。之前一段时间还有想要离开这里去外地城市发展的想法，后来想想自己的技术尚浅，在加上已经换了两家公司了，决定还是先在这边多做学习。</p>
-<h3 id="代码与我"><a href="#代码与我" class="headerlink" title="代码与我"></a>代码与我</h3><p>我觉得大多数程序员的梦想就是能写出很优雅的代码，能造出好用的轮子，我也是千千万万普通程序猿中的一员，也拥有着和他们一样的想法，我当初选择软件工程的原因是：我想成为一名很厉害的黑客，</p>
-<blockquote>
-<p>因为在高中期间，无意中得到了一份易语言的邮件发送代码，然后就用这个做了好多盗QQ号软件，其实是很简单的，因为就一个用户界面让用户自愿输入帐号密码，然后把帐号密码发送到我的邮箱，那时候一天能盗几百个号，我记得最蠢的事情是我把帐号列表post在空间，然后有人问我为什么他的帐号在上面，想想真是尴尬。不过这些好玩的东西现在都做不了了。</p>
-</blockquote>
-<p>只要有一台电脑在面前就能操控很多东西能做很多事情。事实是我太天真了。上了大学第一个学期的课的时候我的梦想就破灭了。哈哈，因为发现C++居然写的是控制台，不带图形界面的。我这个职业拉控件，写写忽悠人的软件的小朋友，眉头一皱，发现黑客并不是那么简单。大学总算过来了， 虽然算不上班级中的佼佼者，但是还是带着大多数同学完成了课程设计。<br>大一写的好像是黑杰克，控制台界面，PC跟玩家对战，PC毫无智商可言，233，只要牌小于15就会加牌，随机分牌，<br>大二软件工程用C#写的<a href="http://download.csdn.net/download/guoxiaolongonly/8292765" target="_blank" rel="external">家庭财务管理系统</a>（就一个GridView带统计功能），Java课程用Java写了<a href="http://download.csdn.net/download/guoxiaolongonly/8292775" target="_blank" rel="external">俄罗斯方块</a>。C#课程C#写了一个<a href="http://download.csdn.net/download/guoxiaolongonly/8292809" target="_blank" rel="external">写字板</a>的应用，跟着老师一步一步写的。自己写的并不多，自己也是刷过ACM做过各种好玩的<a href="http://download.csdn.net/download/guoxiaolongonly/8739163" target="_blank" rel="external">算法</a>的。</p>
-<p>大二下的J2EE，用strut2+hibernate写了个<a href="http://download.csdn.net/download/guoxiaolongonly/8920765" target="_blank" rel="external">博客系统</a>。实现了基本增删改查操作。</p>
-<p>大三：现代算法课写了护士排班，虽然我到现在也不明白，遗传算法和模拟退火算法的这些数据基数是怎么来的。</p>
-<blockquote>
-<p>最开始我弄了一部分基准数据在里面，然后让遗传值无限接近这个基准，那其实我觉得算法应该是一次一次输入数据一次比一次更准确，因为有对前面数据的统计。所以我的算法是错误的，分数不高。坑爹的是我把这份代码送了班级的另一名同学，结果他拿了比我还高的分数。</p>
-</blockquote>
-<p>大三：Andorid课程设计，<a href="http://download.csdn.net/download/guoxiaolongonly/8920793" target="_blank" rel="external">五子棋人机对战版</a>，那时候本来想写蓝牙对战，但是感觉难度蛮高，虽然也有demo实现，但是没有去做参考。人工智能：五子棋AI，一份网上参考的代码，打败了全班的小伙伴。带着我们小组成了第一名。基于极大极小搜索算法和剪枝优化策略下的五子棋算法，跟上面那个一样。</p>
-<p>大四：大四的话基本没怎么做事情了，那时候设计模式课程设计拿的是比赛的项目，和小伙伴们参加了比赛，边比赛边创业。那时候的<a href="http://android.myapp.com/myapp/detail.htm?apkName=com.duopai" target="_blank" rel="external">朵拍</a>。拿了奖，入驻了众创空间，可能那就是离梦想最近的一次了。可是我们还是太年轻了。当然也是发现自身存在的不足和所需的技术实现难度，在毕业之前大家各自放弃了梦想，投入了工作。最后<a href="https://github.com/xiaolongonly/MyFinalSchoolExam" target="_blank" rel="external">毕业设计</a>，做的是一个移动端的任务发布平台，跟之前到位的功能有点像。用户可以在上面发任务，然后，接单的用户可以私下与其接洽，大致如此。提供地图标记和发布功能，提供聊天功能（WebSocket），提供用户有移动端和服务端。服务端用的是php一键式的~</p>
-<p>写代码的日子总是这么有意思，其实我也仔细思考过写代码能做的最棒的事情是什么？就是，当有一天你已成家，有自己的孩子，你可以给你的孩子定制一些简单的小程序和游戏。我觉得这是一件超级幸福的事情，这就是写代码最幸福的追求吧。</p>
-<p>那其实作为一个软件工程师职业，大多数人更想的是做出很好用的轮子，帮助很多初学的程序猿，让自己成为行业内知名的人物。</p>
-<p>我觉得要做到这些，无异于就以下几点，首先要热爱自己的职业，其次是需要花时间在里面，搜罗各种资源让自己成长。在其次就是多思考，多创新。现在我也在朝这一目标往前走。</p>
-<p>在前面一段时间我学习Andorid的资源都是来自网上，各种教学视频，各种各样的论坛博客，还有代码仓库。这边学一点，那边学一点，到最后将零零散散的知识拼凑到一起，勉勉强强能应付工作，但是遇到一些更深入的细节问题往往都不知道答案，很多时候我都知道，这里就是需要这么写，但是为什么需要这么写，自己从未去深入探究，<br>在这半年，我开始发现阅读一些有用的框架源码能发现一些很有意思的设计模式，还有一些优质的设计思想，我才发现自己当初真的算初学Java，入门的Andorid。</p>
-<p>我觉得做一行开发，确实需要系统的去学习，我以前看的过郭霖的第一行代码，以为自己真正了解Android开发了，却没发现那本只是入门书籍。往里面还有很多路要走，现在我开始看中级进阶的书籍了。以前对开发都只是知道皮毛，没有深入去探究，现在终于可以通过学习把那些零散的点一点一点的拼凑起来，希望自己最终能实现自己的梦想吧。</p>
-<h3 id="自省"><a href="#自省" class="headerlink" title="自省"></a>自省</h3><p>曾经我以为我和大多数刚毕业的开发者不一样，我比他们拥有更强的技术，但是后面我才发现其实都是一样的，我也是那个搬着轮子瞎开心的程序猿，并没有比别人厉害，也不能做到一蹴而就，发现写代码这东西除非用心，除非花时间，除非热爱，除非有天分，很少有人能在短时间成为技术大牛的。</p>
-<p>总之，未来还长，边学边往前走吧。</p>
-<p><strong><em>By xiaolong：You have a dream,you got to protect it!</em></strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2246,7 +2255,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

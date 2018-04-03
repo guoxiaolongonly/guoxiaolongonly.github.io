@@ -280,6 +280,177 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/06/01/Reptile3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/01/Reptile3/" itemprop="url">
+                  java爬虫教程：模拟用户表单登录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-01T20:56:04+08:00">
+                2016-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">Java爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个是爬虫教程第三篇，教大家如何模拟用户表单登录。</p>
+<p>前期准备：</p>
+<ul>
+<li>JSOUP 1.83 jar包</li>
+<li>Eclipse 任意版本能运行java就行</li>
+<li>谷歌浏览器</li>
+</ul>
+<h5 id="第一步：依然是分析页面结构"><a href="#第一步：依然是分析页面结构" class="headerlink" title="第一步：依然是分析页面结构"></a>第一步：依然是分析页面结构</h5><p>我们要模拟CSDN用户表单登录，来获取用户登录后的数据。<br>在一些网站和论坛，部分内容总是需要会员用户等需要一定权限的用户才能看得到。<br>好了由此可见模拟用户表单登录的重要性了。</p>
+<p>进入<a href="https://passport.csdn.net/account/login" target="_blank" rel="external">登录页</a>，在页面上按F12查看页面元素的内容。<br><img src="http://img.my.csdn.net/uploads/201606/13/1465824740_6409.png" alt=""><br>这次我们只要form标签，和其内部的账号密码输入框信息。</p>
+<h5 id="第二步：讲解一下Post需要的操作具体流程"><a href="#第二步：讲解一下Post需要的操作具体流程" class="headerlink" title="第二步：讲解一下Post需要的操作具体流程"></a>第二步：讲解一下Post需要的操作具体流程</h5><p>一般表单的id都是唯一的，所以要过滤出表单是很容易的一件事情<br>这里表单的id值是fm1<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Element&gt; et = d1.select(<span class="string">"#fm1"</span>);<span class="comment">// 获取form表单</span></div></pre></td></tr></table></figure></p>
+<p>下一步是获得表单下面的帐号和密码输入框控件，同样可以根据id来过滤，不过这里使用的是name属性。<br>一般网站设计都会把name属性配上value，post到服务端。<br>直接在Map对象中put帐号和密码的键值对，代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Map&lt;String, String&gt; datas = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">datas.put(e.attr(<span class="string">"name"</span>), e.attr(<span class="string">"value"</span>));</div></pre></td></tr></table></figure></p>
+<p>这个就是表单的帐号密码输入框的键值<br>也可以不做遍历直接<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">datas.put(<span class="string">"username"</span>, <span class="string">"your username"</span>);</div><div class="line">datas.put(<span class="string">"password"</span>, <span class="string">"your password"</span>);</div></pre></td></tr></table></figure></p>
+<p>哈哈，是不是少了许多。<br>经过这一步之后datas里已经存放了我们要post的数据了。<br>可以执行第二次请求将登录信息post上去了。<br>Response login = con2.ignoreContentType(true).method(Method.POST)<br>                .data(datas).cookies(rs.cookies()).execute();<br>携带登录的Map数据和第一次登录返回的cookie，进行post。</p>
+<h5 id="第三步：开始写代码"><a href="#第三步：开始写代码" class="headerlink" title="第三步：开始写代码"></a>第三步：开始写代码</h5><p>好了就是这么简单。接下来看看代码吧。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.jsoup.Connection;</div><div class="line"><span class="keyword">import</span> org.jsoup.Jsoup;</div><div class="line"><span class="keyword">import</span> org.jsoup.Connection.Method;</div><div class="line"><span class="keyword">import</span> org.jsoup.Connection.Response;</div><div class="line"><span class="keyword">import</span> org.jsoup.nodes.Document;</div><div class="line"><span class="keyword">import</span> org.jsoup.nodes.Element;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 使用Jsoup模拟登陆CSDN</div><div class="line"> * </div><div class="line"> * </div><div class="line"> * 大体思路如下:</div><div class="line"> * </div><div class="line"> * 第一次请求登陆页面，获取页面信息，包含表单信息，和cookie（这个很重要），拿不到，会模拟登陆不上</div><div class="line"> * </div><div class="line"> * </div><div class="line"> * 第二次登陆，设置用户名，密码，把第一次的cooking，放进去，即可</div><div class="line"> * </div><div class="line"> * 怎么确定是否登陆成功？</div><div class="line"> * </div><div class="line"> * 登陆后，打印页面，会看到账户的详细信息。</div><div class="line"> * </div><div class="line"> * </div><div class="line"> * <span class="doctag">@date</span> 2016年6月13日</div><div class="line"> * <span class="doctag">@author</span> xiaolong</div><div class="line"> * </div><div class="line"> * </div><div class="line"> * **/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginDemo</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"></div><div class="line">		LoginDemo loginDemo = <span class="keyword">new</span> LoginDemo();</div><div class="line">		loginDemo.login(<span class="string">"your account"</span>, <span class="string">"password"</span>);<span class="comment">// 输入CSDN的用户名，和密码</span></div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 模拟登陆CSDN</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> userName</div><div class="line">	 *            用户名</div><div class="line">	 * <span class="doctag">@param</span> pwd</div><div class="line">	 *            密码</div><div class="line">	 * </div><div class="line">	 * **/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(String userName, String pwd)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"></div><div class="line">		<span class="comment">// 第一次请求</span></div><div class="line">		Connection con = Jsoup</div><div class="line">				.connect(<span class="string">"https://passport.csdn.net/account/login"</span>);<span class="comment">// 获取连接</span></div><div class="line">		con.header(<span class="string">"User-Agent"</span>,</div><div class="line">				<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0"</span>);<span class="comment">// 配置模拟浏览器</span></div><div class="line">		Response rs = con.execute();<span class="comment">// 获取响应</span></div><div class="line">		Document d1 = Jsoup.parse(rs.body());<span class="comment">// 转换为Dom树</span></div><div class="line">		List&lt;Element&gt; et = d1.select(<span class="string">"#fm1"</span>);<span class="comment">// 获取form表单，可以通过查看页面源码代码得知</span></div><div class="line"></div><div class="line">		<span class="comment">// 获取，cooking和表单属性，下面map存放post时的数据</span></div><div class="line">		Map&lt;String, String&gt; datas = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">		<span class="keyword">for</span> (Element e : et.get(<span class="number">0</span>).getAllElements()) &#123;</div><div class="line">			<span class="keyword">if</span> (e.attr(<span class="string">"name"</span>).equals(<span class="string">"username"</span>)) &#123;</div><div class="line">				e.attr(<span class="string">"value"</span>, userName);<span class="comment">// 设置用户名</span></div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (e.attr(<span class="string">"name"</span>).equals(<span class="string">"password"</span>)) &#123;</div><div class="line">				e.attr(<span class="string">"value"</span>, pwd); <span class="comment">// 设置用户密码</span></div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (e.attr(<span class="string">"name"</span>).length() &gt; <span class="number">0</span>) &#123;<span class="comment">// 排除空值表单属性</span></div><div class="line">				datas.put(e.attr(<span class="string">"name"</span>), e.attr(<span class="string">"value"</span>));</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">/**</span></div><div class="line">		 * 第二次请求，post表单数据，以及cookie信息</div><div class="line">		 * </div><div class="line">		 * **/</div><div class="line">		Connection con2 = Jsoup</div><div class="line">				.connect(<span class="string">"https://passport.csdn.net/account/login"</span>);</div><div class="line">		con2.header(<span class="string">"User-Agent"</span>,</div><div class="line">				<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0"</span>);</div><div class="line">		<span class="comment">// 设置cookie和post上面的map数据</span></div><div class="line">		Response login = con2.ignoreContentType(<span class="keyword">true</span>).method(Method.POST)</div><div class="line">				.data(datas).cookies(rs.cookies()).execute();</div><div class="line">		<span class="comment">// 打印，登陆成功后的信息</span></div><div class="line">		System.out.println(login.body());</div><div class="line"></div><div class="line">		<span class="comment">// 登陆成功后的cookie信息，可以保存到本地，以后登陆时，只需一次登陆即可</span></div><div class="line">		Map&lt;String, String&gt; map = login.cookies();</div><div class="line">		<span class="keyword">for</span> (String s : map.keySet()) &#123;</div><div class="line">			System.out.println(s + <span class="string">"      "</span> + map.get(s));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><pre><code>这个类中写了两次网站访问的请求
+第一次请求用来获取cookie信息
+第二次请求将携带cookie和登录数据的信息post出去用来模拟登录。
+就是这么简单~~~
+
+小Tips:
+想要模拟用户表单登录，链接头信息是不可少的，&quot;User-Agent&quot;代表的是浏览器访问信息。
+通过下图可以看到请求头可以有这么多的信息，
+服务端可能会通过约束请求头来判别用户post/get的信息是否合法
+所以请求头很重要~请求头很重要~请求头很重要~（重要的事情说三遍）
+</code></pre><p><img src="http://img.my.csdn.net/uploads/201606/13/1465827533_1458.png" alt=""></p>
+<pre><code>这个是登录后每一次操作都需要携带的头部信息。可以通过F12查看页面网络访问状态来查看请求头和返回头。
+好啦，有了模拟表单登录了，是时候去大展身手了。
+爬虫教程到此结束，希望有兴趣的小伙伴可以继续深入研究
+</code></pre><p><strong><em>By Xiaolong：You have a dream,you got to protect it! </em></strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2016/05/08/Reptile2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -832,7 +1003,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

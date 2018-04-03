@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="AndroidPDF," />
+  <meta name="keywords" content="Android蓝牙通讯," />
 
 
 
@@ -87,22 +87,29 @@
 
 
 
-<meta name="description" content="1. 简介本章会讲四种可以在Android端使用的pdf框架，并介绍其优势和劣势。
-###（1）android-pdfview
-第一个当然是github上面star 最多android-pdfview，它是基于谷歌的一款开源PDF浏览框架VuDroid封装的Android端框架，支持缩略图，缩放，页面枚举，默认起始页。还有pdf加载监听，pdf页面滑动监听。功能很强大，不过很可惜，功能有限，作者也">
+<meta name="description" content="流程思考这边有几个需求点，
+1.一个统一的蓝牙管理类，BtManger,针对蓝牙连接和各种数据回调处理。
+
+变量说明一下，（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AndroidPdf框架一览（一）">
-<meta property="og:url" content="http://rngift.com/2017/08/09/AndroidPdfViewer/index.html">
+<meta property="og:title" content="从零开始写一个蓝牙SPP通讯">
+<meta property="og:url" content="http://rngift.com/2018/04/03/BluetoothDoc/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
-<meta property="og:description" content="1. 简介本章会讲四种可以在Android端使用的pdf框架，并介绍其优势和劣势。
-###（1）android-pdfview
-第一个当然是github上面star 最多android-pdfview，它是基于谷歌的一款开源PDF浏览框架VuDroid封装的Android端框架，支持缩略图，缩放，页面枚举，默认起始页。还有pdf加载监听，pdf页面滑动监听。功能很强大，不过很可惜，功能有限，作者也">
-<meta property="og:updated_time" content="2018-03-12T14:57:48.385Z">
+<meta property="og:description" content="流程思考这边有几个需求点，
+1.一个统一的蓝牙管理类，BtManger,针对蓝牙连接和各种数据回调处理。
+
+变量说明一下，（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认">
+<meta property="og:image" content="http://rngift.com/.\TIM截图20180330145900.png">
+<meta property="og:image" content="http://rngift.com/.\TIM图片20180328151248.png">
+<meta property="og:image" content="http://rngift.com/.\TIM图片20180328152721.png">
+<meta property="og:updated_time" content="2018-04-03T15:23:32.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AndroidPdf框架一览（一）">
-<meta name="twitter:description" content="1. 简介本章会讲四种可以在Android端使用的pdf框架，并介绍其优势和劣势。
-###（1）android-pdfview
-第一个当然是github上面star 最多android-pdfview，它是基于谷歌的一款开源PDF浏览框架VuDroid封装的Android端框架，支持缩略图，缩放，页面枚举，默认起始页。还有pdf加载监听，pdf页面滑动监听。功能很强大，不过很可惜，功能有限，作者也">
+<meta name="twitter:title" content="从零开始写一个蓝牙SPP通讯">
+<meta name="twitter:description" content="流程思考这边有几个需求点，
+1.一个统一的蓝牙管理类，BtManger,针对蓝牙连接和各种数据回调处理。
+
+变量说明一下，（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认">
+<meta name="twitter:image" content="http://rngift.com/.\TIM截图20180330145900.png">
 
 
 
@@ -130,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://rngift.com/2017/08/09/AndroidPdfViewer/"/>
+  <link rel="canonical" href="http://rngift.com/2018/04/03/BluetoothDoc/"/>
 
 
 
 
 
-  <title> AndroidPdf框架一览（一） | Xiaolong的个人博客 </title>
+  <title> 从零开始写一个蓝牙SPP通讯 | Xiaolong的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -285,7 +292,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/08/09/AndroidPdfViewer/">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/04/03/BluetoothDoc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小龙">
@@ -306,7 +313,7 @@
             
             
               
-                AndroidPdf框架一览（一）
+                从零开始写一个蓝牙SPP通讯
               
             
           </h1>
@@ -321,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T14:59:45+08:00">
-                2017-08-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T23:23:26+08:00">
+                2018-04-03
               </time>
             
 
@@ -344,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android第三方/" itemprop="url" rel="index">
-                    <span itemprop="name">Android第三方</span>
+                  <a href="/categories/Android蓝牙/" itemprop="url" rel="index">
+                    <span itemprop="name">Android蓝牙</span>
                   </a>
                 </span>
 
@@ -379,65 +386,37 @@
       
 
       
-        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>本章会讲四种可以在Android端使用的pdf框架，并介绍其优势和劣势。</p>
-<p>###（1）android-pdfview</p>
-<p>第一个当然是github上面star 最多<a href="https://github.com/JoanZapata/android-pdfview" target="_blank" rel="external">android-pdfview</a>，它是基于谷歌的一款开源PDF浏览框架<a href="https://code.google.com/archive/p/vudroid/" target="_blank" rel="external">VuDroid</a>封装的Android端框架，<br>支持缩略图，缩放，页面枚举，默认起始页。还有pdf加载监听，pdf页面滑动监听。<br>功能很强大，不过很可惜，功能有限，作者也在15年停止了维护。</p>
-<p>###（2）pdfium</p>
-<p><a href="https://pdfium.googlesource.com/pdfium/" target="_blank" rel="external">pdfium</a>是谷歌开源的一款高性能的PDF渲染组件，用来作Chrome内核的pdf渲染。支持pdf加密文件打开，支持获取pdf文档信息，作者，标题，副标题，创建日期等…可以将指定的pdf页面渲染成bitmap，这个框架足以实现基本所有pdf定制化操作。美中不足的是框架比较大，对于移动端的包压缩是一个挑战</p>
-<p>###（3）mupdf<br><a href="https://mupdf.com/" target="_blank" rel="external">mupdf</a>是一款轻量级的pdf浏览框架，基本上支持前面两者的功能，如果是文本的pdf文档还支持搜索，标注等功能。当之无愧的强大。虽说轻量，但编译出来的so库也不小。</p>
-<p>###（4）Android原生<br>Android在API19提供了<a href="https://developer.android.com/reference/android/graphics/pdf/PdfRenderer.html" target="_blank" rel="external">android.graphics.pdf</a> 这个pdf管理库，主要提供两个类pdfRender 和pdfDocument，pdfdocument 是将View转成pdf文件（require API19），pdfRender是将pdf文件绘制到bitmap上(require API21)，这个就是原生提供的pdf浏览框架,但因为API要求很容易被拒之门外，不过随着API迭代，以后可能就无所谓了。</p>
-<h3 id="2-四者做一下对比"><a href="#2-四者做一下对比" class="headerlink" title="2.四者做一下对比"></a>2.四者做一下对比</h3><p>因为所有的框架都是将pdf转成图片做展示，所以定制化自己都能实现，那在这里这边对四者做一下对比。  这边的信息查看指pdf创建信息，大小指so库大小</p>
-<table>
-<thead>
-<tr>
-<th>框架名称</th>
-<th>支持信息查看</th>
-<th>支持文本检索</th>
-<th>API要求</th>
-<th>原始/打包后大小</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VuDroid</td>
-<td>false</td>
-<td>false</td>
-<td>API16 or lower</td>
-<td>19M-&gt;6.7M</td>
-</tr>
-<tr>
-<td>pdfium</td>
-<td>true</td>
-<td>false</td>
-<td>API16 or lower</td>
-<td>30M-&gt;15.3M</td>
-</tr>
-<tr>
-<td>mupdf</td>
-<td>true</td>
-<td>true</td>
-<td>API16 or lower</td>
-<td>70.2-&gt;36.6M</td>
-</tr>
-<tr>
-<td>PdfRenderer</td>
-<td>false</td>
-<td>false</td>
-<td>API21</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>总结：mupdf功能最强大，pdfium次之，VuDroid和PdfRender都差不多。<br>但因为PdfRender有API限制。mupdf库有点大，所以大家根据需求来选择。</p>
-<h3 id="3-源码和Demo"><a href="#3-源码和Demo" class="headerlink" title="3.源码和Demo"></a>3.源码和Demo</h3><p><a href="https://code.google.com/archive/p/vudroid/" target="_blank" rel="external">VuDroid源码</a></p>
-<p><a href="https://github.com/JoanZapata/android-pdfview" target="_blank" rel="external">VuDroidDemo下载地址</a></p>
-<p><a href="https://pdfium.googlesource.com/pdfium/" target="_blank" rel="external">pdfium源码</a></p>
-<p><a href="https://github.com/xiaolongonly/PDFiumForAndroidDemo" target="_blank" rel="external">pdfiumDemo下载地址</a><br>//写的并不是很好，正在看其他的开源框架思考更好的封装思路ing~~~<br><a href="https://mupdf.com/" target="_blank" rel="external">mupdf源码</a> </p>
-<p><a href="https://github.com/xiaolongonly/MuPdfForAndroid" target="_blank" rel="external">mupdfDemo下载地址</a> </p>
-<p><a href="https://developer.android.com/reference/android/graphics/pdf/PdfRenderer.html" target="_blank" rel="external">PdfRendererWiki</a> </p>
-<p><a href="https://github.com/googlesamples/android-PdfRendererBasic" target="_blank" rel="external">PdfRenderer下载地址</a></p>
-<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
-
+        <h3 id="流程思考"><a href="#流程思考" class="headerlink" title="流程思考"></a>流程思考</h3><p>这边有几个需求点，</p>
+<p>1.<strong>一个统一的蓝牙管理类</strong>，BtManger,针对蓝牙连接和各种数据回调处理。</p>
+<p><img src=".\TIM截图20180330145900.png" alt="TIM截图20180330145900.png"></p>
+<p>变量说明一下，<br>（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认的BluetoothAdapter,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">BluetoothManager btManager = (BluetoothManager) context</div><div class="line">               .getSystemService(Context.BLUETOOTH_SERVICE);</div><div class="line">BluetoothAdapter bluetoothAdapter = btManager.getAdapter;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();</div></pre></td></tr></table></figure>
+<p>两种方式的区别在于，第一种方式可以通过btManager来获取蓝牙的一些状态信息，包括已连接的设备列表等…</p>
+<p>（2）Context上下文，如果有全局的蓝牙处理需求，建议在Application创建的时候传入应用上下文,这个上下文需要注册广播还有一些其他的功能，如果不是声明周期长的Activiy会导致内存泄露。<br>（3）BluetoothTransferService 传输服务类，提供设备连接，还有蓝牙Socket数据传输。后面会详细讲到。<br>（4）BluetoothStatusReceiver 广播接收器，用来接收蓝牙状态的广播，蓝牙开启/关闭。<br>（5）BluetoothScanRecevier  广播接收器，用来接收蓝牙设备扫描的广播<br>（6）BtManager 蓝牙管理类的单实例，因为蓝牙SPP对接整个周期只做一个，没必要每次都创建新的连接。<br>（7）DeviceHandler  这个类用来做跨线程的诸多状态的通信。（整个连接，监听，和传输过程都放在线程中）</p>
+<p>2.<strong>蓝牙搜索</strong>，需要有一个能搜索附近的蓝牙的回调<br><img src=".\TIM图片20180328151248.png" alt="TIM图片20180328151248.png"><br>整个设计大致如下，BluetoothDevice为蓝牙设备信息，rssi为信号强度，提供单设备扫描，扫描超时，和全部扫描结束列表回调</p>
+<p>3.<strong>蓝牙对接</strong>，需要有一个能让用户知道蓝牙连接状态的回调  成功，失败，中断等..</p>
+<p><img src=".\TIM图片20180328152721.png" alt="TIM图片20180328152721.png"><br>四个方法分别 是连接中,已连接,断开连接,等待接入,连接到设备</p>
+<p>4.<strong>蓝牙数据传输(发送)</strong>，这个是重点，分析一下这一块需要的功能，（1）发送消息的功能，称之为sendMessage。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组,也可能是一串字符串，好了这边这边提供一个抽象。提供一个基础的RequestMessage，和getRequestBody根据不同的文件类型做策略包装。甚至可以提供静态工厂来包装一个这样的对象;</p>
+<p>5.<strong>蓝牙数据传输(接收)</strong>，这个也是重点，分析一下这一块需要的功能，（1）接收消息的功能，当消息接收完毕后告诉用户。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组等等。提供一个扩展的接口用来做消息处理，针对不同的消息做不同的处理。提供一个基础的 ResponseMessage，getResponseBody也做策略封装。</p>
+<p>6.分包传输，分包接收这类的机制。降低仪器数据量大小限制</p>
+<p>7.最后针对以上的功能提供一些静态的方法做数据处理，ByteUtil,FileUtil等。</p>
+<h3 id="协议定制"><a href="#协议定制" class="headerlink" title="协议定制"></a>协议定制</h3><p>需求如下既要考虑到不同文件的传输，又要考虑到文件传输的大小限制。</p>
+<h4 id="协议可以这么做"><a href="#协议可以这么做" class="headerlink" title="协议可以这么做"></a>协议可以这么做</h4><ol>
+<li>包头，当接收到头部的时候代表一次请求开始，</li>
+<li>文件名称，如果当前传输为文件的话填入文件名称否则为00 00;</li>
+<li>总包数 针对数据太大的问题采用分包发送，AllPack总包</li>
+<li>分包  当前传出分包</li>
+<li>数据区长度  传输的数据区长度，用来确认接下来需要读取的字节数</li>
+<li>数据    待传输数据，可以为空</li>
+<li>校验和  针对前面传输数据的累加和，取低位</li>
+</ol>
+<h4 id="具体内容如下"><a href="#具体内容如下" class="headerlink" title="具体内容如下"></a>具体内容如下</h4><p><strong>包头</strong>  0x7e 0x7e 两个十六进制数 占两字节</p>
+<p><strong>文件名称</strong> 00 00 … 占50字节大致能传16个UTF-8中文字符和1个英文字符，或者50个英文字符，扩展名算进去。</p>
+<p><strong>总包数</strong>     00 01    占两个字节<br><strong>分包</strong>       00 01   占两个字节<br><strong>数据区域长度</strong> 00 01  占两个字节<br><strong>数据</strong>          01   占1-n个字节<br><strong>校验和</strong>            00  占一个字节，取低位 假设文件名为空数据为01 校验和为 7e+7e+01+01+01+01=01 00 取低位得00</p>
+<h4 id="一个完整的包如下"><a href="#一个完整的包如下" class="headerlink" title="一个完整的包如下"></a>一个完整的包如下</h4><p>7e 7e  00 00… 00(50个00) 00 01 00 01  00 01 00 01 00</p>
+<p>完美！！</p>
+<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2>
       
     </div>
 
@@ -466,7 +445,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/AndroidPDF/" rel="tag"># AndroidPDF</a>
+            <a href="/tags/Android蓝牙通讯/" rel="tag"># Android蓝牙通讯</a>
           
         </div>
       
@@ -479,8 +458,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/20/Introspection 2017-07-20/" rel="next" title="自省">
-                <i class="fa fa-chevron-left"></i> 自省
+              <a href="/2018/03/13/AnnualSummary 2017/" rel="next" title="2017年总结">
+                <i class="fa fa-chevron-left"></i> 2017年总结
               </a>
             
           </div>
@@ -488,10 +467,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/30/Ticket/" rel="prev" title="Android端的彩票开奖查询系统">
-                Android端的彩票开奖查询系统 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -640,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-四者做一下对比"><span class="nav-number">1.1.</span> <span class="nav-text">2.四者做一下对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-源码和Demo"><span class="nav-number">1.2.</span> <span class="nav-text">3.源码和Demo</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程思考"><span class="nav-number">1.</span> <span class="nav-text">流程思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议定制"><span class="nav-number">2.</span> <span class="nav-text">协议定制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#协议可以这么做"><span class="nav-number">2.1.</span> <span class="nav-text">协议可以这么做</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体内容如下"><span class="nav-number">2.2.</span> <span class="nav-text">具体内容如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个完整的包如下"><span class="nav-number">2.3.</span> <span class="nav-text">一个完整的包如下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码阶段"><span class="nav-number"></span> <span class="nav-text">编码阶段</span></a></div>
             
 
           </div>
