@@ -381,15 +381,15 @@
           
             <h3 id="流程思考"><a href="#流程思考" class="headerlink" title="流程思考"></a>流程思考</h3><p>这边有几个需求点，</p>
 <p>1.<strong>一个统一的蓝牙管理类</strong>，BtManger,针对蓝牙连接和各种数据回调处理。</p>
-<p><img src=".\TIM截图20180330145900.png" alt="TIM截图20180330145900.png"></p>
+<p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btManager.png" alt="TIM截图20180330145900.png"></p>
 <p>变量说明一下，<br>（1）BluetoothAdapter 是一个本地蓝牙适配器，可以用来查询设备，获取已配对设备列表，通过MAC连接蓝牙设备，做蓝牙接入监听，还有蓝牙开关状态等等。可以通过获取系统的BluetoothManager来获取，也可以直接通过BluetoothAdapter获取一个默认的BluetoothAdapter,</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">BluetoothManager btManager = (BluetoothManager) context</div><div class="line">               .getSystemService(Context.BLUETOOTH_SERVICE);</div><div class="line">BluetoothAdapter bluetoothAdapter = btManager.getAdapter;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();</div></pre></td></tr></table></figure>
 <p>两种方式的区别在于，第一种方式可以通过btManager来获取蓝牙的一些状态信息，包括已连接的设备列表等…</p>
 <p>（2）Context上下文，如果有全局的蓝牙处理需求，建议在Application创建的时候传入应用上下文,这个上下文需要注册广播还有一些其他的功能，如果不是声明周期长的Activiy会导致内存泄露。<br>（3）BluetoothTransferService 传输服务类，提供设备连接，还有蓝牙Socket数据传输。后面会详细讲到。<br>（4）BluetoothStatusReceiver 广播接收器，用来接收蓝牙状态的广播，蓝牙开启/关闭。<br>（5）BluetoothScanRecevier  广播接收器，用来接收蓝牙设备扫描的广播<br>（6）BtManager 蓝牙管理类的单实例，因为蓝牙SPP对接整个周期只做一个，没必要每次都创建新的连接。<br>（7）DeviceHandler  这个类用来做跨线程的诸多状态的通信。（整个连接，监听，和传输过程都放在线程中）</p>
-<p>2.<strong>蓝牙搜索</strong>，需要有一个能搜索附近的蓝牙的回调<br><img src=".\TIM图片20180328151248.png" alt="TIM图片20180328151248.png"><br>整个设计大致如下，BluetoothDevice为蓝牙设备信息，rssi为信号强度，提供单设备扫描，扫描超时，和全部扫描结束列表回调</p>
+<p>2.<strong>蓝牙搜索</strong>，需要有一个能搜索附近的蓝牙的回调<br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btScanCallBack.png" alt="TIM图片20180328151248.png"><br>整个设计大致如下，BluetoothDevice为蓝牙设备信息，rssi为信号强度，提供单设备扫描，扫描超时，和全部扫描结束列表回调</p>
 <p>3.<strong>蓝牙对接</strong>，需要有一个能让用户知道蓝牙连接状态的回调  成功，失败，中断等..</p>
-<p><img src=".\TIM图片20180328152721.png" alt="TIM图片20180328152721.png"><br>四个方法分别 是连接中,已连接,断开连接,等待接入,连接到设备</p>
+<p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btDataTransferCallBack.png" alt="TIM图片20180328152721.png"><br>四个方法分别 是连接中,已连接,断开连接,等待接入,连接到设备</p>
 <p>4.<strong>蓝牙数据传输(发送)</strong>，这个是重点，分析一下这一块需要的功能，（1）发送消息的功能，称之为sendMessage。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组,也可能是一串字符串，好了这边这边提供一个抽象。提供一个基础的RequestMessage，和getRequestBody根据不同的文件类型做策略包装。甚至可以提供静态工厂来包装一个这样的对象;</p>
 <p>5.<strong>蓝牙数据传输(接收)</strong>，这个也是重点，分析一下这一块需要的功能，（1）接收消息的功能，当消息接收完毕后告诉用户。（2）消息可能是一个文件，可能是一长串字节流，可能是一个int数组等等。提供一个扩展的接口用来做消息处理，针对不同的消息做不同的处理。提供一个基础的 ResponseMessage，getResponseBody也做策略封装。</p>
 <p>6.分包传输，分包接收这类的机制。降低仪器数据量大小限制</p>
