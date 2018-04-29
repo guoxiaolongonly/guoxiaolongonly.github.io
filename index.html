@@ -280,6 +280,170 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/04/03/RecyclerViewAbout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/03/RecyclerViewAbout/" itemprop="url">
+                  RecyclerView的那些事
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T23:23:26+08:00">
+                2018-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>RecyclerView是什么</p>
+<p>RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了很大提升。</p>
+<h3 id="使用RecyclerView-有什么优势？"><a href="#使用RecyclerView-有什么优势？" class="headerlink" title="使用RecyclerView 有什么优势？"></a>使用RecyclerView 有什么优势？</h3><h4 id="1-自定义LayoutManager"><a href="#1-自定义LayoutManager" class="headerlink" title="1.自定义LayoutManager"></a>1.自定义LayoutManager</h4><p>RecyclcerView不止支持实现ListView结构，也支持实现GridView结构，甚至以前用ListView，GridView实现的瀑布流和一些复杂的样式都能用RecyclcerView来实现。</p>
+<p>RecyclerView默认实现了三种LayoutManager(LinearLayoutManager,GridLayoutManager,StaggeredGridLayoutManager)分别用来实现ListView,GridView和瀑布流的效果，如果这些布局效果不满足你的应用，那你可以自己重写LayoutManager写一个你喜欢的样式。</p>
+<h4 id="2-自定义ItemDecoration（分割线）"><a href="#2-自定义ItemDecoration（分割线）" class="headerlink" title="2.自定义ItemDecoration（分割线）"></a>2.自定义ItemDecoration（分割线）</h4><p>ListView的实现支持我们设置一个自定义的Drawable,来做分割线。</p>
+<p>RecyclerView则多了一个ItemDecoration,我们可以自己实现这个类来做出花哨的分割线。当然RecyclerView也提供了自带的分割线实现类DividerItemDecoration。以前GridView实现不了分割线，RecyclerView可以！！</p>
+<h4 id="3-自定义ItemTouchHelper"><a href="#3-自定义ItemTouchHelper" class="headerlink" title="3.自定义ItemTouchHelper"></a>3.自定义ItemTouchHelper</h4><p>RecyclerView支持自己实现ItemTouchHelper,用来做Item的一些移动等手势操作。</p>
+<h4 id="3-Adapter中获取item的类型"><a href="#3-Adapter中获取item的类型" class="headerlink" title="3.Adapter中获取item的类型"></a>3.Adapter中获取item的类型</h4><p>RecyclerView支持实现getItemViewType根据不同的数据或者某些条件返回不同的itemType,而在Inflate的时候用户可以根据不同的itemType inflate不同的布局。</p>
+<h4 id="4-Adapter局部更新"><a href="#4-Adapter局部更新" class="headerlink" title="4.Adapter局部更新"></a>4.Adapter局部更新</h4><p>在ListView中Adapter更新通常都是直接notifyDataSetChanged();直接更新全部数据。</p>
+<p>这样的更新，将导致在当前窗口中的内容将全部重新重绘。<br>如果没有View重用就会导致所有View全部重新创建，这是一个极可怕的事情。</p>
+<p>RecyclerView的Adapter提供了notifyItemChanged等局部刷新的方法，这么做的好处是可以只重新加载数据更新的区域。并且RecyclerView提供了它自己的数据更新动画~~</p>
+<h4 id="5-Adapter布局重用"><a href="#5-Adapter布局重用" class="headerlink" title="5.Adapter布局重用"></a>5.Adapter布局重用</h4><p>早期ListView的使用其实内部都没实现布局重用，每一条数据加载都需要执行getView方法重新Inflate一个新的布局。<br>要知道布局Inflate的效率并不高，如果没有布局重用很容易导致卡顿，而且过多的对象创建将导致内存递增。<br>后面针对这个问题很多开发者在使用ListView的时候都会使用ViewHolder来防止做重复inflate，但是这也没有解决布局重用问题。</p>
+<p>谷歌官方很显然意识到了这个问题的严重性,所以在RecyclerView的Adapter中作了布局重用。<br>RecyclerView的Adapter要求开发者实现自己的ViewHolder，在CreateViewHolder的时候做了布局重用根据当前页面显示的Item数量决定要inflate的布局数量，后续的数据更新都是在这几个item布局中做更新。</p>
+<h3 id="只用一个RecyclerView如何实现复杂布局"><a href="#只用一个RecyclerView如何实现复杂布局" class="headerlink" title="只用一个RecyclerView如何实现复杂布局"></a>只用一个RecyclerView如何实现复杂布局</h3><p>有个需求是这样的，我们需要做一个图片列表的展示但是不同的图片我要给他不一样的权重来让他显示不同的占比。比如下图。</p>
+<p><img src="(https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png" alt="无标题.png"></p>
+<p>如果页面结构比较简单的情况下(默认顶部区域和最底部区域是一样的)可能会把中间那两块区域做成一个特殊的ViewType.只有中间的八个小方格和两个大方格是特殊区域，这个时候就可以把八个小方格做一个特殊的ViewType，两个小方格做一个特殊的ViewType.加载进去。</p>
+<p>如果所有的方格都是列表中的一个项，这边有可能需要解决数据源的问题。</p>
+<p>但其实这整个布局用一个GridLayoutManager能够一次实现。</p>
+<p>这都要归功于GridLayoutManager提供的一个方法setSpanSizeLookup，它提供了一个SpanSizeLookup的抽象，我们可以实现它的getSpanSize方法。<br>有这个方法，我们可以把不同大小的布局设置不同的ViewType，getSpanSize给不同的ViewType设置不同的占位。最终达到一个RecylcerView实现复杂布局的效果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">               <span class="keyword">switch</span> (displayAdapter.getItemViewType(position)) &#123;</div><div class="line">                   <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">4</span>;</div><div class="line">                   <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">                   <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">                   <span class="keyword">default</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">4</span>;</div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
+<p>其实实现复杂布局的内容跟自定义LayoutManager是一样的，从这个方法可以看出只要我们掌握了自定义的LayoutManager，整个RecyclerView想长什么样子就都掌握在你的手中了。</p>
+<p>后续会把自定义这部分内容补全，未完待续。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/04/03/BluetoothDoc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2006,206 +2170,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/08/09/AndroidPdfViewer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiaolong的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/09/AndroidPdfViewer/" itemprop="url">
-                  AndroidPdf框架一览（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T14:59:45+08:00">
-                2017-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android第三方/" itemprop="url" rel="index">
-                    <span itemprop="name">Android第三方</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>本章会讲四种可以在Android端使用的pdf框架，并介绍其优势和劣势。</p>
-<p>###（1）android-pdfview</p>
-<p>第一个当然是github上面star 最多<a href="https://github.com/JoanZapata/android-pdfview" target="_blank" rel="external">android-pdfview</a>，它是基于谷歌的一款开源PDF浏览框架<a href="https://code.google.com/archive/p/vudroid/" target="_blank" rel="external">VuDroid</a>封装的Android端框架，<br>支持缩略图，缩放，页面枚举，默认起始页。还有pdf加载监听，pdf页面滑动监听。<br>功能很强大，不过很可惜，功能有限，作者也在15年停止了维护。</p>
-<p>###（2）pdfium</p>
-<p><a href="https://pdfium.googlesource.com/pdfium/" target="_blank" rel="external">pdfium</a>是谷歌开源的一款高性能的PDF渲染组件，用来作Chrome内核的pdf渲染。支持pdf加密文件打开，支持获取pdf文档信息，作者，标题，副标题，创建日期等…可以将指定的pdf页面渲染成bitmap，这个框架足以实现基本所有pdf定制化操作。美中不足的是框架比较大，对于移动端的包压缩是一个挑战</p>
-<p>###（3）mupdf<br><a href="https://mupdf.com/" target="_blank" rel="external">mupdf</a>是一款轻量级的pdf浏览框架，基本上支持前面两者的功能，如果是文本的pdf文档还支持搜索，标注等功能。当之无愧的强大。虽说轻量，但编译出来的so库也不小。</p>
-<p>###（4）Android原生<br>Android在API19提供了<a href="https://developer.android.com/reference/android/graphics/pdf/PdfRenderer.html" target="_blank" rel="external">android.graphics.pdf</a> 这个pdf管理库，主要提供两个类pdfRender 和pdfDocument，pdfdocument 是将View转成pdf文件（require API19），pdfRender是将pdf文件绘制到bitmap上(require API21)，这个就是原生提供的pdf浏览框架,但因为API要求很容易被拒之门外，不过随着API迭代，以后可能就无所谓了。</p>
-<h3 id="2-四者做一下对比"><a href="#2-四者做一下对比" class="headerlink" title="2.四者做一下对比"></a>2.四者做一下对比</h3><p>因为所有的框架都是将pdf转成图片做展示，所以定制化自己都能实现，那在这里这边对四者做一下对比。  这边的信息查看指pdf创建信息，大小指so库大小</p>
-<table>
-<thead>
-<tr>
-<th>框架名称</th>
-<th>支持信息查看</th>
-<th>支持文本检索</th>
-<th>API要求</th>
-<th>原始/打包后大小</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VuDroid</td>
-<td>false</td>
-<td>false</td>
-<td>API16 or lower</td>
-<td>19M-&gt;6.7M</td>
-</tr>
-<tr>
-<td>pdfium</td>
-<td>true</td>
-<td>false</td>
-<td>API16 or lower</td>
-<td>30M-&gt;15.3M</td>
-</tr>
-<tr>
-<td>mupdf</td>
-<td>true</td>
-<td>true</td>
-<td>API16 or lower</td>
-<td>70.2-&gt;36.6M</td>
-</tr>
-<tr>
-<td>PdfRenderer</td>
-<td>false</td>
-<td>false</td>
-<td>API21</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>总结：mupdf功能最强大，pdfium次之，VuDroid和PdfRender都差不多。<br>但因为PdfRender有API限制。mupdf库有点大，所以大家根据需求来选择。</p>
-<h3 id="3-源码和Demo"><a href="#3-源码和Demo" class="headerlink" title="3.源码和Demo"></a>3.源码和Demo</h3><p><a href="https://code.google.com/archive/p/vudroid/" target="_blank" rel="external">VuDroid源码</a></p>
-<p><a href="https://github.com/JoanZapata/android-pdfview" target="_blank" rel="external">VuDroidDemo下载地址</a></p>
-<p><a href="https://pdfium.googlesource.com/pdfium/" target="_blank" rel="external">pdfium源码</a></p>
-<p><a href="https://github.com/xiaolongonly/PDFiumForAndroidDemo" target="_blank" rel="external">pdfiumDemo下载地址</a><br>//写的并不是很好，正在看其他的开源框架思考更好的封装思路ing~~~<br><a href="https://mupdf.com/" target="_blank" rel="external">mupdf源码</a> </p>
-<p><a href="https://github.com/xiaolongonly/MuPdfForAndroid" target="_blank" rel="external">mupdfDemo下载地址</a> </p>
-<p><a href="https://developer.android.com/reference/android/graphics/pdf/PdfRenderer.html" target="_blank" rel="external">PdfRendererWiki</a> </p>
-<p><a href="https://github.com/googlesamples/android-PdfRendererBasic" target="_blank" rel="external">PdfRenderer下载地址</a></p>
-<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2255,7 +2219,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2277,7 +2241,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
