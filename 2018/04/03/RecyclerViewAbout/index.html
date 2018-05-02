@@ -87,24 +87,35 @@
 
 
 
-<meta name="description" content="RecyclerView是什么
-RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了很大提升。
-使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现">
+<meta name="description" content="RecyclerView是什么RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了更多优化。
+使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现L">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RecyclerView的那些事">
 <meta property="og:url" content="http://rngift.com/2018/04/03/RecyclerViewAbout/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
-<meta property="og:description" content="RecyclerView是什么
-RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了很大提升。
-使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现">
-<meta property="og:image" content="http://rngift.com/(https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png">
-<meta property="og:updated_time" content="2018-04-29T05:24:10.729Z">
+<meta property="og:description" content="RecyclerView是什么RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了更多优化。
+使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现L">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/CustomLayoutManage2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/CustomLayoutManager.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/Divider.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/MainTouchHelper.png">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/7.gif">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/8.jpg">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/9.png">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/10.png">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/2.png">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/3.jpg">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/4.jpg">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/5.jpg">
+<meta property="og:image" content="http://oa5504rxk.bkt.clouddn.com/week18_listview/6.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/Gridlayout.png">
+<meta property="og:updated_time" content="2018-05-02T14:15:03.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RecyclerView的那些事">
-<meta name="twitter:description" content="RecyclerView是什么
-RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了很大提升。
-使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现">
-<meta name="twitter:image" content="http://rngift.com/(https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png">
+<meta name="twitter:description" content="RecyclerView是什么RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了更多优化。
+使用RecyclerView 有什么优势？1.自定义LayoutManagerRecyclcerView不止支持实现L">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/CustomLayoutManage2.png">
 
 
 
@@ -381,28 +392,53 @@ RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表
       
 
       
-        <p>RecyclerView是什么</p>
-<p>RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。在动画和加载效率方面做了很大提升。</p>
+        <h3 id="RecyclerView是什么"><a href="#RecyclerView是什么" class="headerlink" title="RecyclerView是什么"></a>RecyclerView是什么</h3><p>RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表，我们经常拿他与ListView做比较，相较于原来的列表布局实现，RecyclerView提供的方法更加开放，给用户提供了更多的可选择实现方式。<br>在动画和加载效率方面做了更多优化。</p>
 <h3 id="使用RecyclerView-有什么优势？"><a href="#使用RecyclerView-有什么优势？" class="headerlink" title="使用RecyclerView 有什么优势？"></a>使用RecyclerView 有什么优势？</h3><h4 id="1-自定义LayoutManager"><a href="#1-自定义LayoutManager" class="headerlink" title="1.自定义LayoutManager"></a>1.自定义LayoutManager</h4><p>RecyclcerView不止支持实现ListView结构，也支持实现GridView结构，甚至以前用ListView，GridView实现的瀑布流和一些复杂的样式都能用RecyclcerView来实现。</p>
 <p>RecyclerView默认实现了三种LayoutManager(LinearLayoutManager,GridLayoutManager,StaggeredGridLayoutManager)分别用来实现ListView,GridView和瀑布流的效果，如果这些布局效果不满足你的应用，那你可以自己重写LayoutManager写一个你喜欢的样式。</p>
+<p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/CustomLayoutManage2.png" alt="CustomLayoutManage2"><br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/CustomLayoutManager.png" alt="CustomLayoutManage2"></p>
 <h4 id="2-自定义ItemDecoration（分割线）"><a href="#2-自定义ItemDecoration（分割线）" class="headerlink" title="2.自定义ItemDecoration（分割线）"></a>2.自定义ItemDecoration（分割线）</h4><p>ListView的实现支持我们设置一个自定义的Drawable,来做分割线。</p>
-<p>RecyclerView则多了一个ItemDecoration,我们可以自己实现这个类来做出花哨的分割线。当然RecyclerView也提供了自带的分割线实现类DividerItemDecoration。以前GridView实现不了分割线，RecyclerView可以！！</p>
-<h4 id="3-自定义ItemTouchHelper"><a href="#3-自定义ItemTouchHelper" class="headerlink" title="3.自定义ItemTouchHelper"></a>3.自定义ItemTouchHelper</h4><p>RecyclerView支持自己实现ItemTouchHelper,用来做Item的一些移动等手势操作。</p>
-<h4 id="3-Adapter中获取item的类型"><a href="#3-Adapter中获取item的类型" class="headerlink" title="3.Adapter中获取item的类型"></a>3.Adapter中获取item的类型</h4><p>RecyclerView支持实现getItemViewType根据不同的数据或者某些条件返回不同的itemType,而在Inflate的时候用户可以根据不同的itemType inflate不同的布局。</p>
-<h4 id="4-Adapter局部更新"><a href="#4-Adapter局部更新" class="headerlink" title="4.Adapter局部更新"></a>4.Adapter局部更新</h4><p>在ListView中Adapter更新通常都是直接notifyDataSetChanged();直接更新全部数据。</p>
-<p>这样的更新，将导致在当前窗口中的内容将全部重新重绘。<br>如果没有View重用就会导致所有View全部重新创建，这是一个极可怕的事情。</p>
-<p>RecyclerView的Adapter提供了notifyItemChanged等局部刷新的方法，这么做的好处是可以只重新加载数据更新的区域。并且RecyclerView提供了它自己的数据更新动画~~</p>
-<h4 id="5-Adapter布局重用"><a href="#5-Adapter布局重用" class="headerlink" title="5.Adapter布局重用"></a>5.Adapter布局重用</h4><p>早期ListView的使用其实内部都没实现布局重用，每一条数据加载都需要执行getView方法重新Inflate一个新的布局。<br>要知道布局Inflate的效率并不高，如果没有布局重用很容易导致卡顿，而且过多的对象创建将导致内存递增。<br>后面针对这个问题很多开发者在使用ListView的时候都会使用ViewHolder来防止做重复inflate，但是这也没有解决布局重用问题。</p>
-<p>谷歌官方很显然意识到了这个问题的严重性,所以在RecyclerView的Adapter中作了布局重用。<br>RecyclerView的Adapter要求开发者实现自己的ViewHolder，在CreateViewHolder的时候做了布局重用根据当前页面显示的Item数量决定要inflate的布局数量，后续的数据更新都是在这几个item布局中做更新。</p>
+<p>RecyclerView开放了一个ItemDecoration类,我们可以自己实现这个类来做出花哨的装饰样式，包括分割线。</p>
+<p>以前GridView实现不了分割线，RecyclerView可以！！</p>
+<p>RecyclerView提供了自带的分割线实现类DividerItemDecoration。<br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/Divider.png" alt="CustomLayoutManage2"></p>
+<h4 id="3-自定义ItemTouchHelper"><a href="#3-自定义ItemTouchHelper" class="headerlink" title="3.自定义ItemTouchHelper"></a>3.自定义ItemTouchHelper</h4><p>RecyclerView支持自己实现ItemTouchHelper,用来做Item的一些移动等手势操作。<br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/MainTouchHelper.png" alt="MainTouchHelper"></p>
+<h4 id="4-Adapter中获取item的类型"><a href="#4-Adapter中获取item的类型" class="headerlink" title="4.Adapter中获取item的类型"></a>4.Adapter中获取item的类型</h4><p>RecyclerView支持实现getItemViewType根据不同的数据或者某些条件返回不同的itemType,而在Inflate的时候用户可以根据不同的itemType inflate不同的布局。</p>
+<h4 id="5-列表局部刷新"><a href="#5-列表局部刷新" class="headerlink" title="5.列表局部刷新"></a>5.列表局部刷新</h4><p>RecyclerView提供了局部刷新的接口，通过局部刷新，就能避免调用许多无用的bindView.<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/7.gif" alt="rv"></p>
+<p>(RecyclerView和ListView添加，移除Item效果对比)</p>
+<p>结合RecyclerView的缓存机制，看看局部刷新是如何实现的：<br>以RecyclerView中notifyItemRemoved(1)为例，最终会调用requestLayout()，使整个RecyclerView重新绘制，过程为：<br>onMeasure()–&gt;onLayout()–&gt;onDraw()</p>
+<p>其中，onLayout()为重点，分为三步： </p>
+<ol>
+<li>dispathLayoutStep1()：记录RecyclerView刷新前列表项ItemView的各种信息，如Top,Left,Bottom,Right，用于动画的相关计算； </li>
+<li>dispathLayoutStep2()：真正测量布局大小，位置，核心函数为layoutChildren()； </li>
+<li>dispathLayoutStep3()：计算布局前后各个ItemView的状态，如Remove，Add，Move，Update等，如有必要执行相应的动画.</li>
+</ol>
+<p>其中，layoutChildren()流程图：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/8.jpg" alt="s"></p>
+<p><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/9.png" alt="s"><br>当调用notifyItemRemoved时，会对屏幕内ItemView做预处理，修改ItemView相应的pos以及flag(流程图中红色部分)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/10.png" alt="s"></p>
+<p>当调用fill()中RecyclerView.getViewForPosition(pos)时，RecyclerView通过对pos和flag的预处理，使得bindview只调用一次.</p>
+<p>需要指出，ListView和RecyclerView最大的区别在于数据源改变时的缓存的处理逻辑，ListView是”一锅端”，将所有的mActiveViews都移入了二级缓存mScrapViews，而RecyclerView则是更加灵活地对每个View修改标志位，区分是否重新bindView。</p>
+<h4 id="6-View缓存"><a href="#6-View缓存" class="headerlink" title="6.View缓存"></a>6.View缓存</h4><p><strong>缓存层级</strong></p>
+<p>RecyclerView比ListView多两级缓存，支持多个离ItemView缓存，支持开发者自定义缓存处理逻辑，支持所有RecyclerView共用同一个RecyclerViewPool(缓存池)。</p>
+<p>具体来说：<br>ListView(两级缓存)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/2.png" alt="ListView"><br>RecyclerView(四级缓存)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/3.jpg" alt="RecyclerView"></p>
+<p>ListView和RecyclerView缓存机制基本一致：</p>
+<p>1). mActiveViews和mAttachedScrap功能相似，意义在于快速重用屏幕上可见的列表项ItemView，而不需要重新createView和bindView；</p>
+<p>2). mScrapView和mCachedViews + mReyclerViewPool功能相似，意义在于缓存离开屏幕的ItemView，目的是让即将进入屏幕的ItemView重用.</p>
+<p>3). RecyclerView的优势在于a.mCacheViews的使用，可以做到屏幕外的列表项ItemView进入屏幕内时也无须bindView快速重用；b.mRecyclerPool可以供多个RecyclerView共同使用，在特定场景下，如viewpaper+多个列表页下有优势.客观来说，RecyclerView在特定场景下对ListView的缓存机制做了补强和完善。</p>
+<p><strong>缓存方式</strong></p>
+<p>1). RecyclerView缓存RecyclerView.ViewHolder，抽象可理解为：<br>View + ViewHolder(避免每次createView时调用findViewById) + flag(标识状态)；<br>2). ListView缓存View。</p>
+<p>缓存不同，二者在缓存的使用上也略有差别，具体来说：<br>ListView获取缓存的流程：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/4.jpg" alt="listview缓存"><br>RecyclerView获取缓存的流程：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/5.jpg" alt="recyclerView缓存"></p>
+<p>1). RecyclerView中mCacheViews(屏幕外)获取缓存时，是通过匹配pos获取目标位置的缓存，这样做的好处是，当数据源数据不变的情况下，无须重新bindView：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/6.gif" alt="ss"><br>而同样是离屏缓存，ListView从mScrapViews根据pos获取相应的缓存，但是并没有直接使用，而是重新getView（即必定会重新bindView）</p>
+<p>2). ListView中通过pos获取的是view，即pos–&gt;view；<br>RecyclerView中通过pos获取的是viewholder，即pos –&gt; (view，viewHolder，flag)；<br>从流程图中可以看出，标志flag的作用是判断view是否需要重新bindView，这也是RecyclerView实现局部刷新的一个核心.</p>
 <h3 id="只用一个RecyclerView如何实现复杂布局"><a href="#只用一个RecyclerView如何实现复杂布局" class="headerlink" title="只用一个RecyclerView如何实现复杂布局"></a>只用一个RecyclerView如何实现复杂布局</h3><p>有个需求是这样的，我们需要做一个图片列表的展示但是不同的图片我要给他不一样的权重来让他显示不同的占比。比如下图。</p>
-<p><img src="(https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png" alt="无标题.png"></p>
+<p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png" alt="imageRecyclerView"></p>
 <p>如果页面结构比较简单的情况下(默认顶部区域和最底部区域是一样的)可能会把中间那两块区域做成一个特殊的ViewType.只有中间的八个小方格和两个大方格是特殊区域，这个时候就可以把八个小方格做一个特殊的ViewType，两个小方格做一个特殊的ViewType.加载进去。</p>
 <p>如果所有的方格都是列表中的一个项，这边有可能需要解决数据源的问题。</p>
 <p>但其实这整个布局用一个GridLayoutManager能够一次实现。</p>
 <p>这都要归功于GridLayoutManager提供的一个方法setSpanSizeLookup，它提供了一个SpanSizeLookup的抽象，我们可以实现它的getSpanSize方法。<br>有这个方法，我们可以把不同大小的布局设置不同的ViewType，getSpanSize给不同的ViewType设置不同的占位。最终达到一个RecylcerView实现复杂布局的效果。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">               <span class="keyword">switch</span> (displayAdapter.getItemViewType(position)) &#123;</div><div class="line">                   <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">4</span>;</div><div class="line">                   <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">                   <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">                   <span class="keyword">default</span>:</div><div class="line">                       <span class="keyword">return</span> <span class="number">4</span>;</div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
 <p>其实实现复杂布局的内容跟自定义LayoutManager是一样的，从这个方法可以看出只要我们掌握了自定义的LayoutManager，整个RecyclerView想长什么样子就都掌握在你的手中了。</p>
-<p>后续会把自定义这部分内容补全，未完待续。</p>
+<p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/Gridlayout.png" alt="实现效果"></p>
+<p>demo地址：<a href="https://github.com/guoxiaolongonly/RecyclerViewDemo" target="_blank" rel="external">https://github.com/guoxiaolongonly/RecyclerViewDemo</a></p>
+<p>参考：</p>
+<p>Android ListView与RecyclerView对比浅析–缓存机制：<a href="https://blog.csdn.net/tencent_bugly/article/details/52981210" target="_blank" rel="external">https://blog.csdn.net/tencent_bugly/article/details/52981210</a></p>
 
       
     </div>
@@ -602,7 +638,7 @@ RecyclerView是V7兼容包下的一个列表布局，可以实现复杂的列表
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用RecyclerView-有什么优势？"><span class="nav-number">1.</span> <span class="nav-text">使用RecyclerView 有什么优势？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-自定义LayoutManager"><span class="nav-number">1.1.</span> <span class="nav-text">1.自定义LayoutManager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-自定义ItemDecoration（分割线）"><span class="nav-number">1.2.</span> <span class="nav-text">2.自定义ItemDecoration（分割线）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-自定义ItemTouchHelper"><span class="nav-number">1.3.</span> <span class="nav-text">3.自定义ItemTouchHelper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Adapter中获取item的类型"><span class="nav-number">1.4.</span> <span class="nav-text">3.Adapter中获取item的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Adapter局部更新"><span class="nav-number">1.5.</span> <span class="nav-text">4.Adapter局部更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Adapter布局重用"><span class="nav-number">1.6.</span> <span class="nav-text">5.Adapter布局重用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只用一个RecyclerView如何实现复杂布局"><span class="nav-number">2.</span> <span class="nav-text">只用一个RecyclerView如何实现复杂布局</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RecyclerView是什么"><span class="nav-number">1.</span> <span class="nav-text">RecyclerView是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用RecyclerView-有什么优势？"><span class="nav-number">2.</span> <span class="nav-text">使用RecyclerView 有什么优势？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-自定义LayoutManager"><span class="nav-number">2.1.</span> <span class="nav-text">1.自定义LayoutManager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-自定义ItemDecoration（分割线）"><span class="nav-number">2.2.</span> <span class="nav-text">2.自定义ItemDecoration（分割线）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-自定义ItemTouchHelper"><span class="nav-number">2.3.</span> <span class="nav-text">3.自定义ItemTouchHelper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Adapter中获取item的类型"><span class="nav-number">2.4.</span> <span class="nav-text">4.Adapter中获取item的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-列表局部刷新"><span class="nav-number">2.5.</span> <span class="nav-text">5.列表局部刷新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-View缓存"><span class="nav-number">2.6.</span> <span class="nav-text">6.View缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只用一个RecyclerView如何实现复杂布局"><span class="nav-number">3.</span> <span class="nav-text">只用一个RecyclerView如何实现复杂布局</span></a></li></ol></div>
             
 
           </div>
