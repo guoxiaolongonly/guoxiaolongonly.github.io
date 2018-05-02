@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btManager.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btScanCallBack.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/btDataTransferCallBack.png">
-<meta property="og:updated_time" content="2018-04-03T15:32:02.166Z">
+<meta property="og:updated_time" content="2018-05-02T14:24:12.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始写一个蓝牙SPP通讯">
 <meta name="twitter:description" content="流程思考这边有几个需求点，
@@ -416,7 +416,9 @@
 <p><strong>总包数</strong>     00 01    占两个字节<br><strong>分包</strong>       00 01   占两个字节<br><strong>数据区域长度</strong> 00 01  占两个字节<br><strong>数据</strong>          01   占1-n个字节<br><strong>校验和</strong>            00  占一个字节，取低位 假设文件名为空数据为01 校验和为 7e+7e+01+01+01+01=01 00 取低位得00</p>
 <h4 id="一个完整的包如下"><a href="#一个完整的包如下" class="headerlink" title="一个完整的包如下"></a>一个完整的包如下</h4><p>7e 7e  00 00… 00(50个00) 00 01 00 01  00 01 00 01 00</p>
 <p>完美！！</p>
-<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2>
+<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2><p>demo地址：<a href="https://github.com/guoxiaolongonly/AndroidBluetooth" target="_blank" rel="external">https://github.com/guoxiaolongonly/AndroidBluetooth</a></p>
+<p>实现简单的聊天功能。文件名称也采用跟文件内容一样长度（2字节）加名称（长度字节）。</p>
+
       
     </div>
 

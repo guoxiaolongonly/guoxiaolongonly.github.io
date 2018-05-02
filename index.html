@@ -598,7 +598,9 @@
 <p><strong>总包数</strong>     00 01    占两个字节<br><strong>分包</strong>       00 01   占两个字节<br><strong>数据区域长度</strong> 00 01  占两个字节<br><strong>数据</strong>          01   占1-n个字节<br><strong>校验和</strong>            00  占一个字节，取低位 假设文件名为空数据为01 校验和为 7e+7e+01+01+01+01=01 00 取低位得00</p>
 <h4 id="一个完整的包如下"><a href="#一个完整的包如下" class="headerlink" title="一个完整的包如下"></a>一个完整的包如下</h4><p>7e 7e  00 00… 00(50个00) 00 01 00 01  00 01 00 01 00</p>
 <p>完美！！</p>
-<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2>
+<h2 id="编码阶段"><a href="#编码阶段" class="headerlink" title="编码阶段"></a>编码阶段</h2><p>demo地址：<a href="https://github.com/guoxiaolongonly/AndroidBluetooth" target="_blank" rel="external">https://github.com/guoxiaolongonly/AndroidBluetooth</a></p>
+<p>实现简单的聊天功能。文件名称也采用跟文件内容一样长度（2字节）加名称（长度字节）。</p>
+
           
         
       
@@ -837,6 +839,184 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/03/12/BluetoothForAndroid5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/03/12/BluetoothForAndroid5/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T23:06:35+08:00">
+                2018-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: 蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）<br>date: 2017-12-29 16:09:36<br>tags:</p>
+<pre><code>- Android蓝牙通讯
+</code></pre><p>category:</p>
+<pre><code>- Android蓝牙
+</code></pre><hr>
+<h2 id="第四章-蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）"><a href="#第四章-蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）" class="headerlink" title="第四章 蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）"></a>第四章 蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</h2><h3 id="一、IrDA互操作协议"><a href="#一、IrDA互操作协议" class="headerlink" title="一、IrDA互操作协议"></a>一、IrDA互操作协议</h3><p>IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。</p>
+<p><img src="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>主要操作指令有：连接操作、断开操作、Put操作、Get操作。</p>
+<h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80</td><br>      <td>连接请求分组长度</td><br>      <td>OBEX版本号</td><br>      <td>标志</td><br>      <td>客户端可接收最大的OBEX分组长度</td><br>      <td>可选头</td><br>   </tr><br></table>
+
+<p><img src="http://img.blog.csdn.net/20171229155842107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80 Connect命令</td><br>      <td>7</td><br>      <td>0x10</td><br>      <td>标志</td><br>      <td>65534</td><br>      <td>可选头</td><br>   </tr><br></table>
+
+<p><strong>连接响应</strong><br><img src="http://img.blog.csdn.net/20171229155929503?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<h4 id="2、断开操作"><a href="#2、断开操作" class="headerlink" title="2、断开操作"></a>2、断开操作</h4><p>操作码为0x81</p>
+<h4 id="3、Put操作"><a href="#3、Put操作" class="headerlink" title="3、Put操作"></a>3、Put操作</h4><p>操作码为0x02</p>
+<p>连接成功后，客户端通过Put请求向服务器“推送”对象，如果对象较大，Put请求可以用多个Put请求分组。</p>
+<p><img src="http://img.blog.csdn.net/20171229160055997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="4、Get操作"><a href="#4、Get操作" class="headerlink" title="4、Get操作"></a>4、Get操作</h4><p>操作码为0x03</p>
+<h3 id="二、音频与电话控制协议"><a href="#二、音频与电话控制协议" class="headerlink" title="二、音频与电话控制协议"></a>二、音频与电话控制协议</h3><h4 id="1、框架部分"><a href="#1、框架部分" class="headerlink" title="1、框架部分"></a>1、框架部分</h4><p><img src="http://img.blog.csdn.net/20171229160153980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>蓝牙音频如上图协议栈所示：音频通过基带传输同步面向连接分组实现，没有以规范的形式给出，不是协议栈的一部分。<br>    TCS_Binary是一种基于分组电话控制二进制编码指令集，位于L2CAP之上。实现蓝牙无绳电话、对讲机功能。<br>    RFCOMM用于AT指令，拨号上网、蓝牙耳机、耳麦、传真通过AT发送指令控制。</p>
+<h4 id="2、音频部分"><a href="#2、音频部分" class="headerlink" title="2、音频部分"></a>2、音频部分</h4><p>   64kbps电信级语言质量音频流<br>    CVSD  continuous variable slope delta 连续可变斜率增量。<br>    PCM  pulse code modulation 。<br>    PCM存在斜率效应。CVSD使用音节压缩算法，编码步长根据信号斜率变化自动调整，是现在比较好的编码方案，提高语言的抗干扰能力。</p>
+<h4 id="3、电话控制部分"><a href="#3、电话控制部分" class="headerlink" title="3、电话控制部分"></a>3、电话控制部分</h4><pre><code>TCS-Binary电话控制部分。
+</code></pre><p>（1）、电话呼叫</p>
+<pre><code>呼叫控制、呼叫建立、呼叫拆除；
+</code></pre><p>（2）、组管理</p>
+<pre><code>访问权限请求、分布式配置、快速内部成员访问。
+</code></pre><h3 id="三、网络封装协议-BNEP"><a href="#三、网络封装协议-BNEP" class="headerlink" title="三、网络封装协议  BNEP"></a>三、网络封装协议  BNEP</h3><p>BNEP BluetoothNetworkEncapsulation Protocol 网络封装协议。<br>    为了使集成蓝牙技术的电脑、电话、PDA、家用电器等网络设备交换信息，需要在网络层统一数据分组。网络封装协议将来自不同网络的数据分组重新封装，通过L2CAP进行传输。这部分协议感觉在现实中用处不大，有更多简单便捷的方法去实现网络功能。<br>    BNEP支持Ipv4、Ipv6、IPX</p>
+<p><img src="http://img.blog.csdn.net/20171229160349916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="四、音视频分发协议AVDTP"><a href="#四、音视频分发协议AVDTP" class="headerlink" title="四、音视频分发协议AVDTP"></a>四、音视频分发协议AVDTP</h3><p>AVDTPAudio/Video Distribution Transport Protocol音视频分发传输协议</p>
+<p><img src="http://img.blog.csdn.net/20171229160422944?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>有关A/V的协议 AVDTP音视频分发传输协议、AVCTP音视频控制传输协议、GAVDP通用音视频分发框架、A2DP高级音频分发框架、AVCRP音视频遥控框架</p>
+<h4 id="1、基本概念术语"><a href="#1、基本概念术语" class="headerlink" title="1、基本概念术语"></a>1、基本概念术语</h4><p>流stream:流是音视频传输的数据形式，单向传输，在AVDTP中被分为媒介分组。流有句柄HS统一标识。</p>
+<p><img src="http://img.blog.csdn.net/20171229160502080?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="2、信令"><a href="#2、信令" class="headerlink" title="2、信令"></a>2、信令</h4><p>AVDTP信令列表</p>
+<table><br>   <tr><br>      <td>命令</td><br>      <td>信令标识符</td><br>      <td>描述</td><br>   </tr><br>   <tr><br>      <td>AVDTP_DISCOVER</td><br>      <td>0x01</td><br>      <td>发现设备中的流端点</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CAPABILITIES</td><br>      <td>0x02</td><br>      <td>获得流端点的信息能力</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SET_CONFIGURATION</td><br>      <td>0x03</td><br>      <td>对SEP进行配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CONFIGURATION</td><br>      <td>0x04</td><br>      <td>获取SEP当前配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_RECONFIGURE</td><br>      <td>0x05</td><br>      <td>对SEP重新配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_OPEN</td><br>      <td>0x06</td><br>      <td>成功的配置SEP后，打开流</td><br>   </tr><br>   <tr><br>      <td>AVDTP_START</td><br>      <td>0x07</td><br>      <td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td><br>   </tr><br>   <tr><br>      <td>AVDTP_CLOSE</td><br>      <td>0x08</td><br>      <td>对SEP关闭</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SUSPEND</td><br>      <td>0x09</td><br>      <td>请求SEP暂停</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SECURITY_CONTROL</td><br>      <td>0x0A</td><br>      <td>设置设备内容保护、或者请求设备状况信息</td><br>   </tr><br>   <tr><br>      <td>AVDTP_ABORT</td><br>      <td>0x0B</td><br>      <td>中断正在建立或者传输的过程</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_ALL_CAPABILITIES</td><br>      <td> </td><br>      <td> </td><br>   </tr><br>   <tr><br>      <td>AVDTP_DELAYREPORT</td><br>      <td> </td><br>      <td> </td><br>   </tr><br></table>
+
+<pre><code>这部分信令，实现了蓝牙的A2DP 数据流的控制
+</code></pre><p><strong>（1）、流的信令管理流程</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160645996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20171229160703608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>（2）、get capabilities  获取支持特性</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160738415?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>（3）、set configuration 配置音频参数</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160806185?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>其他指令类似去上面两个的操作。</p>
+<h3 id="五、音视频控制传输协议AVCTP"><a href="#五、音视频控制传输协议AVCTP" class="headerlink" title="五、音视频控制传输协议AVCTP"></a>五、音视频控制传输协议AVCTP</h3><p><img src="http://img.blog.csdn.net/20171229160834464?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>AVCTP可以使音视频设备同时支持多个应用框架，每个应用框架定义了各自相应的消息格式与应用规则。</p>
+<p>这部分操作，在现实的应用中也有不足的地方，蓝牙传输的数据量有限，实现这些功能有一定的不足。随着科学技术的发展，蓝牙在无线通信方面的优点、缺点都凸显出来，找的合适的方向，合理的发展方向是硬道理。</p>
+<p>蓝牙芯片厂商：</p>
+<p>CSR公司（Cambridge Silicon Radio）(目前最大的蓝牙芯片的全球供应商)</p>
+<p>Broadcom公司</p>
+<p>ISSC公司</p>
+<p>TI公司 (CC2541)</p>
+<p>MTK公司（MT6620）</p>
+<p>传送门：<br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78414870" target="_blank" rel="external">（一）蓝牙的概述</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932321" target="_blank" rel="external">（二）蓝牙协议规范（射频、基带链路控制、链路管理）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932372" target="_blank" rel="external">（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932616" target="_blank" rel="external">（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</a></p>
+<p><a href="http://blog.csdn.net/xubin341719" target="_blank" rel="external">引用自xubin的博客</a></p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/02/09/TravelFrog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -996,201 +1176,6 @@
 <p>谈一谈不一样的地方<br>小动物，商店道具，特产，称号，收藏品，入门和进阶的页面，我写到了一个页面中。<br>原本预想其实就是分成好几个Activity来写，但是后来想想写了那么多Activity其实参数都一样，逻辑也都一样，就是页面的布局不一样而已。<br>写那么多的Activity其实可以写成一个Activity，然后Adapter做抽象，实现不同的 Adapter来实现不同的列表。<br>后面又想了一下，Adapter其实也不用做什么操作，只有布局不一样，点击响应和数据传递都是一样的。就把布局直接传给了Adapter。由数据来确定初始化什么布局，和布局的样式。<br>最终实现就是这样，但是也看出了这样实现的一些弊端，就是不适合数据量大的场景。不过我们的数据量确实不大，就先这样了！！nice day!!</p>
 <hr>
 <p>就写到这里了。攻略也不想整理了！！！！  因为根本就找不到用户 2333！！</p>
-<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/12/29/BluetoothForAndroid5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiaolong的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/29/BluetoothForAndroid5/" itemprop="url">
-                  蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T16:09:36+08:00">
-                2017-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android蓝牙/" itemprop="url" rel="index">
-                    <span itemprop="name">Android蓝牙</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="第四章-蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）"><a href="#第四章-蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）" class="headerlink" title="第四章 蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）"></a>第四章 蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</h2><h3 id="一、IrDA互操作协议"><a href="#一、IrDA互操作协议" class="headerlink" title="一、IrDA互操作协议"></a>一、IrDA互操作协议</h3><p>IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。</p>
-<p><img src="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>主要操作指令有：连接操作、断开操作、Put操作、Get操作。</p>
-<h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80</td><br>      <td>连接请求分组长度</td><br>      <td>OBEX版本号</td><br>      <td>标志</td><br>      <td>客户端可接收最大的OBEX分组长度</td><br>      <td>可选头</td><br>   </tr><br></table>
-
-<p><img src="http://img.blog.csdn.net/20171229155842107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80 Connect命令</td><br>      <td>7</td><br>      <td>0x10</td><br>      <td>标志</td><br>      <td>65534</td><br>      <td>可选头</td><br>   </tr><br></table>
-
-<p><strong>连接响应</strong><br><img src="http://img.blog.csdn.net/20171229155929503?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<h4 id="2、断开操作"><a href="#2、断开操作" class="headerlink" title="2、断开操作"></a>2、断开操作</h4><p>操作码为0x81</p>
-<h4 id="3、Put操作"><a href="#3、Put操作" class="headerlink" title="3、Put操作"></a>3、Put操作</h4><p>操作码为0x02</p>
-<p>连接成功后，客户端通过Put请求向服务器“推送”对象，如果对象较大，Put请求可以用多个Put请求分组。</p>
-<p><img src="http://img.blog.csdn.net/20171229160055997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h4 id="4、Get操作"><a href="#4、Get操作" class="headerlink" title="4、Get操作"></a>4、Get操作</h4><p>操作码为0x03</p>
-<h3 id="二、音频与电话控制协议"><a href="#二、音频与电话控制协议" class="headerlink" title="二、音频与电话控制协议"></a>二、音频与电话控制协议</h3><h4 id="1、框架部分"><a href="#1、框架部分" class="headerlink" title="1、框架部分"></a>1、框架部分</h4><p><img src="http://img.blog.csdn.net/20171229160153980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>蓝牙音频如上图协议栈所示：音频通过基带传输同步面向连接分组实现，没有以规范的形式给出，不是协议栈的一部分。<br>    TCS_Binary是一种基于分组电话控制二进制编码指令集，位于L2CAP之上。实现蓝牙无绳电话、对讲机功能。<br>    RFCOMM用于AT指令，拨号上网、蓝牙耳机、耳麦、传真通过AT发送指令控制。</p>
-<h4 id="2、音频部分"><a href="#2、音频部分" class="headerlink" title="2、音频部分"></a>2、音频部分</h4><p>   64kbps电信级语言质量音频流<br>    CVSD  continuous variable slope delta 连续可变斜率增量。<br>    PCM  pulse code modulation 。<br>    PCM存在斜率效应。CVSD使用音节压缩算法，编码步长根据信号斜率变化自动调整，是现在比较好的编码方案，提高语言的抗干扰能力。</p>
-<h4 id="3、电话控制部分"><a href="#3、电话控制部分" class="headerlink" title="3、电话控制部分"></a>3、电话控制部分</h4><pre><code>TCS-Binary电话控制部分。
-</code></pre><p>（1）、电话呼叫</p>
-<pre><code>呼叫控制、呼叫建立、呼叫拆除；
-</code></pre><p>（2）、组管理</p>
-<pre><code>访问权限请求、分布式配置、快速内部成员访问。
-</code></pre><h3 id="三、网络封装协议-BNEP"><a href="#三、网络封装协议-BNEP" class="headerlink" title="三、网络封装协议  BNEP"></a>三、网络封装协议  BNEP</h3><p>BNEP BluetoothNetworkEncapsulation Protocol 网络封装协议。<br>    为了使集成蓝牙技术的电脑、电话、PDA、家用电器等网络设备交换信息，需要在网络层统一数据分组。网络封装协议将来自不同网络的数据分组重新封装，通过L2CAP进行传输。这部分协议感觉在现实中用处不大，有更多简单便捷的方法去实现网络功能。<br>    BNEP支持Ipv4、Ipv6、IPX</p>
-<p><img src="http://img.blog.csdn.net/20171229160349916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h3 id="四、音视频分发协议AVDTP"><a href="#四、音视频分发协议AVDTP" class="headerlink" title="四、音视频分发协议AVDTP"></a>四、音视频分发协议AVDTP</h3><p>AVDTPAudio/Video Distribution Transport Protocol音视频分发传输协议</p>
-<p><img src="http://img.blog.csdn.net/20171229160422944?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>有关A/V的协议 AVDTP音视频分发传输协议、AVCTP音视频控制传输协议、GAVDP通用音视频分发框架、A2DP高级音频分发框架、AVCRP音视频遥控框架</p>
-<h4 id="1、基本概念术语"><a href="#1、基本概念术语" class="headerlink" title="1、基本概念术语"></a>1、基本概念术语</h4><p>流stream:流是音视频传输的数据形式，单向传输，在AVDTP中被分为媒介分组。流有句柄HS统一标识。</p>
-<p><img src="http://img.blog.csdn.net/20171229160502080?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h4 id="2、信令"><a href="#2、信令" class="headerlink" title="2、信令"></a>2、信令</h4><p>AVDTP信令列表</p>
-<table><br>   <tr><br>      <td>命令</td><br>      <td>信令标识符</td><br>      <td>描述</td><br>   </tr><br>   <tr><br>      <td>AVDTP_DISCOVER</td><br>      <td>0x01</td><br>      <td>发现设备中的流端点</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CAPABILITIES</td><br>      <td>0x02</td><br>      <td>获得流端点的信息能力</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SET_CONFIGURATION</td><br>      <td>0x03</td><br>      <td>对SEP进行配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CONFIGURATION</td><br>      <td>0x04</td><br>      <td>获取SEP当前配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_RECONFIGURE</td><br>      <td>0x05</td><br>      <td>对SEP重新配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_OPEN</td><br>      <td>0x06</td><br>      <td>成功的配置SEP后，打开流</td><br>   </tr><br>   <tr><br>      <td>AVDTP_START</td><br>      <td>0x07</td><br>      <td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td><br>   </tr><br>   <tr><br>      <td>AVDTP_CLOSE</td><br>      <td>0x08</td><br>      <td>对SEP关闭</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SUSPEND</td><br>      <td>0x09</td><br>      <td>请求SEP暂停</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SECURITY_CONTROL</td><br>      <td>0x0A</td><br>      <td>设置设备内容保护、或者请求设备状况信息</td><br>   </tr><br>   <tr><br>      <td>AVDTP_ABORT</td><br>      <td>0x0B</td><br>      <td>中断正在建立或者传输的过程</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_ALL_CAPABILITIES</td><br>      <td> </td><br>      <td> </td><br>   </tr><br>   <tr><br>      <td>AVDTP_DELAYREPORT</td><br>      <td> </td><br>      <td> </td><br>   </tr><br></table>
-
-<pre><code>这部分信令，实现了蓝牙的A2DP 数据流的控制
-</code></pre><p><strong>（1）、流的信令管理流程</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160645996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><img src="http://img.blog.csdn.net/20171229160703608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><strong>（2）、get capabilities  获取支持特性</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160738415?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><strong>（3）、set configuration 配置音频参数</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160806185?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>其他指令类似去上面两个的操作。</p>
-<h3 id="五、音视频控制传输协议AVCTP"><a href="#五、音视频控制传输协议AVCTP" class="headerlink" title="五、音视频控制传输协议AVCTP"></a>五、音视频控制传输协议AVCTP</h3><p><img src="http://img.blog.csdn.net/20171229160834464?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>AVCTP可以使音视频设备同时支持多个应用框架，每个应用框架定义了各自相应的消息格式与应用规则。</p>
-<p>这部分操作，在现实的应用中也有不足的地方，蓝牙传输的数据量有限，实现这些功能有一定的不足。随着科学技术的发展，蓝牙在无线通信方面的优点、缺点都凸显出来，找的合适的方向，合理的发展方向是硬道理。</p>
-<p>蓝牙芯片厂商：</p>
-<p>CSR公司（Cambridge Silicon Radio）(目前最大的蓝牙芯片的全球供应商)</p>
-<p>Broadcom公司</p>
-<p>ISSC公司</p>
-<p>TI公司 (CC2541)</p>
-<p>MTK公司（MT6620）</p>
-<p>传送门：<br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78414870" target="_blank" rel="external">（一）蓝牙的概述</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932321" target="_blank" rel="external">（二）蓝牙协议规范（射频、基带链路控制、链路管理）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932372" target="_blank" rel="external">（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932616" target="_blank" rel="external">（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</a></p>
-<p><a href="http://blog.csdn.net/xubin341719" target="_blank" rel="external">引用自xubin的博客</a></p>
 <p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
 
           
@@ -2112,7 +2097,7 @@
       
         
           
-            <h1 id="实现如下"><a href="#实现如下" class="headerlink" title="实现如下"></a>实现如下</h1><p><a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/operate.gif" target="_blank" rel="external">假装插入了图片</a><br>初版历时半个多月</p>
+            <h1 id="实现如下"><a href="#实现如下" class="headerlink" title="实现如下"></a>实现如下</h1><p><img src="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/operate.gif" alt="假装插入了图片"><br>初版历时半个多月</p>
 <h2 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h2><ol>
 <li><p>开奖结果查询</p>
 <ul>
