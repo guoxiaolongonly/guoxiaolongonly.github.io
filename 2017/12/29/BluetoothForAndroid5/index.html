@@ -1,0 +1,835 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android蓝牙通讯," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
+
+主要操作指令有：连接操作、断开操作、Put操作、Get操作。
+1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）">
+<meta property="og:url" content="http://rngift.com/2017/12/29/BluetoothForAndroid5/index.html">
+<meta property="og:site_name" content="Xiaolong的个人博客">
+<meta property="og:description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
+
+主要操作指令有：连接操作、断开操作、Put操作、Get操作。
+1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229155842107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229155929503?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160055997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160153980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160349916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160422944?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160502080?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160645996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160703608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160738415?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160806185?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171229160834464?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-05-03T15:17:23.652Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）">
+<meta name="twitter:description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
+
+主要操作指令有：连接操作、断开操作、Put操作、Get操作。
+1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rngift.com/2017/12/29/BluetoothForAndroid5/"/>
+
+
+
+
+
+  <title> 蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP） | Xiaolong的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaolong的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每一天都值得被认真对待</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/pastLove" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            爱过的人
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/12/29/BluetoothForAndroid5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T15:53:27+08:00">
+                2017-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android蓝牙/" itemprop="url" rel="index">
+                    <span itemprop="name">Android蓝牙</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、IrDA互操作协议"><a href="#一、IrDA互操作协议" class="headerlink" title="一、IrDA互操作协议"></a>一、IrDA互操作协议</h3><p>IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。</p>
+<p><img src="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>主要操作指令有：连接操作、断开操作、Put操作、Get操作。</p>
+<h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80</td><br>      <td>连接请求分组长度</td><br>      <td>OBEX版本号</td><br>      <td>标志</td><br>      <td>客户端可接收最大的OBEX分组长度</td><br>      <td>可选头</td><br>   </tr><br></table>
+
+<p><img src="http://img.blog.csdn.net/20171229155842107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80 Connect命令</td><br>      <td>7</td><br>      <td>0x10</td><br>      <td>标志</td><br>      <td>65534</td><br>      <td>可选头</td><br>   </tr><br></table>
+
+<p><strong>连接响应</strong><br><img src="http://img.blog.csdn.net/20171229155929503?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<h4 id="2、断开操作"><a href="#2、断开操作" class="headerlink" title="2、断开操作"></a>2、断开操作</h4><p>操作码为0x81</p>
+<h4 id="3、Put操作"><a href="#3、Put操作" class="headerlink" title="3、Put操作"></a>3、Put操作</h4><p>操作码为0x02</p>
+<p>连接成功后，客户端通过Put请求向服务器“推送”对象，如果对象较大，Put请求可以用多个Put请求分组。</p>
+<p><img src="http://img.blog.csdn.net/20171229160055997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="4、Get操作"><a href="#4、Get操作" class="headerlink" title="4、Get操作"></a>4、Get操作</h4><p>操作码为0x03</p>
+<h3 id="二、音频与电话控制协议"><a href="#二、音频与电话控制协议" class="headerlink" title="二、音频与电话控制协议"></a>二、音频与电话控制协议</h3><h4 id="1、框架部分"><a href="#1、框架部分" class="headerlink" title="1、框架部分"></a>1、框架部分</h4><p><img src="http://img.blog.csdn.net/20171229160153980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>蓝牙音频如上图协议栈所示：音频通过基带传输同步面向连接分组实现，没有以规范的形式给出，不是协议栈的一部分。<br>    TCS_Binary是一种基于分组电话控制二进制编码指令集，位于L2CAP之上。实现蓝牙无绳电话、对讲机功能。<br>    RFCOMM用于AT指令，拨号上网、蓝牙耳机、耳麦、传真通过AT发送指令控制。</p>
+<h4 id="2、音频部分"><a href="#2、音频部分" class="headerlink" title="2、音频部分"></a>2、音频部分</h4><p>   64kbps电信级语言质量音频流<br>    CVSD  continuous variable slope delta 连续可变斜率增量。<br>    PCM  pulse code modulation 。<br>    PCM存在斜率效应。CVSD使用音节压缩算法，编码步长根据信号斜率变化自动调整，是现在比较好的编码方案，提高语言的抗干扰能力。</p>
+<h4 id="3、电话控制部分"><a href="#3、电话控制部分" class="headerlink" title="3、电话控制部分"></a>3、电话控制部分</h4><pre><code>TCS-Binary电话控制部分。
+</code></pre><p>（1）、电话呼叫</p>
+<pre><code>呼叫控制、呼叫建立、呼叫拆除；
+</code></pre><p>（2）、组管理</p>
+<pre><code>访问权限请求、分布式配置、快速内部成员访问。
+</code></pre><h3 id="三、网络封装协议-BNEP"><a href="#三、网络封装协议-BNEP" class="headerlink" title="三、网络封装协议  BNEP"></a>三、网络封装协议  BNEP</h3><p>BNEP BluetoothNetworkEncapsulation Protocol 网络封装协议。<br>    为了使集成蓝牙技术的电脑、电话、PDA、家用电器等网络设备交换信息，需要在网络层统一数据分组。网络封装协议将来自不同网络的数据分组重新封装，通过L2CAP进行传输。这部分协议感觉在现实中用处不大，有更多简单便捷的方法去实现网络功能。<br>    BNEP支持Ipv4、Ipv6、IPX</p>
+<p><img src="http://img.blog.csdn.net/20171229160349916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="四、音视频分发协议AVDTP"><a href="#四、音视频分发协议AVDTP" class="headerlink" title="四、音视频分发协议AVDTP"></a>四、音视频分发协议AVDTP</h3><p>AVDTPAudio/Video Distribution Transport Protocol音视频分发传输协议</p>
+<p><img src="http://img.blog.csdn.net/20171229160422944?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>有关A/V的协议 AVDTP音视频分发传输协议、AVCTP音视频控制传输协议、GAVDP通用音视频分发框架、A2DP高级音频分发框架、AVCRP音视频遥控框架</p>
+<h4 id="1、基本概念术语"><a href="#1、基本概念术语" class="headerlink" title="1、基本概念术语"></a>1、基本概念术语</h4><p>流stream:流是音视频传输的数据形式，单向传输，在AVDTP中被分为媒介分组。流有句柄HS统一标识。</p>
+<p><img src="http://img.blog.csdn.net/20171229160502080?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="2、信令"><a href="#2、信令" class="headerlink" title="2、信令"></a>2、信令</h4><p>AVDTP信令列表</p>
+<table><br>   <tr><br>      <td>命令</td><br>      <td>信令标识符</td><br>      <td>描述</td><br>   </tr><br>   <tr><br>      <td>AVDTP_DISCOVER</td><br>      <td>0x01</td><br>      <td>发现设备中的流端点</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CAPABILITIES</td><br>      <td>0x02</td><br>      <td>获得流端点的信息能力</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SET_CONFIGURATION</td><br>      <td>0x03</td><br>      <td>对SEP进行配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CONFIGURATION</td><br>      <td>0x04</td><br>      <td>获取SEP当前配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_RECONFIGURE</td><br>      <td>0x05</td><br>      <td>对SEP重新配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_OPEN</td><br>      <td>0x06</td><br>      <td>成功的配置SEP后，打开流</td><br>   </tr><br>   <tr><br>      <td>AVDTP_START</td><br>      <td>0x07</td><br>      <td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td><br>   </tr><br>   <tr><br>      <td>AVDTP_CLOSE</td><br>      <td>0x08</td><br>      <td>对SEP关闭</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SUSPEND</td><br>      <td>0x09</td><br>      <td>请求SEP暂停</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SECURITY_CONTROL</td><br>      <td>0x0A</td><br>      <td>设置设备内容保护、或者请求设备状况信息</td><br>   </tr><br>   <tr><br>      <td>AVDTP_ABORT</td><br>      <td>0x0B</td><br>      <td>中断正在建立或者传输的过程</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_ALL_CAPABILITIES</td><br>      <td> </td><br>      <td> </td><br>   </tr><br>   <tr><br>      <td>AVDTP_DELAYREPORT</td><br>      <td> </td><br>      <td> </td><br>   </tr><br></table>
+
+<pre><code>这部分信令，实现了蓝牙的A2DP 数据流的控制
+</code></pre><p><strong>（1）、流的信令管理流程</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160645996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20171229160703608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>（2）、get capabilities  获取支持特性</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160738415?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>（3）、set configuration 配置音频参数</strong></p>
+<p><img src="http://img.blog.csdn.net/20171229160806185?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>其他指令类似去上面两个的操作。</p>
+<h3 id="五、音视频控制传输协议AVCTP"><a href="#五、音视频控制传输协议AVCTP" class="headerlink" title="五、音视频控制传输协议AVCTP"></a>五、音视频控制传输协议AVCTP</h3><p><img src="http://img.blog.csdn.net/20171229160834464?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>AVCTP可以使音视频设备同时支持多个应用框架，每个应用框架定义了各自相应的消息格式与应用规则。</p>
+<p>这部分操作，在现实的应用中也有不足的地方，蓝牙传输的数据量有限，实现这些功能有一定的不足。随着科学技术的发展，蓝牙在无线通信方面的优点、缺点都凸显出来，找的合适的方向，合理的发展方向是硬道理。</p>
+<p>蓝牙芯片厂商：</p>
+<p>CSR公司（Cambridge Silicon Radio）(目前最大的蓝牙芯片的全球供应商)</p>
+<p>Broadcom公司</p>
+<p>ISSC公司</p>
+<p>TI公司 (CC2541)</p>
+<p>MTK公司（MT6620）</p>
+<p>传送门：<br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78414870" target="_blank" rel="external">（一）蓝牙的概述</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932321" target="_blank" rel="external">（二）蓝牙协议规范（射频、基带链路控制、链路管理）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932372" target="_blank" rel="external">（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932616" target="_blank" rel="external">（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</a></p>
+<p><a href="http://blog.csdn.net/xubin341719" target="_blank" rel="external">引用自xubin的博客</a></p>
+<p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android蓝牙通讯/" rel="tag"># Android蓝牙通讯</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/29/BluetoothForAndroid3/" rel="next" title="蓝牙协议学习整理（二）蓝牙协议规范（射频、基带链路控制、链路管理）">
+                <i class="fa fa-chevron-left"></i> 蓝牙协议学习整理（二）蓝牙协议规范（射频、基带链路控制、链路管理）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/29/BluetoothForAndroid4/" rel="prev" title="蓝牙协议学习整理（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）">
+                蓝牙协议学习整理（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/lucky.jpg"
+               alt="小龙" />
+          <p class="site-author-name" itemprop="name">小龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaolongonly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-android"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、IrDA互操作协议"><span class="nav-number">1.</span> <span class="nav-text">一、IrDA互操作协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、连接操作-操作码0x80"><span class="nav-number">1.1.</span> <span class="nav-text">1、连接操作 ,操作码0x80</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、断开操作"><span class="nav-number">1.2.</span> <span class="nav-text">2、断开操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Put操作"><span class="nav-number">1.3.</span> <span class="nav-text">3、Put操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Get操作"><span class="nav-number">1.4.</span> <span class="nav-text">4、Get操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、音频与电话控制协议"><span class="nav-number">2.</span> <span class="nav-text">二、音频与电话控制协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、框架部分"><span class="nav-number">2.1.</span> <span class="nav-text">1、框架部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、音频部分"><span class="nav-number">2.2.</span> <span class="nav-text">2、音频部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、电话控制部分"><span class="nav-number">2.3.</span> <span class="nav-text">3、电话控制部分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、网络封装协议-BNEP"><span class="nav-number">3.</span> <span class="nav-text">三、网络封装协议  BNEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、音视频分发协议AVDTP"><span class="nav-number">4.</span> <span class="nav-text">四、音视频分发协议AVDTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、基本概念术语"><span class="nav-number">4.1.</span> <span class="nav-text">1、基本概念术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、信令"><span class="nav-number">4.2.</span> <span class="nav-text">2、信令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、音视频控制传输协议AVCTP"><span class="nav-number">5.</span> <span class="nav-text">五、音视频控制传输协议AVCTP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小龙</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
