@@ -280,6 +280,190 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/05/23/Stringintern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/23/Stringintern/" itemprop="url">
+                  String中intern方法的作用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T23:44:39+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>读完这篇文章你可以了解，String在虚拟机内存中的存放，intern方法到底有什么用，这么多String对象的创建到底有什么区别，String 创建的对象有几个！！</p>
+<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a>进入正题</h2><p>我们需要先了解一下 String str=”abc”;和 String str =new String(“abc”);的区别</p>
+<p>1.String str=”abc”；</p>
+<p>JDK1.6<br>（1） 当常量池中不存在”abc”这个字符串的引用，在堆内存中new一个String对象，复制这个对象加入常量池。<br>（2） 当常量池中存在”abc”这个字符串对象，str指向这个对象的引用；</p>
+<p>JDK1.7<br>（1） 当常量池中不存在”abc”这个字符串的引用，在堆内存中new一个新的String对象，将这个对象的引用加入常量池。<br>（2） 当常量池中存在”abc”这个字符串的引用，str指向这个引用；</p>
+<p>2.String str =new String(“abc”)则是单纯的在堆内存中new一个String对象，通过StringBuilder 跟StringBuffer 构建的对象也是一样</p>
+<p>3.intern方法 （返回常量池中该字符串的引用）</p>
+<p>（1） 当常量池中不存在”abc”这个字符串的引用，将这个对象的引用加入常量池，返回这个对象的引用。<br>（2） 当常量池中存在”abc”这个字符串的引用，返回这个对象的引用；</p>
+<p>这里只测试jdk1.7</p>
+<p>测试代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">String str1 = <span class="string">"计算机"</span>;</div><div class="line">String str2 = <span class="string">"计算机"</span>;</div><div class="line">System.out.println(<span class="string">"str1==str2:"</span> + (str1 == str2));</div><div class="line"></div><div class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"计算机"</span>);</div><div class="line">System.out.println(<span class="string">"str1==str3:"</span> + (str1 == str3));</div><div class="line">System.out.println(<span class="string">"str1==str3.intern():"</span> + (str1 == str3.intern()));</div><div class="line">System.out.println(<span class="string">"str2==str3.intern():"</span> + (str2 == str3.intern()));</div><div class="line"></div><div class="line">String str4 = <span class="keyword">new</span> String(<span class="string">"计算机"</span>);</div><div class="line">System.out.println(<span class="string">"str3==str4:"</span> + (str3 == str4));</div><div class="line">System.out.println(<span class="string">"str3.intern()==str4.intern():"</span> + (str3.intern() == str4.intern()));</div><div class="line"></div><div class="line"></div><div class="line">String str5 = <span class="keyword">new</span> StringBuilder(<span class="string">"软件"</span>).append(<span class="string">"工程"</span>).toString();</div><div class="line">System.out.println(<span class="string">"str5.intern() == str5:"</span> + (str5.intern() == str5));</div><div class="line"></div><div class="line">String str6 = <span class="keyword">new</span> String(<span class="keyword">new</span> StringBuilder(<span class="string">"物联网"</span>).append(<span class="string">"工程"</span>).toString());</div><div class="line">System.out.println(<span class="string">"str6.intern() == str6:"</span> + (str6.intern() == str6));</div><div class="line"></div><div class="line">String str7 = <span class="keyword">new</span> String(<span class="string">"物联网"</span>);</div><div class="line">System.out.println(<span class="string">"str7.intern() == str7:"</span> + (str7.intern() == str7));</div></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<pre><code>str1==str2:true
+str1==str3:false
+str1==str3.intern():true
+str2==str3.intern():true
+str3==str4:false
+str3.intern()==str4.intern():true
+str5.intern() == str5:true
+str6.intern() == str6:true
+str7.intern() == str7:false
+</code></pre><p>这里着重讲解一下为什么str5,str6和str7的结果不一样，</p>
+<p>str7直接用new String（”物联网”）创建，”物联网”这字符串在一出现就自动创建成对象存放到常量池中，所以常量池里面存放的是”物联网”字符串的引用，并不是str7的引用。</p>
+<p>str5是通过StringBuilder构建的 在str5构建完成后toString方法执行时,软件工程这个字符串才第一次出现。执行了intern方法后str5才被放到常量池中此时str5跟str5.intern是同一个对象，但它并没有被放到常量池中。</p>
+<p>str6是作为对照组出现，这里为了确认StringBuilder 在toString方法执行后会不会把最终字符串放进常量池。很显然并没有，所以str6的intern才会跟str6是同一个对象。同时它也能验证出str7的new String()方式在初始化的时候就会把物联网放进常量池中。</p>
+<p>当然JDK1.6我们也能大致明确，输出结果会如下</p>
+<pre><code>str1==str2:true
+str1==str3:false
+str1==str3.intern():true
+str2==str3.intern():true
+str3==str4:false
+str3.intern()==str4.intern():true
+str5.intern() == str5:false
+str6.intern() == str6:false
+str7.intern() == str7:false
+</code></pre><p>因为没有尝试过，如果jdk1.6有不一致的地方欢迎大家指点。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.String对象可能会在堆内存中分配一块空间创建一个String对象，在常量池中创建该对象的复制<em>jdk 1.6</em>（或引用<em>jdk 1.7</em>），也可能直接指向常量池（永久带）中的引用（例String str=”xxx”）。还有一种可能是直接在堆内存中分配一块空间创建一个String对象（例 String str=new String(“xxx”)）。</p>
+<p>2.intern方法可以看成返回常量池中该字符串对象的引用。如果没有该字符串对象就把这个对象（或引用）加到常量池。</p>
+<p>3.jdk1.6跟jdk1.7的区别是当常量池中不存在这个字符串，jdk1.6是直接复制对象到常量池，而jdk1.7是把对象的引用加入常量池。</p>
+<p>4.类似于”abc”这样的字符串,在第一次被使用到(比如String a=”abc”或者String a=new String(“abc”))之后就会被加载到常量池中去</p>
+<p>5.面试问题：</p>
+<p>（1）现在当有人问 String str = new String(“abc”);创建了几个对象，常量池有abc字段是1个，常量池没有”abc”字段则是2个。<br>（2）String str=”abc”;创建了几个对象（如果常量池里面已经有对象了就是0个。如果没有，JDK1.6 1个，JDK1.7 2个）;<br>（3）new String(“abc”).intern();创建了几个对象（如果常量池里面已经有该字符串对象了就是1个，如果没有就是两个）</p>
+<h3 id="by-xiaolong"><a href="#by-xiaolong" class="headerlink" title="by xiaolong"></a>by xiaolong</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/05/02/RecyclerViewAbout/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2006,197 +2190,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/09/30/Ticket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiaolong的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/09/30/Ticket/" itemprop="url">
-                  Android端的彩票开奖查询系统
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T11:02:46+08:00">
-                2017-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/个人开源/" itemprop="url" rel="index">
-                    <span itemprop="name">个人开源</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="实现如下"><a href="#实现如下" class="headerlink" title="实现如下"></a>实现如下</h1><p><img src="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/operate.gif" alt="假装插入了图片"><br>初版历时半个多月</p>
-<h2 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h2><ol>
-<li><p>开奖结果查询</p>
-<ul>
-<li>近期开奖查询</li>
-<li>历史开奖查询（最多五十期）</li>
-</ul>
-</li>
-<li><p>关注彩种</p>
-</li>
-<li>一些简单的趋势分析</li>
-<li>号码预测（号码预测做的比较简单，直接算出每个号码的多期平均值，和期望平均值做对比。取均值。理论上应该是范围内的都是概率发生的，这一块其实可以加入奇偶频率，号码频率，和一些其他的条件来做预测，后面会继续做优化）</li>
-<li>接口原因，能用到的接口只有四个。 自己编写了规则文档。还有一些其他必要的功能。</li>
-<li>最后面想说的是这里其实更需要一个后台来爬取数据做动态更新。（打算写一个后台和爬虫来搞）</li>
-</ol>
-<h1 id="设计意图"><a href="#设计意图" class="headerlink" title="设计意图"></a>设计意图</h1><p>设计意图来自身边的朋友，对这一块投注存在的需求。</p>
-<h3 id="随机组合出所有可能再做筛选，然后投注"><a href="#随机组合出所有可能再做筛选，然后投注" class="headerlink" title="随机组合出所有可能再做筛选，然后投注"></a>随机组合出所有可能再做筛选，然后投注</h3><p>起初有个朋友让我帮忙写一个体育彩票36选7三个数字固定，其余数字随机的可能结果，然后动了一下脑子想了一下，<br>这些数据有<br>(33 X 32 X 31 X 30)/(4 X 3 X 2 X 1) = 40920种，<br>如果整组号码随机组合的结果有<br>(36 X 35 X 34 X 32 X 31 X 30)/(7 X 6 X 5 X 4 X 3 X 2 X 1) = 8347680种<br>由此可见其中大奖概率是很低的</p>
-<p>特等奖(7)  中奖概率为 概率公式打不出来((C7 7) / (C36 7)) = 1/8347680 (全复式共1注)</p>
-<p>一等奖(6+1)  (((C8 7) *(C28 0)-(C7 7))/(C36 7)) = 1/1192526（全复式共7注）</p>
-<p>二等奖(6)   1/42590(全复式共中196注)</p>
-<p>三等奖(5+1) 1/14197(全复式共中588注)</p>
-<p>四等奖(5)   1/1052(全复式共中7938注)</p>
-<p>五等奖(4+1) 1/631(全复式共中13230注)</p>
-<p>六等奖(4)   1/73(全复式共中114660注)</p>
-<p>无奖(3+1)   1/73（全复式共中114660注）</p>
-<p>无奖(3)     1/12（全复式共中716625注）</p>
-<p>无奖(2+1)   1/19（全复式共中429975注）</p>
-<p>无奖(2)     1/4（全复式共中2063880注）</p>
-<p>无奖(1+1)   1/12（全复式共中687960注）</p>
-<p>无奖(1)     1/3（全复式共中2637180注）</p>
-<p>无奖(0+1)   1/22（全复式共中376740注）</p>
-<p>下面给出这类彩票的中奖概率计算公式</p>
-<p>n个全是正选号码：<a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/7.png" target="_blank" rel="external">image</a></p>
-<p>n个正选加一个特别号码：<a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/6%2B1.png" target="_blank" rel="external">image</a> - <a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/7.png" target="_blank" rel="external">image</a></p>
-<p>想起了我大学的时候的概率统计，学概率统计的时候老师就说过了，赌博（指合法的彩票这类的），还有保险这个行业，基本上都能从概率学来计算，而且如果仔细算一下这里面的概率，就能发现这些都是非常暴利的行业。好吧，没研究过体彩的盈利手段，可能都是从税上面征的。而保险其实如果有经过大规模的数据分析的话，是可以知道赔保的概率很低，所以基本上买保险的人数乘以保险额会远远大于预估出来的全部需要出险的赔偿额的，剩下的都是利润利润。<br>如果从心理学上面来讲的话，买保险大家都是图个心安，买彩票则是赌。不禁感叹人类果然智慧无限，对这两类人群都做了细致的划分和业务推销..扯远了扯远了..</p>
-<p>回归正题吧，可见如果要买到所有号码可能就血本无归了，基本是赢不了啦。</p>
-<p>在聊下这个朋友，这个朋友后面需要我帮忙演算一下多期开奖结果的均值，也就是一万期，十万期…甚至几千万期之后的开奖均值，模拟演算了一下36选7一千万组数据的均值大概在129.495左右。</p>
-<h3 id="靠近均值附近中奖的概率高"><a href="#靠近均值附近中奖的概率高" class="headerlink" title="靠近均值附近中奖的概率高"></a>靠近均值附近中奖的概率高</h3><p>理论上来讲既然均值是这个值，如果能通过数据证明大多数的开奖数据都会比较接近这个均值，就是分布概率会在均值附近，是不是就能证明往靠近均值的地方买彩票中奖率会高一些。<br>算一下最小值 1+2+3+4+5+6+7=28   最大值 30+31+32+33+34+35+36=241这些都只有一组，而越往中间，选择越多如果是 30的话就可以1+2+3+4+5+6+9/1+2+3+4+5+7+8 ..是有这个趋势的。不过从另外一个维度分析，正因为均值区域概率太大，在这一块的组合也多，也就是说在改区域块的中奖概率也跟这里面的组合数是一致的。最终结果还是每个开奖的概率都相等，成功把自己扳倒了…</p>
-<h3 id="如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖"><a href="#如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖" class="headerlink" title="如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖"></a>如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖</h3><p>想起小时候，跟朋友玩猜大小游戏的时候如果小的次数开多了，他们就会一直猜大，甚至加注猜大，坐庄的我每次都被搞的慌的要死，虽然知道大小概率还是50%，但也没办法，因为确实是很邪门的一件事情。</p>
-<p>在一千万组数据下来的时候会发现，每一个号码的开奖次数都是接近相等的，现在假设我有（1-10） 10个号码，10选1，一千期内出现的概率为  100次 102次 105 次 98次 95次 93次 112次 88次 97次 94次 96次，根据期数多了每个号码开奖概率会趋于相等的原理，如果一直买 88次的是不是就稳赢了，好吧，如果学过概率统计就知道独立事件是互不影响的。不要想太多。更何况36/7的组合想要不让最低号码全中奖一直到开奖概率平均也是能做到的。</p>
-<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><p>帮朋友做了这两个应用之后，开始研究这方面的需求，感觉现在的市场确实会有这方面的分析需求。<br>那我要做些什么功能来满足他们呢。</p>
-<p>1.求平均，不管是35/7 ,22/5或是其他 做一个千万把求平均的功能（已完成，仅支持，不重复，无颜色随机）</p>
-<p>2.随机摇号 做一个随机摇号的功能，当然生成数量有限 (已完成)</p>
-<p>3.最重要的功能，开奖结果查询，将每一种彩票的开奖结果罗列出来。(已完成)</p>
-<p>4.开奖结果分析，用折线图来展示开奖结果，比如说多期内同一个号码的开奖次数统计（已完成）</p>
-<p>5.每一期的平均统计等 （已完成）</p>
-<p>6.其他 （号码收藏后期会添加）</p>
-<p>项目<a href="https://github.com/xiaolongonly/Ticket-Analysis" target="_blank" rel="external">github地址</a></p>
-<p><strong><em>By Xiaolong：每一天都值得被认真对待! </em></strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2246,7 +2239,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2268,7 +2261,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -280,6 +280,197 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/09/30/Ticket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lucky.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaolong的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/30/Ticket/" itemprop="url">
+                  Android端的彩票开奖查询系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T11:02:46+08:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人开源/" itemprop="url" rel="index">
+                    <span itemprop="name">个人开源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实现如下"><a href="#实现如下" class="headerlink" title="实现如下"></a>实现如下</h1><p><img src="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/operate.gif" alt="假装插入了图片"><br>初版历时半个多月</p>
+<h2 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h2><ol>
+<li><p>开奖结果查询</p>
+<ul>
+<li>近期开奖查询</li>
+<li>历史开奖查询（最多五十期）</li>
+</ul>
+</li>
+<li><p>关注彩种</p>
+</li>
+<li>一些简单的趋势分析</li>
+<li>号码预测（号码预测做的比较简单，直接算出每个号码的多期平均值，和期望平均值做对比。取均值。理论上应该是范围内的都是概率发生的，这一块其实可以加入奇偶频率，号码频率，和一些其他的条件来做预测，后面会继续做优化）</li>
+<li>接口原因，能用到的接口只有四个。 自己编写了规则文档。还有一些其他必要的功能。</li>
+<li>最后面想说的是这里其实更需要一个后台来爬取数据做动态更新。（打算写一个后台和爬虫来搞）</li>
+</ol>
+<h1 id="设计意图"><a href="#设计意图" class="headerlink" title="设计意图"></a>设计意图</h1><p>设计意图来自身边的朋友，对这一块投注存在的需求。</p>
+<h3 id="随机组合出所有可能再做筛选，然后投注"><a href="#随机组合出所有可能再做筛选，然后投注" class="headerlink" title="随机组合出所有可能再做筛选，然后投注"></a>随机组合出所有可能再做筛选，然后投注</h3><p>起初有个朋友让我帮忙写一个体育彩票36选7三个数字固定，其余数字随机的可能结果，然后动了一下脑子想了一下，<br>这些数据有<br>(33 X 32 X 31 X 30)/(4 X 3 X 2 X 1) = 40920种，<br>如果整组号码随机组合的结果有<br>(36 X 35 X 34 X 32 X 31 X 30)/(7 X 6 X 5 X 4 X 3 X 2 X 1) = 8347680种<br>由此可见其中大奖概率是很低的</p>
+<p>特等奖(7)  中奖概率为 概率公式打不出来((C7 7) / (C36 7)) = 1/8347680 (全复式共1注)</p>
+<p>一等奖(6+1)  (((C8 7) *(C28 0)-(C7 7))/(C36 7)) = 1/1192526（全复式共7注）</p>
+<p>二等奖(6)   1/42590(全复式共中196注)</p>
+<p>三等奖(5+1) 1/14197(全复式共中588注)</p>
+<p>四等奖(5)   1/1052(全复式共中7938注)</p>
+<p>五等奖(4+1) 1/631(全复式共中13230注)</p>
+<p>六等奖(4)   1/73(全复式共中114660注)</p>
+<p>无奖(3+1)   1/73（全复式共中114660注）</p>
+<p>无奖(3)     1/12（全复式共中716625注）</p>
+<p>无奖(2+1)   1/19（全复式共中429975注）</p>
+<p>无奖(2)     1/4（全复式共中2063880注）</p>
+<p>无奖(1+1)   1/12（全复式共中687960注）</p>
+<p>无奖(1)     1/3（全复式共中2637180注）</p>
+<p>无奖(0+1)   1/22（全复式共中376740注）</p>
+<p>下面给出这类彩票的中奖概率计算公式</p>
+<p>n个全是正选号码：<a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/7.png" target="_blank" rel="external">image</a></p>
+<p>n个正选加一个特别号码：<a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/6%2B1.png" target="_blank" rel="external">image</a> - <a href="https://github.com/xiaolongonly/Ticket-Analysis/blob/master/7.png" target="_blank" rel="external">image</a></p>
+<p>想起了我大学的时候的概率统计，学概率统计的时候老师就说过了，赌博（指合法的彩票这类的），还有保险这个行业，基本上都能从概率学来计算，而且如果仔细算一下这里面的概率，就能发现这些都是非常暴利的行业。好吧，没研究过体彩的盈利手段，可能都是从税上面征的。而保险其实如果有经过大规模的数据分析的话，是可以知道赔保的概率很低，所以基本上买保险的人数乘以保险额会远远大于预估出来的全部需要出险的赔偿额的，剩下的都是利润利润。<br>如果从心理学上面来讲的话，买保险大家都是图个心安，买彩票则是赌。不禁感叹人类果然智慧无限，对这两类人群都做了细致的划分和业务推销..扯远了扯远了..</p>
+<p>回归正题吧，可见如果要买到所有号码可能就血本无归了，基本是赢不了啦。</p>
+<p>在聊下这个朋友，这个朋友后面需要我帮忙演算一下多期开奖结果的均值，也就是一万期，十万期…甚至几千万期之后的开奖均值，模拟演算了一下36选7一千万组数据的均值大概在129.495左右。</p>
+<h3 id="靠近均值附近中奖的概率高"><a href="#靠近均值附近中奖的概率高" class="headerlink" title="靠近均值附近中奖的概率高"></a>靠近均值附近中奖的概率高</h3><p>理论上来讲既然均值是这个值，如果能通过数据证明大多数的开奖数据都会比较接近这个均值，就是分布概率会在均值附近，是不是就能证明往靠近均值的地方买彩票中奖率会高一些。<br>算一下最小值 1+2+3+4+5+6+7=28   最大值 30+31+32+33+34+35+36=241这些都只有一组，而越往中间，选择越多如果是 30的话就可以1+2+3+4+5+6+9/1+2+3+4+5+7+8 ..是有这个趋势的。不过从另外一个维度分析，正因为均值区域概率太大，在这一块的组合也多，也就是说在改区域块的中奖概率也跟这里面的组合数是一致的。最终结果还是每个开奖的概率都相等，成功把自己扳倒了…</p>
+<h3 id="如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖"><a href="#如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖" class="headerlink" title="如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖"></a>如果每个号码的开奖概率相同，那么买出现概率最低的码是不是就能中奖</h3><p>想起小时候，跟朋友玩猜大小游戏的时候如果小的次数开多了，他们就会一直猜大，甚至加注猜大，坐庄的我每次都被搞的慌的要死，虽然知道大小概率还是50%，但也没办法，因为确实是很邪门的一件事情。</p>
+<p>在一千万组数据下来的时候会发现，每一个号码的开奖次数都是接近相等的，现在假设我有（1-10） 10个号码，10选1，一千期内出现的概率为  100次 102次 105 次 98次 95次 93次 112次 88次 97次 94次 96次，根据期数多了每个号码开奖概率会趋于相等的原理，如果一直买 88次的是不是就稳赢了，好吧，如果学过概率统计就知道独立事件是互不影响的。不要想太多。更何况36/7的组合想要不让最低号码全中奖一直到开奖概率平均也是能做到的。</p>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><p>帮朋友做了这两个应用之后，开始研究这方面的需求，感觉现在的市场确实会有这方面的分析需求。<br>那我要做些什么功能来满足他们呢。</p>
+<p>1.求平均，不管是35/7 ,22/5或是其他 做一个千万把求平均的功能（已完成，仅支持，不重复，无颜色随机）</p>
+<p>2.随机摇号 做一个随机摇号的功能，当然生成数量有限 (已完成)</p>
+<p>3.最重要的功能，开奖结果查询，将每一种彩票的开奖结果罗列出来。(已完成)</p>
+<p>4.开奖结果分析，用折线图来展示开奖结果，比如说多期内同一个号码的开奖次数统计（已完成）</p>
+<p>5.每一期的平均统计等 （已完成）</p>
+<p>6.其他 （号码收藏后期会添加）</p>
+<p>项目<a href="https://github.com/xiaolongonly/Ticket-Analysis" target="_blank" rel="external">github地址</a></p>
+<p><strong><em>By Xiaolong：每一天都值得被认真对待! </em></strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/08/09/AndroidPdfViewer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2657,185 +2848,6 @@ phone        String  是    10086         手机号码
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/02/23/MeetMomeryLeak/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lucky.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiaolong的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/23/MeetMomeryLeak/" itemprop="url">
-                  初识内存泄露
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-23T16:02:22+08:00">
-                2017-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android内存优化/" itemprop="url" rel="index">
-                    <span itemprop="name">Android内存优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>什么是内存泄露</strong></p>
-<blockquote>
-<p>从java的垃圾回收机制说起吧。java比C++好的一点就是有自己的垃圾回收机制。在java虚拟机运行的过程中会把一些没有指向的对象(已知存活的对象节点无法遍历到的对象)回收。</p>
-<p>如果一个对象不再被使用，理论上是要被回收的，但是因为它可能被某些存活的对象持有了。导致不能回收。这样的对象会一直占用着内存，直到持有它的对象销毁。而因为强占着内存，很容易导致内存溢出，即OOM。</p>
-</blockquote>
-<p><strong>为什么会发生内存泄露</strong><br>在Android程序开发中，当一个对象已经不需要再使用了，本该被回收时，而另外一个正在使用的对象持有它的引用从而导致它不能被回收，这就导致本该被回收的对象不能被回收而停留在堆内存中，内存泄漏就产生了。</p>
-<p><strong>内存泄漏有什么影响</strong><br>它是造成应用程序OOM的主要原因之一。由于Android系统为每个应用程序分配的内存有限，当一个应用中产生的内存泄漏比较多时，就难免会导致应用所需要的内存超过这个系统分配的内存限额，这就造成了内存溢出而导致应用Crash。</p>
-<p><strong>如何避免内存泄露</strong><br>简单地说应该在对象赋值时先看一下持有这个对象的类/变量的声明周期。<br>1.静态变量/对象<br>一些类似于广播啊，EventBus注册，监听事件的注册，因为这些的生命周期都是比Activity长的。所以在activity销毁的时候要取消注册。</p>
-<p>今天遇到的一个内存泄露的问题就是因为注册了OrientationEventListener ，在onDestory的时候没有取消监听。当前的context一直都没办法释放掉。打开一次页面5M。一二十次就OOM了。<br>解决方案：在页面销毁的时候记得取消监听。</p>
-<p>另外一个内存泄露的问题是webView，webView在activity销毁的时候同样要解除引用，并做销毁。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   protected void onDestroy() &#123;</div><div class="line">       if (baseWebView != null) &#123;</div><div class="line">           ((ViewGroup) baseWebView.getParent()).removeView(baseWebView);</div><div class="line">           baseWebView.destroy();</div><div class="line">       &#125;</div><div class="line">       super.onDestroy();</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-<p>2.非静态内部类（非静态内部类持有当前类的引用）</p>
-<p>经常在类里面定义非静态内部类，因为非静态内部类会持有当前类的引用。所以在非静态内部类的工作未结束的时候当前类也不会被回收。<br>例如我们很经常在类里面自定义个Handler 或者Thread。<br>解决方案：用静态内部类来替换。<br>3.图片处理<br>图片处理的过程中不用的图片及时销毁。不然即使没有泄露，因为图片对象一样会OOM的。<br><strong>一、单例造成的内存泄漏</strong><br>如下这个典例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class AppManager &#123;</div><div class="line">    private static AppManager instance;</div><div class="line">    private Context context;</div><div class="line">    private AppManager(Context context) &#123;</div><div class="line">        this.context = context;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static AppManager getInstance(Context context) &#123;</div><div class="line">        if (instance != null) &#123;</div><div class="line">            instance = new AppManager(context);</div><div class="line">        &#125;</div><div class="line">        return instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这是一个普通的单例模式，当创建这个单例的时候，由于需要传入一个Context，所以这个Context的生命周期的长短至关重要：</p>
-<p>1、传入的是Application的Context：这将没有任何问题，因为单例的生命周期和Application的一样长 ;</p>
-<p>2、传入的是Activity的Context：当这个Context所对应的Activity退出时，由于该Context和Activity的生命周期一样长(Activity间接继承于Context)，所以当前Activity退出时它的内存并不会被回收，因为单例对象持有该Activity的对象，单例应该修改为下面这种方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class AppManager &#123;</div><div class="line">    private static AppManager instance;</div><div class="line">    private Context context;</div><div class="line">    private AppManager(Context context) &#123;</div><div class="line">        this.context = context.getApplicationContext();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static AppManager getInstance(Context context) &#123;</div><div class="line">        if (instance != null) &#123;</div><div class="line">            instance = new AppManager(context);</div><div class="line">        &#125;</div><div class="line">        return instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样子持有的是应用的context，就不用担心生命周期比APP还长了。<br>Android的单例模式非常受开发者的喜爱，不过使用的不恰当的话也会造成内存泄漏。因为单例的静态特性使得单例的生命周期和应用的生命周期一样长，这就说明了如果一个对象已经不需要使用了，而单例对象还持有该对象的引用，那么这个对象将不能被正常回收，这就导致了内存泄漏。</p>
-<p><strong>二、非静态内部类创建静态实例造成的内存泄漏</strong></p>
-<p>有的时候我们可能会在启动频繁的Activity中，为了避免重复创建相同的数据资源，会出现这种写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private static TestResource mResource = null;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        if(mManager == null)&#123;</div><div class="line">            mManager = new TestResource();</div><div class="line">        &#125;</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">    class TestResource &#123;</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样就在Activity内部创建了一个非静态内部类的单例，每次启动Activity时都会使用该单例的数据，这样虽然避免了资源的重复创建，不过这种写法却会造成内存泄漏，因为非静态内部类默认会持有外部类的引用，而又使用了该非静态内部类创建了一个静态的实例，该实例的生命周期和应用的一样长，这就导致了该静态实例一直会持有该Activity的引用，导致Activity的内存资源不能正常回收。正确的做法为：</p>
-<p>将该内部类设为静态内部类或将该内部类抽取出来封装成一个单例，如果需要使用Context，请使用ApplicationContext 。</p>
-<p><strong>三、Handler造成的内存泄漏</strong></p>
-<p>Handler的使用造成的内存泄漏问题应该说最为常见了，平时在处理网络任务或者封装一些请求回调等api都应该会借助Handler来处理，对于Handler的使用代码编写一不规范即有可能造成内存泄漏，如下示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private Handler mHandler = new Handler() &#123;</div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            //...</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        loadData();</div><div class="line">    &#125;</div><div class="line">    private void loadData()&#123;</div><div class="line">        //...request</div><div class="line">        Message message = Message.obtain();</div><div class="line">        mHandler.sendMessage(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这种创建Handler的方式会造成内存泄漏，由于mHandler是Handler的非静态匿名内部类的实例，所以它持有外部类Activity的引用，我们知道消息队列是在一个Looper线程中不断轮询处理消息，那么当这个Activity退出时消息队列中还有未处理的消息或者正在处理消息，而消息队列中的Message持有mHandler实例的引用，mHandler又持有Activity的引用，所以导致该Activity的内存资源无法及时回收，引发内存泄漏，所以另外一种做法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private MyHandler mHandler = new MyHandler(this);</div><div class="line">    private TextView mTextView ;</div><div class="line">    private static class MyHandler extends Handler &#123;</div><div class="line">        private WeakReference&lt;Context&gt; reference;</div><div class="line">        public MyHandler(Context context) &#123;</div><div class="line">            reference = new WeakReference&lt;&gt;(context);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            MainActivity activity = (MainActivity) reference.get();</div><div class="line">            if(activity != null)&#123;</div><div class="line">                activity.mTextView.setText(&quot;&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  </div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        mTextView = (TextView)findViewById(R.id.textview);</div><div class="line">        loadData();</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    private void loadData() &#123;</div><div class="line">        //...request</div><div class="line">        Message message = Message.obtain();</div><div class="line">        mHandler.sendMessage(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>创建一个静态Handler内部类，然后对Handler持有的对象使用弱引用，这样在回收时也可以回收Handler持有的对象，这样虽然避免了Activity泄漏，不过Looper线程的消息队列中还是可能会有待处理的消息，所以我们在Activity的Destroy时或者Stop时应该移除消息队列中的消息，更准确的做法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"> public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private MyHandler mHandler = new MyHandler(this);</div><div class="line">    private TextView mTextView ;</div><div class="line">    private static class MyHandler extends Handler &#123;</div><div class="line">        private WeakReference&lt;Context&gt; reference;</div><div class="line">        public MyHandler(Context context) &#123;</div><div class="line">            reference = new WeakReference&lt;&gt;(context);</div><div class="line">        &#125;</div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            MainActivity activity = (MainActivity) reference.get();</div><div class="line">            if(activity != null)&#123;</div><div class="line">                activity.mTextView.setText(&quot;&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        mTextView = (TextView)findViewById(R.id.textview);</div><div class="line">        loadData();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void loadData() &#123;</div><div class="line">        //...request</div><div class="line">        Message message = Message.obtain();</div><div class="line">        mHandler.sendMessage(message);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">        mHandler.removeCallbacksAndMessages(null);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用mHandler.removeCallbacksAndMessages(null);是移除消息队列中所有消息和所有的Runnable。当然也可以使用 mHandler.removeCallbacks();或mHandler.removeMessages()；来移除指定的Runnable和Message。<br> <strong>四、线程造成的内存泄漏</strong><br>对于线程造成的内存泄漏，也是平时比较常见的，如下这两个示例可能每个人都这样写过：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//——————test1 </div><div class="line">       new AsyncTask&lt;Void, Void, Void&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        protected Void doInBackground(Void... params) &#123;</div><div class="line">            SystemClock.sleep(10000);</div><div class="line">            return null;</div><div class="line">        &#125;</div><div class="line">    &#125;.execute();</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//——————test2 </div><div class="line">new Thread(new Runnable() &#123;             </div><div class="line">    @Override             </div><div class="line">    public void run() &#123;</div><div class="line">    SystemClock.sleep(10000);             </div><div class="line">    &#125;         </div><div class="line">&#125;).start();</div></pre></td></tr></table></figure>
-<p>上面的异步任务和Runnable都是一个匿名内部类，因此它们对当前Activity都有一个隐式引用。如果Activity在销毁之前，任务还未完成， 那么将导致Activity的内存资源无法回收，造成内存泄漏。正确的做法还是使用静态内部类的方式，如下： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">static class MyAsyncTask extends AsyncTask&lt;Void, Void, Void&gt; &#123;</div><div class="line">        private WeakReference&lt;Context&gt; weakReference;</div><div class="line">        public MyAsyncTask(Context context) &#123;</div><div class="line">            weakReference = new WeakReference&lt;&gt;(context);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        protected Void doInBackground(Void... params) &#123;</div><div class="line">            SystemClock.sleep(10000);</div><div class="line">            return null;</div><div class="line">        &#125;</div><div class="line">        @Override</div><div class="line">        protected void onPostExecute(Void aVoid) &#123;</div><div class="line">            super.onPostExecute(aVoid);</div><div class="line">            MainActivity activity = (MainActivity) weakReference.get();</div><div class="line">            if (activity != null) &#123;</div><div class="line">                //...</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    static class MyRunnable implements Runnable&#123;</div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">            SystemClock.sleep(10000);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//——————</div><div class="line">    new Thread(new MyRunnable()).start();</div><div class="line">    new MyAsyncTask(this).execute();</div></pre></td></tr></table></figure>
-<p>这样就避免了Activity的内存资源泄漏，当然在Activity销毁时候也应该取消相应的任务AsyncTask::cancel()，避免任务在后台执行浪费资源。 </p>
-<p><strong>五、资源未关闭造成的内存泄漏</strong> </p>
-<p>对于使用了BraodcastReceiver，ContentObserver，File，Cursor，Stream，Bitmap等资源的使用，应该在Activity销毁时及时关闭或者注销，否则这些资源将不会被回收，造成内存泄漏。 </p>
-<p><strong>如何判断是否内存泄露</strong></p>
-<p>在Android Studio的Monitor里面可以看到当前应用CPU,内存和网络还有GPU的使用情况<br><img src="http://img.blog.csdn.net/20170223160821232?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="内存管理"><br>这里只说activity层面上的。<br>观察当前activity内存占用，在启动一个activity之后可以看到内存明显上升。因为activity创建时同时会生成很多对象实例。关闭掉当前activity点击<img src="http://img.blog.csdn.net/20170223161249733?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="GC"><br>可以看到内存又回复到之前差不多的状态。说明activity没有内存泄露的情况。有的话可能也不是什么严重的事情。<br>如果可以看到内存没减少或者内存基本没减少。</p>
-<p><img src="http://img.blog.csdn.net/20170223161746001?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="GC2"><br>可以点击内存回收按钮右边的两个小按钮进行分析，现在使用左边的<br><img src="http://img.blog.csdn.net/20170223162018550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="分析"><br>扩展出Analyzer Task 然后点击运行按钮可以看到重复的String值和泄露的Activity。<br>点击泄露的Activity<img src="http://img.blog.csdn.net/20170223162229172?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="ss"><br>可以看到Reference Tree 里面有当前activity的信息。一般第一条就是内存泄露的原因。<br>然后根据以上经验可以分析哪里出问题了。一看OreentationEventListener就知道是监听这边出问题了。。好吧，没有取消监听。在onDestory中加上。完美解决。</p>
-<p>希望大家能有所收获，并能重视内存优化的问题，希望所有的app都没有OOM，没有ANR流畅不卡顿。^_^~~</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2885,7 +2897,7 @@ phone        String  是    10086         手机号码
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2907,7 +2919,7 @@ phone        String  是    10086         手机号码
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

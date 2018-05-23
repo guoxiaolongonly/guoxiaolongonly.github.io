@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="工作总结," />
+  <meta name="keywords" content="JVM," />
 
 
 
@@ -87,25 +87,25 @@
 
 
 
-<meta name="description" content="闲谈：工作总结又换了新工作了，讲一下离职原因吧
-工作太闲（因为业务砍了很多，所以手头上的事情都很少，几个Android开发维护一个项目，基本上每天的上班时间都是是在逛论坛，写博客）
-新的生活环境不适应（这个也算是一个大原因，以前是住岛内跟朋友合住，但是后面公司搬到岛外去了，跟着公司去岛外找了个房子，那边的房子比较潮湿，基本上每天都病怏怏的，特别难受。）
-工资不涨（这是我的第二家公司，那时候已经在第">
+<meta name="description" content="前言读完这篇文章你可以了解，String在虚拟机内存中的存放，intern方法到底有什么用，这么多String对象的创建到底有什么区别，String 创建的对象有几个！！
+进入正题我们需要先了解一下 String str=”abc”;和 String str =new String(“abc”);的区别
+1.String str=”abc”；
+JDK1.6（1） 当常量池中不存在”abc”这个字符">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作总结（二）">
-<meta property="og:url" content="http://rngift.com/2017/05/07/WorkSummary 2017-05-07/index.html">
+<meta property="og:title" content="String中intern方法的作用">
+<meta property="og:url" content="http://rngift.com/2018/05/23/Stringintern/index.html">
 <meta property="og:site_name" content="Xiaolong的个人博客">
-<meta property="og:description" content="闲谈：工作总结又换了新工作了，讲一下离职原因吧
-工作太闲（因为业务砍了很多，所以手头上的事情都很少，几个Android开发维护一个项目，基本上每天的上班时间都是是在逛论坛，写博客）
-新的生活环境不适应（这个也算是一个大原因，以前是住岛内跟朋友合住，但是后面公司搬到岛外去了，跟着公司去岛外找了个房子，那边的房子比较潮湿，基本上每天都病怏怏的，特别难受。）
-工资不涨（这是我的第二家公司，那时候已经在第">
-<meta property="og:updated_time" content="2018-03-12T14:07:35.064Z">
+<meta property="og:description" content="前言读完这篇文章你可以了解，String在虚拟机内存中的存放，intern方法到底有什么用，这么多String对象的创建到底有什么区别，String 创建的对象有几个！！
+进入正题我们需要先了解一下 String str=”abc”;和 String str =new String(“abc”);的区别
+1.String str=”abc”；
+JDK1.6（1） 当常量池中不存在”abc”这个字符">
+<meta property="og:updated_time" content="2018-05-23T15:48:28.615Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工作总结（二）">
-<meta name="twitter:description" content="闲谈：工作总结又换了新工作了，讲一下离职原因吧
-工作太闲（因为业务砍了很多，所以手头上的事情都很少，几个Android开发维护一个项目，基本上每天的上班时间都是是在逛论坛，写博客）
-新的生活环境不适应（这个也算是一个大原因，以前是住岛内跟朋友合住，但是后面公司搬到岛外去了，跟着公司去岛外找了个房子，那边的房子比较潮湿，基本上每天都病怏怏的，特别难受。）
-工资不涨（这是我的第二家公司，那时候已经在第">
+<meta name="twitter:title" content="String中intern方法的作用">
+<meta name="twitter:description" content="前言读完这篇文章你可以了解，String在虚拟机内存中的存放，intern方法到底有什么用，这么多String对象的创建到底有什么区别，String 创建的对象有几个！！
+进入正题我们需要先了解一下 String str=”abc”;和 String str =new String(“abc”);的区别
+1.String str=”abc”；
+JDK1.6（1） 当常量池中不存在”abc”这个字符">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://rngift.com/2017/05/07/WorkSummary 2017-05-07/"/>
+  <link rel="canonical" href="http://rngift.com/2018/05/23/Stringintern/"/>
 
 
 
 
 
-  <title> 工作总结（二） | Xiaolong的个人博客 </title>
+  <title> String中intern方法的作用 | Xiaolong的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -288,7 +288,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://rngift.com/2017/05/07/WorkSummary 2017-05-07/">
+    <link itemprop="mainEntityOfPage" href="http://rngift.com/2018/05/23/Stringintern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小龙">
@@ -309,7 +309,7 @@
             
             
               
-                工作总结（二）
+                String中intern方法的作用
               
             
           </h1>
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T13:32:20+08:00">
-                2017-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T23:44:39+08:00">
+                2018-05-23
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/阶段性总结/" itemprop="url" rel="index">
-                    <span itemprop="name">阶段性总结</span>
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
                   </a>
                 </span>
 
@@ -382,18 +382,49 @@
       
 
       
-        <h4 id="闲谈："><a href="#闲谈：" class="headerlink" title="闲谈："></a>闲谈：</h4><h5 id="工作总结"><a href="#工作总结" class="headerlink" title="工作总结"></a>工作总结</h5><h6 id="又换了新工作了，讲一下离职原因吧"><a href="#又换了新工作了，讲一下离职原因吧" class="headerlink" title="又换了新工作了，讲一下离职原因吧"></a>又换了新工作了，讲一下离职原因吧</h6><ol>
-<li>工作太闲（因为业务砍了很多，所以手头上的事情都很少，几个Android开发维护一个项目，基本上每天的上班时间都是是在逛论坛，写博客）</li>
-<li>新的生活环境不适应（这个也算是一个大原因，以前是住岛内跟朋友合住，但是后面公司搬到岛外去了，跟着公司去岛外找了个房子，那边的房子比较潮湿，基本上每天都病怏怏的，特别难受。）</li>
-<li>工资不涨（这是我的第二家公司，那时候已经在第一家基本熟悉了整个开发流程才到这家公司，那时候开的薪资特别低，说到底还是自己的原因啦，感觉每次去一家公司工资都比别人低。并不是技术比别人差，而是不会强势）</li>
-</ol>
-<p>上一家公司是纯互联网公司，主营业务做的是旅游行业B2B的业务，公司规模还算可以。我是在快毕业那会进这家公司的,在这家公司工作的期间算是我成长最快的一个时期，在这家公司学到了好多东西。</p>
-<p>从一些主流第三方框架学习到项目架构设计封装。一些项目功能的抽取封装。项目中有很多的设计模式，单例模式，观察者模式，责任链模式，建造者模式，装饰器模式，适配器模式。基本都能在这家公司原来的框架里看到。在这边看到了很多很有意思的代码。至少在我之前是没想到还有这么写的。这里其实应该感谢之前公司的老大，工作了十几年，他的技术特别强，对于封装还有架构的设计都有自己的思路。刚进去从熟悉代码，到代码规范，基本都对我指点了一番。在我离开之际他开始着手跨平台开发了。</p>
-<p>很可惜不跟随他和公司一起往下走，但心里一直存有感激。（其实对于自己有过的每一份工作即使离开了心里多少都会有感激，毕竟这是成长过程中可贵的经历）</p>
-<h6 id="关于新公司工作的感受"><a href="#关于新公司工作的感受" class="headerlink" title="关于新公司工作的感受"></a>关于新公司工作的感受</h6><p>关于入职，这段时间在各大招聘平台上找了不少工作，投了很多相对而言比较大的公司的简历。也面试了几家，给我的感觉是现在的Android开发供过于求。<br>企业开始各种筛选各种挑，也确实，现在Andorid开发的门槛特别低，随便会写点java，网上找找现成的源码。就可以开发出自己想要的功能了。一些框架也比以前好很多，网上都很多 retrofit,okhttp,MVP架构的项目demo，随便拿一个来用就可以实现大多数APP了。<br>所以我其实这份工作更考虑找一个framework层开发的工作。看了这家公司的资料，很多东西都是关于硬件方面的，我以为这份工作就是底层的工作了，那时候面试的时候，我现在的经理有跟我说蓝牙相关的，我以为是针对于蓝牙的二次开发。直接说可以了，但其实用到的是蓝牙接口的一些命令来实现与硬件做交互，实际上的核心还是偏向应用层开发。<br>由于软件部门较小，所以很多流程都不完善，没有原型文档，没有接口文档，UI特别少，刚进来的时候一脸懵逼。<br>比如说销售会直接跟我们提开发相关的功能，测试也基本都是销售和产品经理兼职测试。一个项目下来要做的东西特别杂，经常因为没有确定好需求，需要修修补补。但这样也有一个好处是开发流程的时间能节省不少，毕竟少了一个产品与销售沟通和出原型的过程，当然更大的一个好处是部门还小，这些可以自己去完善，制定规则，到时候发展空间也比较大。总之干一行爱一行吧。</p>
-<h5 id="谈一些工作中遇到的坑"><a href="#谈一些工作中遇到的坑" class="headerlink" title="谈一些工作中遇到的坑"></a>谈一些工作中遇到的坑</h5><p>公司有几份项目特别老，大概有三四年左右的历史了，里面的代码也不能说乱吧。就是命名规范简直不忍直视，能达得到我工作之前的水平了。我找一个功能的代码找了半天。<br>觉得命名规范这个东西还是需要每个人都去注意一下。<br>接下来打算整理一份命名规范的文档。<br>代码命名很重要！！！代码命名很重要！！！代码命名很重要！！！不要给自己和后人留坑！！</p>
-<p><strong><em>By xiaolong：You have a dream,you got to protect it!</em></strong></p>
-
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>读完这篇文章你可以了解，String在虚拟机内存中的存放，intern方法到底有什么用，这么多String对象的创建到底有什么区别，String 创建的对象有几个！！</p>
+<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a>进入正题</h2><p>我们需要先了解一下 String str=”abc”;和 String str =new String(“abc”);的区别</p>
+<p>1.String str=”abc”；</p>
+<p>JDK1.6<br>（1） 当常量池中不存在”abc”这个字符串的引用，在堆内存中new一个String对象，复制这个对象加入常量池。<br>（2） 当常量池中存在”abc”这个字符串对象，str指向这个对象的引用；</p>
+<p>JDK1.7<br>（1） 当常量池中不存在”abc”这个字符串的引用，在堆内存中new一个新的String对象，将这个对象的引用加入常量池。<br>（2） 当常量池中存在”abc”这个字符串的引用，str指向这个引用；</p>
+<p>2.String str =new String(“abc”)则是单纯的在堆内存中new一个String对象，通过StringBuilder 跟StringBuffer 构建的对象也是一样</p>
+<p>3.intern方法 （返回常量池中该字符串的引用）</p>
+<p>（1） 当常量池中不存在”abc”这个字符串的引用，将这个对象的引用加入常量池，返回这个对象的引用。<br>（2） 当常量池中存在”abc”这个字符串的引用，返回这个对象的引用；</p>
+<p>这里只测试jdk1.7</p>
+<p>测试代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">String str1 = <span class="string">"计算机"</span>;</div><div class="line">String str2 = <span class="string">"计算机"</span>;</div><div class="line">System.out.println(<span class="string">"str1==str2:"</span> + (str1 == str2));</div><div class="line"></div><div class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"计算机"</span>);</div><div class="line">System.out.println(<span class="string">"str1==str3:"</span> + (str1 == str3));</div><div class="line">System.out.println(<span class="string">"str1==str3.intern():"</span> + (str1 == str3.intern()));</div><div class="line">System.out.println(<span class="string">"str2==str3.intern():"</span> + (str2 == str3.intern()));</div><div class="line"></div><div class="line">String str4 = <span class="keyword">new</span> String(<span class="string">"计算机"</span>);</div><div class="line">System.out.println(<span class="string">"str3==str4:"</span> + (str3 == str4));</div><div class="line">System.out.println(<span class="string">"str3.intern()==str4.intern():"</span> + (str3.intern() == str4.intern()));</div><div class="line"></div><div class="line"></div><div class="line">String str5 = <span class="keyword">new</span> StringBuilder(<span class="string">"软件"</span>).append(<span class="string">"工程"</span>).toString();</div><div class="line">System.out.println(<span class="string">"str5.intern() == str5:"</span> + (str5.intern() == str5));</div><div class="line"></div><div class="line">String str6 = <span class="keyword">new</span> String(<span class="keyword">new</span> StringBuilder(<span class="string">"物联网"</span>).append(<span class="string">"工程"</span>).toString());</div><div class="line">System.out.println(<span class="string">"str6.intern() == str6:"</span> + (str6.intern() == str6));</div><div class="line"></div><div class="line">String str7 = <span class="keyword">new</span> String(<span class="string">"物联网"</span>);</div><div class="line">System.out.println(<span class="string">"str7.intern() == str7:"</span> + (str7.intern() == str7));</div></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<pre><code>str1==str2:true
+str1==str3:false
+str1==str3.intern():true
+str2==str3.intern():true
+str3==str4:false
+str3.intern()==str4.intern():true
+str5.intern() == str5:true
+str6.intern() == str6:true
+str7.intern() == str7:false
+</code></pre><p>这里着重讲解一下为什么str5,str6和str7的结果不一样，</p>
+<p>str7直接用new String（”物联网”）创建，”物联网”这字符串在一出现就自动创建成对象存放到常量池中，所以常量池里面存放的是”物联网”字符串的引用，并不是str7的引用。</p>
+<p>str5是通过StringBuilder构建的 在str5构建完成后toString方法执行时,软件工程这个字符串才第一次出现。执行了intern方法后str5才被放到常量池中此时str5跟str5.intern是同一个对象，但它并没有被放到常量池中。</p>
+<p>str6是作为对照组出现，这里为了确认StringBuilder 在toString方法执行后会不会把最终字符串放进常量池。很显然并没有，所以str6的intern才会跟str6是同一个对象。同时它也能验证出str7的new String()方式在初始化的时候就会把物联网放进常量池中。</p>
+<p>当然JDK1.6我们也能大致明确，输出结果会如下</p>
+<pre><code>str1==str2:true
+str1==str3:false
+str1==str3.intern():true
+str2==str3.intern():true
+str3==str4:false
+str3.intern()==str4.intern():true
+str5.intern() == str5:false
+str6.intern() == str6:false
+str7.intern() == str7:false
+</code></pre><p>因为没有尝试过，如果jdk1.6有不一致的地方欢迎大家指点。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.String对象可能会在堆内存中分配一块空间创建一个String对象，在常量池中创建该对象的复制<em>jdk 1.6</em>（或引用<em>jdk 1.7</em>），也可能直接指向常量池（永久带）中的引用（例String str=”xxx”）。还有一种可能是直接在堆内存中分配一块空间创建一个String对象（例 String str=new String(“xxx”)）。</p>
+<p>2.intern方法可以看成返回常量池中该字符串对象的引用。如果没有该字符串对象就把这个对象（或引用）加到常量池。</p>
+<p>3.jdk1.6跟jdk1.7的区别是当常量池中不存在这个字符串，jdk1.6是直接复制对象到常量池，而jdk1.7是把对象的引用加入常量池。</p>
+<p>4.类似于”abc”这样的字符串,在第一次被使用到(比如String a=”abc”或者String a=new String(“abc”))之后就会被加载到常量池中去</p>
+<p>5.面试问题：</p>
+<p>（1）现在当有人问 String str = new String(“abc”);创建了几个对象，常量池有abc字段是1个，常量池没有”abc”字段则是2个。<br>（2）String str=”abc”;创建了几个对象（如果常量池里面已经有对象了就是0个。如果没有，JDK1.6 1个，JDK1.7 2个）;<br>（3）new String(“abc”).intern();创建了几个对象（如果常量池里面已经有该字符串对象了就是1个，如果没有就是两个）</p>
+<h3 id="by-xiaolong"><a href="#by-xiaolong" class="headerlink" title="by xiaolong"></a>by xiaolong</h3>
       
     </div>
 
@@ -422,7 +453,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/工作总结/" rel="tag"># 工作总结</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -435,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/31/MPAndroidChartSource/" rel="next" title="MPAndroidChart绘制浅析">
-                <i class="fa fa-chevron-left"></i> MPAndroidChart绘制浅析
+              <a href="/2018/05/02/RecyclerViewAbout/" rel="next" title="RecyclerView的那些事">
+                <i class="fa fa-chevron-left"></i> RecyclerView的那些事
               </a>
             
           </div>
@@ -444,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/07/ApiStandars/" rel="prev" title="接口设计规范">
-                接口设计规范 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -596,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#闲谈："><span class="nav-number">1.</span> <span class="nav-text">闲谈：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#工作总结"><span class="nav-number">1.1.</span> <span class="nav-text">工作总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#又换了新工作了，讲一下离职原因吧"><span class="nav-number">1.1.1.</span> <span class="nav-text">又换了新工作了，讲一下离职原因吧</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#关于新公司工作的感受"><span class="nav-number">1.1.2.</span> <span class="nav-text">关于新公司工作的感受</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#谈一些工作中遇到的坑"><span class="nav-number">1.2.</span> <span class="nav-text">谈一些工作中遇到的坑</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进入正题"><span class="nav-number">2.</span> <span class="nav-text">进入正题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#by-xiaolong"><span class="nav-number">3.1.</span> <span class="nav-text">by xiaolong</span></a></li></ol></li></ol></div>
             
 
           </div>
