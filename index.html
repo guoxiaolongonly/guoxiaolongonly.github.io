@@ -588,7 +588,7 @@ str7.intern() == str7:false
 <p>RecyclerView提供了自带的分割线实现类DividerItemDecoration。<br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/Divider.png" alt="CustomLayoutManage2"></p>
 <h4 id="3-自定义ItemTouchHelper"><a href="#3-自定义ItemTouchHelper" class="headerlink" title="3.自定义ItemTouchHelper"></a>3.自定义ItemTouchHelper</h4><p>RecyclerView支持自己实现ItemTouchHelper,用来做Item的一些移动等手势操作。<br><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/MainTouchHelper.png" alt="MainTouchHelper"></p>
 <h4 id="4-Adapter中获取item的类型"><a href="#4-Adapter中获取item的类型" class="headerlink" title="4.Adapter中获取item的类型"></a>4.Adapter中获取item的类型</h4><p>RecyclerView支持实现getItemViewType根据不同的数据或者某些条件返回不同的itemType,而在Inflate的时候用户可以根据不同的itemType inflate不同的布局。</p>
-<h4 id="5-列表局部刷新"><a href="#5-列表局部刷新" class="headerlink" title="5.列表局部刷新"></a>5.列表局部刷新</h4><p>RecyclerView提供了局部刷新的接口，通过局部刷新，就能避免调用许多无用的bindView.<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/7.gif" alt="rv"></p>
+<h4 id="5-列表局部刷新"><a href="#5-列表局部刷新" class="headerlink" title="5.列表局部刷新"></a>5.列表局部刷新</h4><p>RecyclerView提供了局部刷新的接口，通过局部刷新，就能避免调用许多无用的bindView.<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-d96686ca22daba3a.gif?raw=true" alt="rv"></p>
 <p>(RecyclerView和ListView添加，移除Item效果对比)</p>
 <p>结合RecyclerView的缓存机制，看看局部刷新是如何实现的：<br>以RecyclerView中notifyItemRemoved(1)为例，最终会调用requestLayout()，使整个RecyclerView重新绘制，过程为：<br>onMeasure()–&gt;onLayout()–&gt;onDraw()</p>
 <p>其中，onLayout()为重点，分为三步： </p>
@@ -597,21 +597,21 @@ str7.intern() == str7:false
 <li>dispathLayoutStep2()：真正测量布局大小，位置，核心函数为layoutChildren()； </li>
 <li>dispathLayoutStep3()：计算布局前后各个ItemView的状态，如Remove，Add，Move，Update等，如有必要执行相应的动画.</li>
 </ol>
-<p>其中，layoutChildren()流程图：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/8.jpg" alt="s"></p>
-<p><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/9.png" alt="s"><br>当调用notifyItemRemoved时，会对屏幕内ItemView做预处理，修改ItemView相应的pos以及flag(流程图中红色部分)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/10.png" alt="s"></p>
+<p>其中，layoutChildren()流程图：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-acfb27c3c85a4b76.jpg?raw=true" alt="s"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-e4b778c6516575bf.png?raw=true" alt="s"><br>当调用notifyItemRemoved时，会对屏幕内ItemView做预处理，修改ItemView相应的pos以及flag(流程图中红色部分)：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-e05858ff4b7193d4.png?raw=true" alt="s"></p>
 <p>当调用fill()中RecyclerView.getViewForPosition(pos)时，RecyclerView通过对pos和flag的预处理，使得bindview只调用一次.</p>
 <p>需要指出，ListView和RecyclerView最大的区别在于数据源改变时的缓存的处理逻辑，ListView是”一锅端”，将所有的mActiveViews都移入了二级缓存mScrapViews，而RecyclerView则是更加灵活地对每个View修改标志位，区分是否重新bindView。</p>
 <h4 id="6-View缓存"><a href="#6-View缓存" class="headerlink" title="6.View缓存"></a>6.View缓存</h4><p><strong>缓存层级</strong></p>
 <p>RecyclerView比ListView多两级缓存，支持多个离ItemView缓存，支持开发者自定义缓存处理逻辑，支持所有RecyclerView共用同一个RecyclerViewPool(缓存池)。</p>
-<p>具体来说：<br>ListView(两级缓存)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/2.png" alt="ListView"><br>RecyclerView(四级缓存)：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/3.jpg" alt="RecyclerView"></p>
+<p>具体来说：<br>ListView(两级缓存)：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-936b333b772f7384.png?raw=true" alt="ListView"><br>RecyclerView(四级缓存)：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-e3e8d77f425aec56.jpg?raw=true" alt="RecyclerView"></p>
 <p>ListView和RecyclerView缓存机制基本一致：</p>
 <p>1). mActiveViews和mAttachedScrap功能相似，意义在于快速重用屏幕上可见的列表项ItemView，而不需要重新createView和bindView；</p>
 <p>2). mScrapView和mCachedViews + mReyclerViewPool功能相似，意义在于缓存离开屏幕的ItemView，目的是让即将进入屏幕的ItemView重用.</p>
 <p>3). RecyclerView的优势在于a.mCacheViews的使用，可以做到屏幕外的列表项ItemView进入屏幕内时也无须bindView快速重用；b.mRecyclerPool可以供多个RecyclerView共同使用，在特定场景下，如viewpaper+多个列表页下有优势.客观来说，RecyclerView在特定场景下对ListView的缓存机制做了补强和完善。</p>
 <p><strong>缓存方式</strong></p>
 <p>1). RecyclerView缓存RecyclerView.ViewHolder，抽象可理解为：<br>View + ViewHolder(避免每次createView时调用findViewById) + flag(标识状态)；<br>2). ListView缓存View。</p>
-<p>缓存不同，二者在缓存的使用上也略有差别，具体来说：<br>ListView获取缓存的流程：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/4.jpg" alt="listview缓存"><br>RecyclerView获取缓存的流程：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/5.jpg" alt="recyclerView缓存"></p>
-<p>1). RecyclerView中mCacheViews(屏幕外)获取缓存时，是通过匹配pos获取目标位置的缓存，这样做的好处是，当数据源数据不变的情况下，无须重新bindView：<br><img src="http://oa5504rxk.bkt.clouddn.com/week18_listview/6.gif" alt="ss"><br>而同样是离屏缓存，ListView从mScrapViews根据pos获取相应的缓存，但是并没有直接使用，而是重新getView（即必定会重新bindView）</p>
+<p>缓存不同，二者在缓存的使用上也略有差别，具体来说：<br>ListView获取缓存的流程：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-ce5ac0ef80b56caf.jpg?raw=true" alt="listview缓存"><br>RecyclerView获取缓存的流程：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-86039439e6145e39.jpg?raw=true" alt="recyclerView缓存"></p>
+<p>1). RecyclerView中mCacheViews(屏幕外)获取缓存时，是通过匹配pos获取目标位置的缓存，这样做的好处是，当数据源数据不变的情况下，无须重新bindView：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RecyclerView/5757771-a252a921951da595.gif?raw=true" alt="ss"><br>而同样是离屏缓存，ListView从mScrapViews根据pos获取相应的缓存，但是并没有直接使用，而是重新getView（即必定会重新bindView）</p>
 <p>2). ListView中通过pos获取的是view，即pos–&gt;view；<br>RecyclerView中通过pos获取的是viewholder，即pos –&gt; (view，viewHolder，flag)；<br>从流程图中可以看出，标志flag的作用是判断view是否需要重新bindView，这也是RecyclerView实现局部刷新的一个核心.</p>
 <h3 id="只用一个RecyclerView如何实现复杂布局"><a href="#只用一个RecyclerView如何实现复杂布局" class="headerlink" title="只用一个RecyclerView如何实现复杂布局"></a>只用一个RecyclerView如何实现复杂布局</h3><p>有个需求是这样的，我们需要做一个图片列表的展示但是不同的图片我要给他不一样的权重来让他显示不同的占比。比如下图。</p>
 <p><img src="https://raw.githubusercontent.com/guoxiaolongonly/xiaolongonly.github.io/master/uploads/imageRecyclerView.png" alt="imageRecyclerView"></p>
@@ -1341,20 +1341,20 @@ str7.intern() == str7:false
         
           
             <h3 id="一、IrDA互操作协议"><a href="#一、IrDA互操作协议" class="headerlink" title="一、IrDA互操作协议"></a>一、IrDA互操作协议</h3><p>IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。</p>
-<p><img src="http://img.blog.csdn.net/20171229155728786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155728786.png?raw=true" alt="这里写图片描述"></p>
 <p>主要操作指令有：连接操作、断开操作、Put操作、Get操作。</p>
 <h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80</td><br>      <td>连接请求分组长度</td><br>      <td>OBEX版本号</td><br>      <td>标志</td><br>      <td>客户端可接收最大的OBEX分组长度</td><br>      <td>可选头</td><br>   </tr><br></table>
 
-<p><img src="http://img.blog.csdn.net/20171229155842107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155842107.png?raw=true" alt="这里写图片描述"></p>
 <table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80 Connect命令</td><br>      <td>7</td><br>      <td>0x10</td><br>      <td>标志</td><br>      <td>65534</td><br>      <td>可选头</td><br>   </tr><br></table>
 
-<p><strong>连接响应</strong><br><img src="http://img.blog.csdn.net/20171229155929503?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>连接响应</strong><br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155929503.png?raw=true" alt=""></p>
 <h4 id="2、断开操作"><a href="#2、断开操作" class="headerlink" title="2、断开操作"></a>2、断开操作</h4><p>操作码为0x81</p>
 <h4 id="3、Put操作"><a href="#3、Put操作" class="headerlink" title="3、Put操作"></a>3、Put操作</h4><p>操作码为0x02</p>
 <p>连接成功后，客户端通过Put请求向服务器“推送”对象，如果对象较大，Put请求可以用多个Put请求分组。</p>
-<p><img src="http://img.blog.csdn.net/20171229160055997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160055997.png?raw=true" alt="这里写图片描述"></p>
 <h4 id="4、Get操作"><a href="#4、Get操作" class="headerlink" title="4、Get操作"></a>4、Get操作</h4><p>操作码为0x03</p>
-<h3 id="二、音频与电话控制协议"><a href="#二、音频与电话控制协议" class="headerlink" title="二、音频与电话控制协议"></a>二、音频与电话控制协议</h3><h4 id="1、框架部分"><a href="#1、框架部分" class="headerlink" title="1、框架部分"></a>1、框架部分</h4><p><img src="http://img.blog.csdn.net/20171229160153980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="二、音频与电话控制协议"><a href="#二、音频与电话控制协议" class="headerlink" title="二、音频与电话控制协议"></a>二、音频与电话控制协议</h3><h4 id="1、框架部分"><a href="#1、框架部分" class="headerlink" title="1、框架部分"></a>1、框架部分</h4><p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160153980.png?raw=true" alt="这里写图片描述"></p>
 <p>蓝牙音频如上图协议栈所示：音频通过基带传输同步面向连接分组实现，没有以规范的形式给出，不是协议栈的一部分。<br>    TCS_Binary是一种基于分组电话控制二进制编码指令集，位于L2CAP之上。实现蓝牙无绳电话、对讲机功能。<br>    RFCOMM用于AT指令，拨号上网、蓝牙耳机、耳麦、传真通过AT发送指令控制。</p>
 <h4 id="2、音频部分"><a href="#2、音频部分" class="headerlink" title="2、音频部分"></a>2、音频部分</h4><p>   64kbps电信级语言质量音频流<br>    CVSD  continuous variable slope delta 连续可变斜率增量。<br>    PCM  pulse code modulation 。<br>    PCM存在斜率效应。CVSD使用音节压缩算法，编码步长根据信号斜率变化自动调整，是现在比较好的编码方案，提高语言的抗干扰能力。</p>
 <h4 id="3、电话控制部分"><a href="#3、电话控制部分" class="headerlink" title="3、电话控制部分"></a>3、电话控制部分</h4><pre><code>TCS-Binary电话控制部分。
@@ -1363,25 +1363,25 @@ str7.intern() == str7:false
 </code></pre><p>（2）、组管理</p>
 <pre><code>访问权限请求、分布式配置、快速内部成员访问。
 </code></pre><h3 id="三、网络封装协议-BNEP"><a href="#三、网络封装协议-BNEP" class="headerlink" title="三、网络封装协议  BNEP"></a>三、网络封装协议  BNEP</h3><p>BNEP BluetoothNetworkEncapsulation Protocol 网络封装协议。<br>    为了使集成蓝牙技术的电脑、电话、PDA、家用电器等网络设备交换信息，需要在网络层统一数据分组。网络封装协议将来自不同网络的数据分组重新封装，通过L2CAP进行传输。这部分协议感觉在现实中用处不大，有更多简单便捷的方法去实现网络功能。<br>    BNEP支持Ipv4、Ipv6、IPX</p>
-<p><img src="http://img.blog.csdn.net/20171229160349916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160349916.png?raw=true" alt="这里写图片描述"></p>
 <h3 id="四、音视频分发协议AVDTP"><a href="#四、音视频分发协议AVDTP" class="headerlink" title="四、音视频分发协议AVDTP"></a>四、音视频分发协议AVDTP</h3><p>AVDTPAudio/Video Distribution Transport Protocol音视频分发传输协议</p>
-<p><img src="http://img.blog.csdn.net/20171229160422944?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160422944.png?raw=true" alt="这里写图片描述"></p>
 <p>有关A/V的协议 AVDTP音视频分发传输协议、AVCTP音视频控制传输协议、GAVDP通用音视频分发框架、A2DP高级音频分发框架、AVCRP音视频遥控框架</p>
 <h4 id="1、基本概念术语"><a href="#1、基本概念术语" class="headerlink" title="1、基本概念术语"></a>1、基本概念术语</h4><p>流stream:流是音视频传输的数据形式，单向传输，在AVDTP中被分为媒介分组。流有句柄HS统一标识。</p>
-<p><img src="http://img.blog.csdn.net/20171229160502080?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160502080.png?raw=true" alt="这里写图片描述"></p>
 <h4 id="2、信令"><a href="#2、信令" class="headerlink" title="2、信令"></a>2、信令</h4><p>AVDTP信令列表</p>
 <table><br>   <tr><br>      <td>命令</td><br>      <td>信令标识符</td><br>      <td>描述</td><br>   </tr><br>   <tr><br>      <td>AVDTP_DISCOVER</td><br>      <td>0x01</td><br>      <td>发现设备中的流端点</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CAPABILITIES</td><br>      <td>0x02</td><br>      <td>获得流端点的信息能力</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SET_CONFIGURATION</td><br>      <td>0x03</td><br>      <td>对SEP进行配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CONFIGURATION</td><br>      <td>0x04</td><br>      <td>获取SEP当前配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_RECONFIGURE</td><br>      <td>0x05</td><br>      <td>对SEP重新配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_OPEN</td><br>      <td>0x06</td><br>      <td>成功的配置SEP后，打开流</td><br>   </tr><br>   <tr><br>      <td>AVDTP_START</td><br>      <td>0x07</td><br>      <td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td><br>   </tr><br>   <tr><br>      <td>AVDTP_CLOSE</td><br>      <td>0x08</td><br>      <td>对SEP关闭</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SUSPEND</td><br>      <td>0x09</td><br>      <td>请求SEP暂停</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SECURITY_CONTROL</td><br>      <td>0x0A</td><br>      <td>设置设备内容保护、或者请求设备状况信息</td><br>   </tr><br>   <tr><br>      <td>AVDTP_ABORT</td><br>      <td>0x0B</td><br>      <td>中断正在建立或者传输的过程</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_ALL_CAPABILITIES</td><br>      <td> </td><br>      <td> </td><br>   </tr><br>   <tr><br>      <td>AVDTP_DELAYREPORT</td><br>      <td> </td><br>      <td> </td><br>   </tr><br></table>
 
 <pre><code>这部分信令，实现了蓝牙的A2DP 数据流的控制
 </code></pre><p><strong>（1）、流的信令管理流程</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160645996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><img src="http://img.blog.csdn.net/20171229160703608?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160645996.png?raw=true" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160703608.png?raw=true" alt="这里写图片描述"></p>
 <p><strong>（2）、get capabilities  获取支持特性</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160738415?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160738415.png?raw=true" alt="这里写图片描述"></p>
 <p><strong>（3）、set configuration 配置音频参数</strong></p>
-<p><img src="http://img.blog.csdn.net/20171229160806185?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160806185.png?raw=true" alt="这里写图片描述"></p>
 <p>其他指令类似去上面两个的操作。</p>
-<h3 id="五、音视频控制传输协议AVCTP"><a href="#五、音视频控制传输协议AVCTP" class="headerlink" title="五、音视频控制传输协议AVCTP"></a>五、音视频控制传输协议AVCTP</h3><p><img src="http://img.blog.csdn.net/20171229160834464?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="五、音视频控制传输协议AVCTP"><a href="#五、音视频控制传输协议AVCTP" class="headerlink" title="五、音视频控制传输协议AVCTP"></a>五、音视频控制传输协议AVCTP</h3><p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160834464.png?raw=true" alt="这里写图片描述"></p>
 <p>AVCTP可以使音视频设备同时支持多个应用框架，每个应用框架定义了各自相应的消息格式与应用规则。</p>
 <p>这部分操作，在现实的应用中也有不足的地方，蓝牙传输的数据量有限，实现这些功能有一定的不足。随着科学技术的发展，蓝牙在无线通信方面的优点、缺点都凸显出来，找的合适的方向，合理的发展方向是硬道理。</p>
 <p>蓝牙芯片厂商：</p>
