@@ -103,12 +103,12 @@
 如果一个对象不再被使用，理论上是要被回收的，但是因为它可能被某些存活的对象持有了。导致不能回收。这样的对象会一直占用着内存，直到持有它的对象销毁。而因为强占着内存，很容易导致内存溢出，即OOM。
 
 为什么">
-<meta property="og:image" content="http://img.blog.csdn.net/20170223160821232?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170223161249733?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170223161746001?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170223162018550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170223162229172?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-03-12T14:02:06.197Z">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223160821232.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223161249733.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223161746001.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223162018550.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223162229172.png?raw=true">
+<meta property="og:updated_time" content="2018-09-02T09:00:54.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识内存泄露">
 <meta name="twitter:description" content="什么是内存泄露
@@ -117,7 +117,7 @@
 如果一个对象不再被使用，理论上是要被回收的，但是因为它可能被某些存活的对象持有了。导致不能回收。这样的对象会一直占用着内存，直到持有它的对象销毁。而因为强占着内存，很容易导致内存溢出，即OOM。
 
 为什么">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170223160821232?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223160821232.png?raw=true">
 
 
 
@@ -428,8 +428,8 @@
 <p><strong>五、资源未关闭造成的内存泄漏</strong> </p>
 <p>对于使用了BraodcastReceiver，ContentObserver，File，Cursor，Stream，Bitmap等资源的使用，应该在Activity销毁时及时关闭或者注销，否则这些资源将不会被回收，造成内存泄漏。 </p>
 <p><strong>如何判断是否内存泄露</strong></p>
-<p>在Android Studio的Monitor里面可以看到当前应用CPU,内存和网络还有GPU的使用情况<br><img src="http://img.blog.csdn.net/20170223160821232?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="内存管理"><br>这里只说activity层面上的。<br>观察当前activity内存占用，在启动一个activity之后可以看到内存明显上升。因为activity创建时同时会生成很多对象实例。关闭掉当前activity点击<img src="http://img.blog.csdn.net/20170223161249733?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="GC"><br>可以看到内存又回复到之前差不多的状态。说明activity没有内存泄露的情况。有的话可能也不是什么严重的事情。<br>如果可以看到内存没减少或者内存基本没减少。</p>
-<p><img src="http://img.blog.csdn.net/20170223161746001?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="GC2"><br>可以点击内存回收按钮右边的两个小按钮进行分析，现在使用左边的<br><img src="http://img.blog.csdn.net/20170223162018550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="分析"><br>扩展出Analyzer Task 然后点击运行按钮可以看到重复的String值和泄露的Activity。<br>点击泄露的Activity<img src="http://img.blog.csdn.net/20170223162229172?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="ss"><br>可以看到Reference Tree 里面有当前activity的信息。一般第一条就是内存泄露的原因。<br>然后根据以上经验可以分析哪里出问题了。一看OreentationEventListener就知道是监听这边出问题了。。好吧，没有取消监听。在onDestory中加上。完美解决。</p>
+<p>在Android Studio的Monitor里面可以看到当前应用CPU,内存和网络还有GPU的使用情况<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223160821232.png?raw=true" alt="内存管理"><br>这里只说activity层面上的。<br>观察当前activity内存占用，在启动一个activity之后可以看到内存明显上升。因为activity创建时同时会生成很多对象实例。关闭掉当前activity点击<img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223161249733.png?raw=true" alt="GC"><br>可以看到内存又回复到之前差不多的状态。说明activity没有内存泄露的情况。有的话可能也不是什么严重的事情。<br>如果可以看到内存没减少或者内存基本没减少。</p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223161746001.png?raw=true" alt="GC2"><br>可以点击内存回收按钮右边的两个小按钮进行分析，现在使用左边的<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223162018550.png?raw=true" alt="分析"><br>扩展出Analyzer Task 然后点击运行按钮可以看到重复的String值和泄露的Activity。<br>点击泄露的Activity<img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/MeetMomeryLeak/20170223162229172.png?raw=true" alt="ss"><br>可以看到Reference Tree 里面有当前activity的信息。一般第一条就是内存泄露的原因。<br>然后根据以上经验可以分析哪里出问题了。一看OreentationEventListener就知道是监听这边出问题了。。好吧，没有取消监听。在onDestory中加上。完美解决。</p>
 <p>希望大家能有所收获，并能重视内存优化的问题，希望所有的app都没有OOM，没有ANR流畅不卡顿。^_^~~</p>
 
       

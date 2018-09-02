@@ -109,9 +109,9 @@ Eclipse 任意版本能运行java就行
 
 第一步：依然是分析页面结构我们要模拟CSDN用户表单登录，来获取用户登录后的数据。在一些网站和论坛，部分内容总是需要会员用户等需要一定权限的用户才能看得到。好了由此可见模拟用户表单登录的重要性了。
 进入登录页，在页面上按F12查看页面元素的内容">
-<meta property="og:image" content="http://img.my.csdn.net/uploads/201606/13/1465824740_6409.png">
-<meta property="og:image" content="http://img.my.csdn.net/uploads/201606/13/1465827533_1458.png">
-<meta property="og:updated_time" content="2018-03-12T14:04:34.004Z">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile3/1465824740_6409.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile3/TIM%E6%88%AA%E5%9B%BE20180819151851.png?raw=true">
+<meta property="og:updated_time" content="2018-09-02T08:58:24.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java爬虫教程：模拟用户表单登录">
 <meta name="twitter:description" content="这个是爬虫教程第三篇，教大家如何模拟用户表单登录。
@@ -123,7 +123,7 @@ Eclipse 任意版本能运行java就行
 
 第一步：依然是分析页面结构我们要模拟CSDN用户表单登录，来获取用户登录后的数据。在一些网站和论坛，部分内容总是需要会员用户等需要一定权限的用户才能看得到。好了由此可见模拟用户表单登录的重要性了。
 进入登录页，在页面上按F12查看页面元素的内容">
-<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201606/13/1465824740_6409.png">
+<meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile3/1465824740_6409.png?raw=true">
 
 
 
@@ -408,7 +408,7 @@ Eclipse 任意版本能运行java就行
 <li>谷歌浏览器</li>
 </ul>
 <h5 id="第一步：依然是分析页面结构"><a href="#第一步：依然是分析页面结构" class="headerlink" title="第一步：依然是分析页面结构"></a>第一步：依然是分析页面结构</h5><p>我们要模拟CSDN用户表单登录，来获取用户登录后的数据。<br>在一些网站和论坛，部分内容总是需要会员用户等需要一定权限的用户才能看得到。<br>好了由此可见模拟用户表单登录的重要性了。</p>
-<p>进入<a href="https://passport.csdn.net/account/login" target="_blank" rel="external">登录页</a>，在页面上按F12查看页面元素的内容。<br><img src="http://img.my.csdn.net/uploads/201606/13/1465824740_6409.png" alt=""><br>这次我们只要form标签，和其内部的账号密码输入框信息。</p>
+<p>进入<a href="https://passport.csdn.net/account/login" target="_blank" rel="external">登录页</a>，在页面上按F12查看页面元素的内容。<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile3/1465824740_6409.png?raw=true" alt=""><br>这次我们只要form标签，和其内部的账号密码输入框信息。</p>
 <h5 id="第二步：讲解一下Post需要的操作具体流程"><a href="#第二步：讲解一下Post需要的操作具体流程" class="headerlink" title="第二步：讲解一下Post需要的操作具体流程"></a>第二步：讲解一下Post需要的操作具体流程</h5><p>一般表单的id都是唯一的，所以要过滤出表单是很容易的一件事情<br>这里表单的id值是fm1<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Element&gt; et = d1.select(<span class="string">"#fm1"</span>);<span class="comment">// 获取form表单</span></div></pre></td></tr></table></figure></p>
 <p>下一步是获得表单下面的帐号和密码输入框控件，同样可以根据id来过滤，不过这里使用的是name属性。<br>一般网站设计都会把name属性配上value，post到服务端。<br>直接在Map对象中put帐号和密码的键值对，代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Map&lt;String, String&gt; datas = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">datas.put(e.attr(<span class="string">"name"</span>), e.attr(<span class="string">"value"</span>));</div></pre></td></tr></table></figure></p>
 <p>这个就是表单的帐号密码输入框的键值<br>也可以不做遍历直接<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">datas.put(<span class="string">"username"</span>, <span class="string">"your username"</span>);</div><div class="line">datas.put(<span class="string">"password"</span>, <span class="string">"your password"</span>);</div></pre></td></tr></table></figure></p>
@@ -424,7 +424,7 @@ Eclipse 任意版本能运行java就行
 通过下图可以看到请求头可以有这么多的信息，
 服务端可能会通过约束请求头来判别用户post/get的信息是否合法
 所以请求头很重要~请求头很重要~请求头很重要~（重要的事情说三遍）
-</code></pre><p><img src="http://img.my.csdn.net/uploads/201606/13/1465827533_1458.png" alt=""></p>
+</code></pre><p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile3/TIM%E6%88%AA%E5%9B%BE20180819151851.png?raw=true" alt=""></p>
 <pre><code>这个是登录后每一次操作都需要携带的头部信息。可以通过F12查看页面网络访问状态来查看请求头和返回头。
 好啦，有了模拟表单登录了，是时候去大展身手了。
 爬虫教程到此结束，希望有兴趣的小伙伴可以继续深入研究
@@ -481,8 +481,8 @@ Eclipse 任意版本能运行java就行
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/20/Lambda/" rel="prev" title="Java中的Lambda表达式的使用">
-                Java中的Lambda表达式的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/07/Lambda/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

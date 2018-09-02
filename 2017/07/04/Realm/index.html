@@ -97,16 +97,16 @@ Realm的缺点id不能自增解决方案：UUID自动生成，或者每次插入
 <meta property="og:description" content="Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。
 Realm的缺点id不能自增解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.
 实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。只能直接继承不能间接继承。我的遇到的问题如下，因为所有的数据库实体类都有一部分">
-<meta property="og:image" content="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170711111806643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20171204175727236?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-08-28T00:10:24.662Z">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20170711105957783.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20170711111806643.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20171204175727236.png?raw=true">
+<meta property="og:updated_time" content="2018-09-02T08:17:34.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Realm数据库的那些坑">
 <meta name="twitter:description" content="Realm算是移动端用的比较多的ORM框架了，当初选择的时候入了坑，现在只能在这里慢慢爬了，版本3.1.4。记录一些存在的坑。
 Realm的缺点id不能自增解决方案：UUID自动生成，或者每次插入的时候获取最大的id往上+1.
 实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。只能直接继承不能间接继承。我的遇到的问题如下，因为所有的数据库实体类都有一部分">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20170711105957783.png?raw=true">
 
 
 
@@ -388,8 +388,8 @@ Realm的缺点id不能自增解决方案：UUID自动生成，或者每次插入
 <h3 id="实体类只能继承RealmObjet-或者实现RealmModel加-RealmClass注解。"><a href="#实体类只能继承RealmObjet-或者实现RealmModel加-RealmClass注解。" class="headerlink" title="实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。"></a>实体类只能继承RealmObjet 或者实现RealmModel加@RealmClass注解。</h3><p><strong>只能直接继承不能间接继承。</strong><br>我的遇到的问题如下，因为所有的数据库实体类都有一部分同样的字段。我就想把这些字段写到MyBaseObject基类中，再由基类来继承ReamObject。实体类直接继承基类。编译不过。<br>Error:(14, 8) 错误: Valid model classes must either extend RealmObject or implement RealmModel. </p>
 <p><strong>不能参照RealmObject自己实现RealmModel</strong><br>翻看了一下ReamObject的源码发现它是对RealmModel的实现。天真的以为我也可以这么写一个基类来继承。依然编译不过。一样的错误。<br>这个RealmModel+注解的方式，简直是来逗我的</p>
 <p>暂无解决方案。老老实实一个一个写！</p>
-<h3 id="查询的对象带有RealmProxy对象代理"><a href="#查询的对象带有RealmProxy对象代理" class="headerlink" title="查询的对象带有RealmProxy对象代理"></a>查询的对象带有RealmProxy对象代理</h3><p>带有代理的对象是可以直接进行Realm数据库操作的。<br><img src="http://img.blog.csdn.net/20170711105957783?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="RealmProxy"> </p>
-<p>实体会多一个ColumnInfo和ProxyState 的对象实例。。ProxyState里面又包含了该RealmProxy对象。<br>结构如下：<br><img src="http://img.blog.csdn.net/20170711111806643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="层级嵌套结构"><br>可以看出这是一种递归的存储方式。至于java为什么不溢出，因为它的model直接指向了自己的地址。<br>问题：做遍历操作会导致ANR和内存溢出<br>解决方案：</p>
+<h3 id="查询的对象带有RealmProxy对象代理"><a href="#查询的对象带有RealmProxy对象代理" class="headerlink" title="查询的对象带有RealmProxy对象代理"></a>查询的对象带有RealmProxy对象代理</h3><p>带有代理的对象是可以直接进行Realm数据库操作的。<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20170711105957783.png?raw=true" alt="RealmProxy"> </p>
+<p>实体会多一个ColumnInfo和ProxyState 的对象实例。。ProxyState里面又包含了该RealmProxy对象。<br>结构如下：<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20170711111806643.png?raw=true" alt="层级嵌套结构"><br>可以看出这是一种递归的存储方式。至于java为什么不溢出，因为它的model直接指向了自己的地址。<br>问题：做遍历操作会导致ANR和内存溢出<br>解决方案：</p>
 <ol>
 <li>类似于这种递归的方式如果需要做遍历操作的话。比如说转Json或者一些其他的操作的时候不要忘了忽略掉递归的对象，否则分分钟就内存溢出ANR了。比如Gson忽略某个字段<a href="http://blog.csdn.net/lionliu6/article/details/50787893" target="_blank" rel="external">参考</a></li>
 <li>也可以直接把对象copyfromRealm，拿到真正的对象<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm.getDefaultInstance().copyFromRealm(object);</div></pre></td></tr></table></figure>
@@ -410,7 +410,7 @@ Realm的缺点id不能自增解决方案：UUID自动生成，或者每次插入
 <p>realm对于这种经常用数据库存储的应用，真的不好用！！！</p>
 <h4 id="坑——Rx流操作"><a href="#坑——Rx流操作" class="headerlink" title="坑——Rx流操作"></a>坑——Rx流操作</h4><p>最近想把Realm用Rx流改写一下，然后又发现了他的坑了。</p>
 <h4 id="不支持线程切换"><a href="#不支持线程切换" class="headerlink" title="不支持线程切换"></a>不支持线程切换</h4><p>在Rx流中我们经常会做线程变换操作，然后Realm并不支持其他非创建线程中访问Realm对象。</p>
-<p><img src="http://img.blog.csdn.net/20171204175727236?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="线程切换"><br>也就是说，你在哪个线程创建的Realm对象只能在哪个线程中使用。mmp，好吧，谢谢你的异常提醒，但我用的不是很爽。</p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Realm/20171204175727236.png?raw=true" alt="线程切换"><br>也就是说，你在哪个线程创建的Realm对象只能在哪个线程中使用。mmp，好吧，谢谢你的异常提醒，但我用的不是很爽。</p>
 <p>不是很爽解决方案：把Realm对象创建在子线程<br>在IO线程中创建一个Realm对象毕竟数据库操作是个耗时操作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm.getInstance(<span class="keyword">new</span> RealmConfiguration.Builder().build());</div></pre></td></tr></table></figure></p>
 <p>之后就只能在IO线程中做操作了。别忘了~~  2333</p>
 <h4 id="Rx操作"><a href="#Rx操作" class="headerlink" title="Rx操作"></a>Rx操作</h4><p>嗯，一个Rx流的查询操作，莫名其妙给我一直发数据流，相当于无限的查询。后面才发现是因为我的另外一个操作也是有对数据库的查询操作的。 不知道Realm内部怎么实现。就导致这两个的subscribe一直重复走。</p>

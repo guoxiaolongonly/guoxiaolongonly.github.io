@@ -103,8 +103,8 @@
 6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
 这样子容易出现的问题是：
 1.如果某个权限被禁用了。应用开发中根本没提供方法来">
-<meta property="og:image" content="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-03-12T14:18:59.022Z">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RTAuthority/20161208162153523.png?raw=true">
+<meta property="og:updated_time" content="2018-09-02T08:56:57.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android6.0运行时权限解决方案">
 <meta name="twitter:description" content="今天在测试APP的时候发现部分手机APP定位权限使用不了。看了一下机型都是Android6.0以上版本的Android手机。
@@ -113,7 +113,7 @@
 6.0版本之前的权限管理都是一些手机系统自己写的权限管理，比如说小米手机系统，魅族...这些都自己带有自己权限管理。
 这样子容易出现的问题是：
 1.如果某个权限被禁用了。应用开发中根本没提供方法来">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RTAuthority/20161208162153523.png?raw=true">
 
 
 
@@ -417,7 +417,7 @@ Google最终解决方案，给系统弄一个权限管理。
 <p>拒绝后</p>
 <p><strong>D/CreatePermissionState：: write:-1_read:-1_coarse:-1_fine:-1</strong><br><strong>D/RequestCode: 10086</strong><br><strong>D/permissionInfo: permissionName：android.permission.WRITE_EXTERNAL_STORAGEpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.READ_EXTERNAL_STORAGEpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_COARSE_LOCATIONpermission State：-1</strong><br><strong>D/permissionInfo: permissionName：android.permission.ACCESS_FINE_LOCATIONpermission State：-1</strong><br><strong>D/FinishPermissionState：: write:-1_read:-1_coarse:-1_fine:-1</strong></p>
 <p>界面：</p>
-<p><img src="http://img.blog.csdn.net/20161208162153523?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VveGlhb2xvbmdvbmx5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="授权提醒"></p>
+<p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/RTAuthority/20161208162153523.png?raw=true" alt="授权提醒"></p>
 <h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>发现只出现一个授权文件读写的提醒框。<br>最后发现我在清单文件Manifest中只注册了读写权限。没有注册网络定位和精准定位权限。加上这两个。<br>这次启动的时候就出现了两个提示框了。（授权文件读写和定位）<br>可以看出，文件读写是归一个权限控制来管理的，两个定位权限也是归于一个权限控制来管理的。<br>清单权限注册<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_EXTERNAL_STORAGE"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_COARSE_LOCATION"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
 <h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ol>
 <li><p>需要动态配置的权限一定要在清单文件中做注册，不然默认都是不做配置的。之前踩过的一个坑是只注册了COARSE_LOCATION没有注册FINE_LOCATION，发现FINE_LOCATION一直是未授权，但是COARSE_LOCATION授权成功了。</p>

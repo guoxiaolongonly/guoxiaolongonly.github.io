@@ -90,7 +90,10 @@
 <meta name="description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
 
 主要操作指令有：连接操作、断开操作、Put操作、Get操作。
-1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+1、连接操作 ,操作码0x80字节0字节1、2字节3字节4字节5、6字节7～n0x80连接请求分组长度OBEX版本号标志客户端可接收最大的OBEX分组长度可选头
+
+
+字节0字节1、2字节3字节4字节5、6字节7～n0x8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）">
 <meta property="og:url" content="http://rngift.com/2017/12/29/BluetoothForAndroid5/index.html">
@@ -98,7 +101,10 @@
 <meta property="og:description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
 
 主要操作指令有：连接操作、断开操作、Put操作、Get操作。
-1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+1、连接操作 ,操作码0x80字节0字节1、2字节3字节4字节5、6字节7～n0x80连接请求分组长度OBEX版本号标志客户端可接收最大的OBEX分组长度可选头
+
+
+字节0字节1、2字节3字节4字节5、6字节7～n0x8">
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155728786.png?raw=true">
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155842107.png?raw=true">
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155929503.png?raw=true">
@@ -112,13 +118,16 @@
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160738415.png?raw=true">
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160806185.png?raw=true">
 <meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160834464.png?raw=true">
-<meta property="og:updated_time" content="2018-08-27T23:47:38.588Z">
+<meta property="og:updated_time" content="2018-09-02T08:36:33.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝牙协议学习整理（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）">
 <meta name="twitter:description" content="一、IrDA互操作协议IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。
 
 主要操作指令有：连接操作、断开操作、Put操作、Get操作。
-1、连接操作 ,操作码0x80         字节0      字节1、2      字节3      字节4      字节5、6      字节7～n            0x80      连接请求分组长度">
+1、连接操作 ,操作码0x80字节0字节1、2字节3字节4字节5、6字节7～n0x80连接请求分组长度OBEX版本号标志客户端可接收最大的OBEX分组长度可选头
+
+
+字节0字节1、2字节3字节4字节5、6字节7～n0x8">
 <meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155728786.png?raw=true">
 
 
@@ -399,12 +408,12 @@
         <h3 id="一、IrDA互操作协议"><a href="#一、IrDA互操作协议" class="headerlink" title="一、IrDA互操作协议"></a>一、IrDA互操作协议</h3><p>IrOBEX 红外对象交互协议，简称OBEX，使高层协议同时运作在蓝牙和红外的无线链路之上。</p>
 <p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155728786.png?raw=true" alt="这里写图片描述"></p>
 <p>主要操作指令有：连接操作、断开操作、Put操作、Get操作。</p>
-<h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80</td><br>      <td>连接请求分组长度</td><br>      <td>OBEX版本号</td><br>      <td>标志</td><br>      <td>客户端可接收最大的OBEX分组长度</td><br>      <td>可选头</td><br>   </tr><br></table>
+<h4 id="1、连接操作-操作码0x80"><a href="#1、连接操作-操作码0x80" class="headerlink" title="1、连接操作 ,操作码0x80"></a>1、连接操作 ,操作码0x80</h4><table><tr><td>字节0</td><td>字节1、2</td><td>字节3</td><td>字节4</td><td>字节5、6</td><td>字节7～n</td></tr><tr><td>0x80</td><td>连接请求分组长度</td><td>OBEX版本号</td><td>标志</td><td>客户端可接收最大的OBEX分组长度</td><td>可选头</td></tr></table>
 
 <p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155842107.png?raw=true" alt="这里写图片描述"></p>
-<table><br>   <tr><br>      <td>字节0</td><br>      <td>字节1、2</td><br>      <td>字节3</td><br>      <td>字节4</td><br>      <td>字节5、6</td><br>      <td>字节7～n</td><br>   </tr><br>   <tr><br>      <td>0x80 Connect命令</td><br>      <td>7</td><br>      <td>0x10</td><br>      <td>标志</td><br>      <td>65534</td><br>      <td>可选头</td><br>   </tr><br></table>
+<table><tr><td>字节0</td><td>字节1、2</td><td>字节3</td><td>字节4</td><td>字节5、6</td><td>字节7～n</td></tr><tr><td>0x80Connect命令</td><td>7</td><td>0x10</td><td>标志</td><td>65534</td><td>可选头</td></tr></table>
 
-<p><strong>连接响应</strong><br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155929503.png?raw=true" alt=""></p>
+<p><strong>连接响应</strong><br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229155929503.png?raw=true" alt="1"></p>
 <h4 id="2、断开操作"><a href="#2、断开操作" class="headerlink" title="2、断开操作"></a>2、断开操作</h4><p>操作码为0x81</p>
 <h4 id="3、Put操作"><a href="#3、Put操作" class="headerlink" title="3、Put操作"></a>3、Put操作</h4><p>操作码为0x02</p>
 <p>连接成功后，客户端通过Put请求向服务器“推送”对象，如果对象较大，Put请求可以用多个Put请求分组。</p>
@@ -426,7 +435,7 @@
 <h4 id="1、基本概念术语"><a href="#1、基本概念术语" class="headerlink" title="1、基本概念术语"></a>1、基本概念术语</h4><p>流stream:流是音视频传输的数据形式，单向传输，在AVDTP中被分为媒介分组。流有句柄HS统一标识。</p>
 <p><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Bluetooth Protocol4/20171229160502080.png?raw=true" alt="这里写图片描述"></p>
 <h4 id="2、信令"><a href="#2、信令" class="headerlink" title="2、信令"></a>2、信令</h4><p>AVDTP信令列表</p>
-<table><br>   <tr><br>      <td>命令</td><br>      <td>信令标识符</td><br>      <td>描述</td><br>   </tr><br>   <tr><br>      <td>AVDTP_DISCOVER</td><br>      <td>0x01</td><br>      <td>发现设备中的流端点</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CAPABILITIES</td><br>      <td>0x02</td><br>      <td>获得流端点的信息能力</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SET_CONFIGURATION</td><br>      <td>0x03</td><br>      <td>对SEP进行配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_CONFIGURATION</td><br>      <td>0x04</td><br>      <td>获取SEP当前配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_RECONFIGURE</td><br>      <td>0x05</td><br>      <td>对SEP重新配置</td><br>   </tr><br>   <tr><br>      <td>AVDTP_OPEN</td><br>      <td>0x06</td><br>      <td>成功的配置SEP后，打开流</td><br>   </tr><br>   <tr><br>      <td>AVDTP_START</td><br>      <td>0x07</td><br>      <td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td><br>   </tr><br>   <tr><br>      <td>AVDTP_CLOSE</td><br>      <td>0x08</td><br>      <td>对SEP关闭</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SUSPEND</td><br>      <td>0x09</td><br>      <td>请求SEP暂停</td><br>   </tr><br>   <tr><br>      <td>AVDTP_SECURITY_CONTROL</td><br>      <td>0x0A</td><br>      <td>设置设备内容保护、或者请求设备状况信息</td><br>   </tr><br>   <tr><br>      <td>AVDTP_ABORT</td><br>      <td>0x0B</td><br>      <td>中断正在建立或者传输的过程</td><br>   </tr><br>   <tr><br>      <td>AVDTP_GET_ALL_CAPABILITIES</td><br>      <td> </td><br>      <td> </td><br>   </tr><br>   <tr><br>      <td>AVDTP_DELAYREPORT</td><br>      <td> </td><br>      <td> </td><br>   </tr><br></table>
+<table><tr><td>命令</td><td>信令标识符</td><td>描述</td></tr><tr><td>AVDTP_DISCOVER</td><td>0x01</td><td>发现设备中的流端点</td></tr><tr><td>AVDTP_GET_CAPABILITIES</td><td>0x02</td><td>获得流端点的信息能力</td></tr><tr><td>AVDTP_SET_CONFIGURATION</td><td>0x03</td><td>对SEP进行配置</td></tr><tr><td>AVDTP_GET_CONFIGURATION</td><td>0x04</td><td>获取SEP当前配置</td></tr><tr><td>AVDTP_RECONFIGURE</td><td>0x05</td><td>对SEP重新配置</td></tr><tr><td>AVDTP_OPEN</td><td>0x06</td><td>成功的配置SEP后，打开流</td></tr><tr><td>AVDTP_START</td><td>0x07</td><td>流被打开：用于开始形成流；流暂停时：用于重新形成流。</td></tr><tr><td>AVDTP_CLOSE</td><td>0x08</td><td>对SEP关闭</td></tr><tr><td>AVDTP_SUSPEND</td><td>0x09</td><td>请求SEP暂停</td></tr><tr><td>AVDTP_SECURITY_CONTROL</td><td>0x0A</td><td>设置设备内容保护、或者请求设备状况信息</td></tr><tr><td>AVDTP_ABORT</td><td>0x0B</td><td>中断正在建立或者传输的过程</td></tr><tr><td>AVDTP_GET_ALL_CAPABILITIES</td><td></td><td></td></tr><tr><td>AVDTP_DELAYREPORT</td><td></td><td></td></tr></table>
 
 <pre><code>这部分信令，实现了蓝牙的A2DP 数据流的控制
 </code></pre><p><strong>（1）、流的信令管理流程</strong></p>
@@ -446,7 +455,8 @@
 <p>ISSC公司</p>
 <p>TI公司 (CC2541)</p>
 <p>MTK公司（MT6620）</p>
-<p>传送门：<br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78414870" target="_blank" rel="external">（一）蓝牙的概述</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932321" target="_blank" rel="external">（二）蓝牙协议规范（射频、基带链路控制、链路管理）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932372" target="_blank" rel="external">（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）</a><br><a href="http://blog.csdn.net/guoxiaolongonly/article/details/78932616" target="_blank" rel="external">（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</a></p>
+<p>传送门：</p>
+<p><a href="http://xiaolongonly.cn/2017/11/01/BluetoothForAndroid2/" target="_blank" rel="external">（一）蓝牙的概述</a><br><a href="http://xiaolongonly.cn/2017/12/29/BluetoothForAndroid3/" target="_blank" rel="external">（二）蓝牙协议规范（射频、基带链路控制、链路管理）</a><br><a href="http://xiaolongonly.cn/2017/12/29/BluetoothForAndroid4/" target="_blank" rel="external">（三）蓝牙协议规范（HCI、L2CAP、SDP、RFOCMM）</a><br><a href="http://xiaolongonly.cn/2017/12/29/BluetoothForAndroid5/" target="_blank" rel="external">（四）蓝牙协议规范（irOBEX、BNEP、AVDTP、AVCTP）</a></p>
 <p><a href="http://blog.csdn.net/xubin341719" target="_blank" rel="external">引用自xubin的博客</a></p>
 <p><strong><em>By Xiaolong,每一天都值得被认真对待！</em></strong></p>
 

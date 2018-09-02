@@ -107,9 +107,9 @@ Eclipse 任意版本能运行java就行
 谷歌浏览器
 
 第一步：分析页面结构我们要爬CSDN博客文章，直接访问某个人的CSDN博客主页，比如说我的CSDN主页：http://blog.csdn.net/guoxiaolongonly进入主页，在页面上按F12查看标签的内容。可以看到如上内容，基本的">
-<meta property="og:image" content="http://img.blog.csdn.net/20160525125951156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:image" content="http://img.blog.csdn.net/20160525130008173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2018-03-12T14:04:27.578Z">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile2/20160525125951156.png?raw=true">
+<meta property="og:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile2/20160525130008173.png?raw=true">
+<meta property="og:updated_time" content="2018-09-02T08:59:17.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java爬虫教程：爬取CSDN博客文章">
 <meta name="twitter:description" content="这个是爬虫教程第二篇，教大家如何爬取普通页面的内容。
@@ -120,7 +120,7 @@ Eclipse 任意版本能运行java就行
 谷歌浏览器
 
 第一步：分析页面结构我们要爬CSDN博客文章，直接访问某个人的CSDN博客主页，比如说我的CSDN主页：http://blog.csdn.net/guoxiaolongonly进入主页，在页面上按F12查看标签的内容。可以看到如上内容，基本的">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160525125951156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta name="twitter:image" content="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile2/20160525125951156.png?raw=true">
 
 
 
@@ -404,8 +404,8 @@ Eclipse 任意版本能运行java就行
 <li>Eclipse 任意版本能运行java就行</li>
 <li>谷歌浏览器</li>
 </ul>
-<h5 id="第一步：分析页面结构"><a href="#第一步：分析页面结构" class="headerlink" title="第一步：分析页面结构"></a>第一步：分析页面结构</h5><p>我们要爬CSDN博客文章，直接访问某个人的CSDN博客主页，比如说我的CSDN主页：<a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" rel="external">http://blog.csdn.net/guoxiaolongonly</a><br>进入主页，在页面上按F12查看标签的内容。<br><img src="http://img.blog.csdn.net/20160525125951156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>可以看到如上内容，基本的html就是js+css+html标签的构造，我们使用比较多的是a、img这两个元素下的内容。第一个是链接的元素，通常获取这个来实现往后的链接的跳转。第二个是图片元素，有时候需要爬图片链接来下载图片就爬这个Tag来过滤。里面的内容也都是一个链接地址。</p>
-<h5 id="第二步：选取合适的过滤方法"><a href="#第二步：选取合适的过滤方法" class="headerlink" title="第二步：选取合适的过滤方法"></a>第二步：选取合适的过滤方法</h5><p>我现在想要爬的就是这个标题中的链接。<br><img src="http://img.blog.csdn.net/20160525130008173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h5 id="第一步：分析页面结构"><a href="#第一步：分析页面结构" class="headerlink" title="第一步：分析页面结构"></a>第一步：分析页面结构</h5><p>我们要爬CSDN博客文章，直接访问某个人的CSDN博客主页，比如说我的CSDN主页：<a href="http://blog.csdn.net/guoxiaolongonly" target="_blank" rel="external">http://blog.csdn.net/guoxiaolongonly</a><br>进入主页，在页面上按F12查看标签的内容。<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile2/20160525125951156.png?raw=true" alt=""><br>可以看到如上内容，基本的html就是js+css+html标签的构造，我们使用比较多的是a、img这两个元素下的内容。第一个是链接的元素，通常获取这个来实现往后的链接的跳转。第二个是图片元素，有时候需要爬图片链接来下载图片就爬这个Tag来过滤。里面的内容也都是一个链接地址。</p>
+<h5 id="第二步：选取合适的过滤方法"><a href="#第二步：选取合适的过滤方法" class="headerlink" title="第二步：选取合适的过滤方法"></a>第二步：选取合适的过滤方法</h5><p>我现在想要爬的就是这个标题中的链接。<br><img src="https://github.com/guoxiaolongonly/BlogCache/blob/master/img/Reptile2/20160525130008173.png?raw=true" alt=""></p>
 <p>这个标签里href属性放了我想要访问的文章详情的链接</p>
 <pre><code>可以使用Jsoup的方法：Elements elements = doc.getElementsByTag(&quot;a&quot;);//找到所有a标签
 对a标签进行过滤就行了
